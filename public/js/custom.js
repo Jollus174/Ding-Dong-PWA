@@ -380,7 +380,7 @@ $(document).ready(function(){
 	$('#icon-prev').click(function(){
 		transitionCharacterBackward($('.character-box.active'));
 	});
-	$('#icon-arrowback').click(function(){
+	$('#characterBackButton').click(function(){
 		deactivateCharacter();
 	});
 
