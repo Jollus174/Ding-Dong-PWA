@@ -24,7 +24,7 @@ $(document).ready(function(){
 		var currentUrl = $(location).attr('href');
 		console.log('base url is ' + baseUrl + ' and current url is ' + currentUrl);
 
-		if(baseUrl != currentUrl && baseUrl + '#' != currentUrl){
+		if(baseUrl != currentUrl && baseUrl + '#' != currentUrl && baseUrl + '#/' != currentUrl){
 			// Current URL is not the base URL
 			console.log('urls do not match!');
 
