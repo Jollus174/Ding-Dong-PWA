@@ -25,34 +25,47 @@ $(document).ready(function(){
 		console.log('base url is ' + baseUrl + ' and current url is ' + currentUrl);
 
 		if(baseUrl != currentUrl && baseUrl + '#' != currentUrl && baseUrl + '#/' != currentUrl){
+
 			// Current URL is not the base URL
 			console.log('urls do not match!');
 
 			// Time to deconstruct that sucker
-			// 
 			var parts = currentUrl.split('/');
-			var character = parts[parts.length - 1];
 
-			// This is working...
-			// console.log(character);
-
-			// Target the character with the class defined in the URl
-			var urlCharacter = $('.' + String(character)).closest('.character-box');
-			// and activate it
-			// It needs to fallback though in case the character is undefined.
-			// Could include a box saying 'Character not found?'
-			// Resetting the URL could be effing annoying for the user if the URL is slightly off due to a typo
-			if(urlCharacter.length){
-				activateCharacter(urlCharacter);
+			// Need to check if they're dialling one of the menu links, or a character
+			var urlDirectory = parts[parts.length - 1];
+			if(urlDirectory == 'about'){
+				// activate About box
+				console.log('about activated!');
+				activateMenuBox('page-about');
+			} else if (urlDirectory == 'credits'){
+				// activate Credits box
+				console.log('credits activated!');
+				activateMenuBox('page-credits');
 			} else {
-				console.log('This character does not exist, yo');
-				$('#notification').html('Looks like this character does not exist.<br>Please check the URL.').show();
-				$('#notification').delay(3000).fadeOut();
+				var character = parts[parts.length - 1];
+
+				// This is working...
+				// console.log(character);
+
+				// Target the character with the class defined in the URl
+				var urlCharacter = $('.' + String(character)).closest('.character-box');
+				// and activate it
+				if(urlCharacter.length){
+					activateCharacter(urlCharacter);
+				} else {
+					// It needs to fallback though in case the character is undefined.
+					console.log('This character does not exist, yo');
+					$('#notification').html('Looks like this character does not exist.<br>Please check the URL.').show();
+					$('#notification').delay(3000).fadeOut();
+				}
+
+				// Need to activate the correct rage button depending on the URL...
+				//var rageAmount = current
+				//rageAdjustment($(urlCharacter).find('.rageBtn[data-rage='));
+
 			}
 
-			// Need to activate the correct rage button depending on the URL...
-			//var rageAmount = current
-			//rageAdjustment($(urlCharacter).find('.rageBtn[data-rage='));
 
 
 		}
@@ -72,7 +85,7 @@ $(document).ready(function(){
 			});*/
 
 
-			$('body').addClass('no-scroll');
+			$('body').addClass('no-scroll character-active');
 			if(($this).find('.characterImageContainer').hasClass('text-dark')){
 				$('body').addClass('text-dark');
 			} else {
@@ -202,6 +215,17 @@ $(document).ready(function(){
 
 	};
 
+	function activateMenuBox(target){
+		// check to see if a character is currently active
+		if($('body').hasClass('active-character')){
+			deactivateCharacter();	
+		}
+		$('body').addClass('no-scroll');
+		$('.characterUnderlay').css('backgroundColor', 'rgb(136,136,136)');
+		$('#characterBackButton').addClass('active');
+		$('#' + target).show();
+	}
+
 	function transitionRageForward($activeRageButton){
 		if(!$activeRageButton.is(':last-child')){
 			rageAdjustment($activeRageButton.next());
@@ -237,12 +261,20 @@ $(document).ready(function(){
 	}
 
 	function deactivateCharacter(){
+		var $body = $('body');
 		$('#characterBackButton').removeClass('active');
-		$('#character-list li.active .rageModifier').removeClass('stuck');
-		$('#character-list li.active .characterBorder').css('height', 'auto');
-		$('#character-list li.active').removeClass('active');
-		$('body').removeClass('no-scroll');
+		$body.removeClass('no-scroll');
 
+		// determine if body has clas 'character-active', to see if we're deactivating a character or a menu page
+		if($body.hasClass('character-active')){
+			$('#character-list li.active .rageModifier').removeClass('stuck');
+			$('#character-list li.active .characterBorder').css('height', 'auto');
+			$('#character-list li.active').removeClass('active');
+			$body.removeClass('character-active');
+		} else {
+			$('.menu-page > div').hide();
+		}
+		
 		// Page does not force reload if '#' is in the URL
 		// https://stackoverflow.com/questions/2405117/difference-between-window-location-href-window-location-href-and-window-location
 		var baseUrl = window.location.protocol + "//" + window.location.host + '/#/';
@@ -384,6 +416,10 @@ $(document).ready(function(){
 		deactivateCharacter();
 	});
 
-
-
+	$('#about').click(function(){
+		activateMenuBox('page-about');
+	})
+	$('#credits').click(function(){
+		activateMenuBox('page-credits');
+	})
 });

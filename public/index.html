@@ -60,17 +60,12 @@
 			<div class="mui-divider"></div>
 			<ul>
 		    	<li>
-		      		<a href="#">
-		        		<strong>Reference</strong>
-		      		</a>
-		    	</li>
-		    	<li>
-			     	<a href="#" class="disabled">
+			     	<a href="#/about" id="about">
 			       		<strong>About</strong>
 			      	</a>
 		    	</li>
 		    	<li>
-			     	<a href="#" class="disabled">
+			     	<a href="#/credits" id="credits">
 			       		<strong>Credits</strong>
 			      	</a>
 			      	<!--<button data-bind="click: function() { filter('Mario') }">Filter Mario</button>-->
@@ -79,6 +74,7 @@
 	  	</div>
 	</div>
 	<div class="characterUnderlay" hidden></div>
+
 	<div id="content-wrapper" class="container">
 
 		<div id="characterBackButton">
@@ -87,6 +83,88 @@
 			    <path class="pathfill" d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
 			</svg>
 		</div>
+
+		<div class="menu-page" hidden>
+
+			<div id="page-about" hidden>
+				<div class="desktop">
+					<h2>Using the Calculator</h2>
+					<div class="panel" style="margin-top:20px;">
+						<div class="panel-heading">
+							<h3 class="panel-title">Keyboard Shortcuts - For Desktop</h3>
+						</div>
+						<div class="panel-body">
+							<p><span class="input-type">ESC</span>Open/Close Menu</p>
+							<div class="panel">
+
+								<div class="panel-body">
+									
+									<h4 class="panel-label">Upon selecting a character</h4>
+									<p><span class="input-type">ESC</span>Close Character</p>
+									<p>
+										<span class="input-type">⇐</span>Previous Character<br>
+									    <span class="input-type">⇒</span>Next Character
+									</p>
+
+									<p>
+										<span class="input-type">Shift + ⇐</span>Cycle Rage Modifier Backwards<br>
+									    <span class="input-type">Shift + ⇒</span>Cycle Rage Modifier Forwards
+									</p>
+
+									<p>
+										<span class="input-type">1</span> - <span class="input-type">7</span>Select Rage Modifier Amount
+									</p>
+								</div>
+							</div>
+						</div> <!-- panel-body -->
+					</div> <!-- panel -->
+				</div>
+
+				<h2>What Is This?</h2>
+				<p>This is a personal project developed to help Super Smash Bros. for Wii U (SSBU) players better understand the character Donkey Kong. On July 30, 2015, patch 1.1.0 was released and Donkey Kong's cargo upthrow was buffed, allowing it to work as a combo starter. This turned DK into a grappler-like character, and allowed him to quickly build damage on his opponents via grabs.</p>
+
+				<p>Within certain percent thresholds, it also functions as a kill confirm into his up air attack. This confirm is known among Donkey Kong specialists as <strong>Aerial Cargo Up Toss up air (ACUT)</strong> or to most Western players, simply as the <strong>Ding Dong</strong>.</p>
+
+				<p>Historically within Super Smash Bros. and especially with the release of SSBU, it's been difficult for players to accurately determine exact percent thresholds that confirms will cease to connect or kill, due to the opponent's weight, percentage, DI, stage blastzones, and most recently, their own character's current rage.</p>
+
+				<p>Many dedicated players have recorded and labbed their character's confirms and setups against various opponents with differing DI and rage, and recorded them into spreadsheets for the community. Although useful, many of these spreadsheets still require that the player memorise specific base percent values and recalculate based on the above variable dependencies. This could be harmful to a less experienced Donkey Kong player if they're unfamiliar with the kill percent range against certain characters, or to their opponent, who would be expected to already know these values if they were facing off against a highly experienced DK player.</p>
+
+				<h2>Why Buid This?</h2>
+				<p>To attempt to fill the disconnect, this calculator was developed to help players determine Donkey Kong's kill confirm percent thresholds instantly, rather than relying on memory, or retrieving online community spreadsheets, or manually calculating values. As of July 2017, this is only to determine Ding Dong percent thresholds, but this could be later expanded to include all of his percent dependent confirms.</p>
+
+				<p>This is a development build of an open-source <a href="https://developers.google.com/web/progressive-web-apps/" target="_blank">Progressive Web App (PWA)</a>, an emerging web technology that allows users to download a website to their mobile or tablet device for offline use. This is not a native mobile app that can be downloaded from an App Store, but contains similar functions and provides the same user experience and benefits.</p>
+
+				<p>The PWA features are not yet available, but they are being developed and will be released shortly.</p>
+
+				<!--<p>Right now, only Android devices running Google Chrome can utilise the 'Add to Home' feature and download this web page for instant access, but all users running modern browsers can still connect online and use the calculator.</p>-->
+
+				<p>All raw percent values and formulas have been adopted from the <a href="https://docs.google.com/spreadsheets/d/1OvUy2gsTrUj96cAHSkSIZHGnUaaS-UrX6SdFKyctNmU/edit#gid=932844731" target="_blank">DK Doc</a> labbed by <a href="https://twitter.com/thevondk" target="_blank">Poke</a>.</p>
+
+				<h2>Feedback / Bug Reports</h2>
+
+				<p>This application is currently under development, and the latest builds are pushed to the <a href="https://github.com/Jollus88/DingDong-PWA" target="_blank">Github repo</a>. Any development issues should be submitted through <a href="https://github.com/Jollus88/DingDong-PWA/issues" target="_blank">Github's ticketing system</a>.</p>
+
+				<p>If there's any other feedback, feel free to contact me via <a href="https://twitter.com/JollusSSB" target="_blank">Twitter</a>, or PM me on Discord at <strong>Jollus#6199</strong>.</p>
+
+			</div> <!-- page-about -->
+
+			<div id="page-credits" hidden>
+				<h2>Credits</h2>
+				<p>Thanks to <a href="https://twitter.com/TheVonDk" target="_blank">Poke</a> for labbing the Ding Dong percents in the <a href="https://docs.google.com/spreadsheets/d/1OvUy2gsTrUj96cAHSkSIZHGnUaaS-UrX6SdFKyctNmU/edit#gid=932844731" target="_blank">DK Doc</a>, and the rest of the Smash4 Donkey Kong community.</p>
+
+				<p>A huge thanks to all the Stack Overflow community for a near endless supply of development resources and answers.</p>
+
+				<p>Credit to <a href="https://twitter.com/LittleZ_SSB">Little Z</a> for creating his Little Book of Ding Dong and inspiring the idea of the online calculator to begin with.</p>
+
+				<p>Shoutouts to <a href="https://twitter.com/likeacyansunday">Shiva</a> for helping out with the images, and <a href="https://twitter.com/lhc_maribro?lang=en">Maribro</a> for Friday night Ganon dittos and keeping me sane.</p>
+
+				<p>Thanks to Nintendo, Namco Bandai, and Sora for developing Super Smash Bros for Wii U.</p><br>
+
+				<img src="images/dk-credits.jpg" alt="Donkey Kong Credits" />
+
+			</div>
+
+		</div> <!-- menu-page -->
 		<div id="main" class="content">
 
 			<svg id="icon-prev" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
@@ -341,25 +419,6 @@
 			</ul>
 			
 		</div>
-
-		<div id="page-about">
-			<p><span class="input-type">ESC</span>Open/Close Menu</p>
-
-			<h3>Upon selecting a character</h3>
-			<p>
-				<span class="input-type">⇐</span>Previous Character<br>
-			    <span class="input-type">⇒</span>Next Character
-			</p>
-
-			<p>
-				<span class="input-type">Shift + ⇐</span>Cycle Rage Modifier Backwards<br>
-			    <span class="input-type">Shift + ⇒</span>Cycle Rage Modifier Forwards
-			</p>
-
-			<p>
-				<span class="input-type">1</span> - <span class="input-type">7</span>Select Rage Modifier Amount
-			</p>
-		</div> <!-- page-about -->
 
 
 		<div id="notification"></div>

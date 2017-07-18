@@ -49,14 +49,7 @@ template {
     display: none;
 }
 
-a {
-    background-color: transparent;
-}
 
-a:active,
-a:hover {
-    outline: 0;
-}
 
 abbr[title] {
     border-bottom: 1px dotted;
@@ -106,6 +99,7 @@ sub {
 
 img {
     border: 0;
+    max-width:100%;
 }
 
 svg:not(:root) {
@@ -252,52 +246,6 @@ th {
     padding: 0;
 }
 
-
-/* Keyframes */
-
-@-moz-keyframes ripple-animation {
-    0% {
-        -moz-transform: scale(1);
-        transform: scale(1);
-        opacity: 0.4;
-    }
-    100% {
-        -moz-transform: scale(100);
-        transform: scale(100);
-        opacity: 0;
-    }
-}
-
-@-webkit-keyframes ripple-animation {
-    0% {
-        -webkit-transform: scale(1);
-        transform: scale(1);
-        opacity: 0.4;
-    }
-    100% {
-        -webkit-transform: scale(100);
-        transform: scale(100);
-        opacity: 0;
-    }
-}
-
-@keyframes ripple-animation {
-    0% {
-        -moz-transform: scale(1);
-        -ms-transform: scale(1);
-        -webkit-transform: scale(1);
-        transform: scale(1);
-        opacity: 0.4;
-    }
-    100% {
-        -moz-transform: scale(100);
-        -ms-transform: scale(100);
-        -webkit-transform: scale(100);
-        transform: scale(100);
-        opacity: 0;
-    }
-}
-
 html {
     background-color: #eee;
 }
@@ -337,10 +285,7 @@ ol {
     padding: 0;
 }
 
-p {
-    margin: 0;
-    line-height: 1.5em;
-}
+
 
 .content {
     /*max-width: 72em;*/
@@ -586,7 +531,7 @@ body.toggle-sidedrawer{
 }
 
 .sidedrawer-toggle{
-    padding: 12px 12px 14px 16px;
+    padding: 12px 12px 13px 16px;
     color: #333;
     cursor: pointer;
     font-size: 20px;
@@ -655,17 +600,96 @@ body.toggle-sidedrawer{
 #content-wrapper {
     min-height: 100%;
     overflow-x: hidden;
-    /*-webkit-transform: translate(0,0);
-    transform: translate(0,0);*/
     transition: -webkit-transform .2s ease-in-out;
     transition: transform .2s ease-in-out;
     transition: transform .2s ease-in-out,-webkit-transform .2s ease-in-out;
-    /*margin-bottom: -160px;
-    padding-bottom: 160px; Why is this here? It messes up the display of the modals */
 }
 #content-wrapper, #sidedrawer{
     /*-webkit-transition: -webkit-transform .2s ease-in-out;*/
 }
+
+.panel {
+    margin-bottom: 20px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    -webkit-box-shadow: 0 1px 1px rgba(0,0,0,.05);
+    box-shadow: 0 1px 1px rgba(0,0,0,.05);
+}
+.panel-heading {
+    padding: 10px 15px;
+    border-bottom: 1px solid transparent;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    color: #333;
+    background-color: #f5f5f5;
+    border-color: #ddd;
+}
+.panel-title {
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: 16px;
+    color: inherit;
+}
+.panel-body {
+    padding: 15px 15px 0;
+}
+
+
+
+/* --- */
+
+/* --- TYPOGRAPHY --- */
+
+h1{font-size:36px;}
+h2{font-size:30px;}
+h3{font-size:24px;}
+
+h1, h2, h3, h4, h5, h6{
+    font-family: inherit;
+    font-weight: 500;
+    line-height: 1.1;
+    color: inherit;
+}
+h1, h2, h3{
+    margin-top:20px;
+    margin-bottom:20px;
+}
+
+p {
+    margin: 0 0 10px;
+    line-height: 1.5em;
+}
+
+a {
+    color: #337ab7;
+    background-color: transparent;
+}
+a:active,
+a:hover {
+    outline: 0;
+}
+
+.input-type{
+    display: inline-block;
+    padding: 3px 8px;
+    font-weight: 700;
+    background: #ECECEC;
+    border-radius: 5px;
+    border-bottom: 1px solid #D1D1D1;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+.panel-label{
+    font-size: 12px;
+    font-weight: 700;
+    color: #959595;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* --- */
 
 /* --- BUTTONS --- */
 
@@ -942,23 +966,48 @@ button {
 
 /* --- ACTIVE CLASSES --- */
 
-#character-list li.active{
+.no-scroll.character-active .menu-page{
+    display:none;
+}
+.no-scroll .menu-page{
     position:fixed;
-    /*left: 50%;
-    width:80%;*/
-    /*max-width:600px; REMOVE THIS TO ALLOW character-box TO CENTRE! */
     z-index:10;
     margin:0 !important;
     padding:0;
-    /*width:100%;
-    height:100%;*/
     width:auto;
     left:0;
     right:0;
     top:0;
     bottom:0;
-    /*height:100%;*/
-    /*margin-top:-3em;*/ /* This countacts the margin offset required for the sticky header. IS NOT NECESSARY */
+    display:block;
+}
+#page-about, #page-credits{
+    position: absolute;
+    z-index: 10;
+    max-width: 600px !important;
+    float: none;
+    outline: 3px solid #FFF;
+    overflow-y:scroll;
+    -webkit-overflow-scrolling:touch;
+    background:#FFF;
+    left:10px;
+    right:10px;
+    top:0;
+    bottom:0;
+    margin:55px auto 20px;
+    padding:0 20px 20px;
+}
+
+#character-list li.active{
+    position:fixed;
+    z-index:10;
+    margin:0 !important;
+    padding:0;
+    width:auto;
+    left:0;
+    right:0;
+    top:0;
+    bottom:0;
 }
 
 #character-list li.active .grid-index{display:none;}
@@ -1055,7 +1104,7 @@ button {
     /*padding: 20px 0;*/
     height:60px;
 }
-.no-scroll #icon-prev, .no-scroll #icon-next{
+.character-active #icon-prev, .character-active #icon-next{
     display:block;
 }
 #icon-prev{left: 5px;}
@@ -1105,6 +1154,8 @@ button {
     text-transform: uppercase;
     font-weight: 700;
     font-size: 14px;
+    padding: 3px 0;
+    line-height: 1em;
 }
 .stage-content{
     padding:0;
@@ -1307,7 +1358,6 @@ tr.table-descs td{
     .desktop{display:block;}
     span.desktop{display:inline;}
     .mobile{display:none;}
-
 
     #header{
         -webkit-transform: translate(200px,0);
