@@ -101,26 +101,37 @@ var characters = (function() {
 
                 vm.fd = vm.minPercent;
 
-                vm.bfNormal = ko.computed(function(){return vm.minPercent + 7}, this);
-                vm.bfLowPlat = ko.computed(function(){return vm.minPercent - 7}, this);
-                vm.bfTopPlat = ko.computed(function(){return vm.minPercent - 20}, this);
+                vm.bfNormalMin = ko.computed(function(){return vm.minPercent + 7}, this);
+                vm.bfNormalMax = ko.computed(function(){return vm.maxPercent + 7}, this);
+                vm.bfLowPlatMin = ko.computed(function(){return vm.minPercent - 7}, this);
+                vm.bfLowPlatMax = ko.computed(function(){return vm.maxPercent + 7}, this);
+                vm.bfTopPlatMin = ko.computed(function(){return vm.minPercent - 20}, this);
+                vm.bfTopPlatMax = ko.computed(function(){return vm.maxPercent + 7}, this);
 
-                vm.dlNormal = vm.bfNormal;
-                vm.dlLowPlat = ko.computed(function(){return vm.minPercent - 15}, this);
-                vm.dlTopPlat = ko.computed(function(){return vm.minPercent - 26}, this);
+                vm.dlNormalMin = vm.minPercent;
+                vm.dlNormalMax = vm.maxPercent;
+                vm.dlLowPlatMin = ko.computed(function(){return vm.minPercent - 15}, this);
+                vm.dlLowPlatMax = ko.computed(function(){return vm.maxPercent}, this);
+                vm.dlTopPlatMin = ko.computed(function(){return vm.minPercent - 26}, this);
+                vm.dlTopPlatMax = ko.computed(function(){return vm.maxPercent}, this);
 
                 vm.svNormalMin = ko.computed(function(){return vm.minPercent + 1}, this);
                 vm.svNormalMax = ko.computed(function(){return vm.maxPercent + 1}, this);
-                vm.svPlat = ko.computed(function(){return vm.minPercent - 14}, this);
+                vm.svPlatMin = ko.computed(function(){return vm.minPercent - 14}, this);
+                vm.svPlatMax = ko.computed(function(){return vm.maxPercent + 1}, this);
 
-                vm.tcNormal = ko.computed(function(){return vm.minPercent - 4}, this);
-                vm.tcSidePlat = ko.computed(function(){return vm.minPercent - 25}, this);
-                vm.tcTopPlat = ko.computed(function(){return vm.minPercent - 41}, this);
-                vm.tcLowPlat = ko.computed(function(){return vm.minPercent - 20}, this);
+                vm.tcNormalMin = ko.computed(function(){return vm.minPercent - 4}, this);
+                vm.tcNormalMax = ko.computed(function(){return vm.maxPercent - 4}, this);
+                vm.tcLowPlatMin = ko.computed(function(){return vm.minPercent - 20}, this);
+                vm.tcLowPlatMax = ko.computed(function(){return vm.maxPercent - 4}, this);
+                vm.tcSidePlatMin = ko.computed(function(){return vm.minPercent - 25}, this);
+                vm.tcSidePlatMax = ko.computed(function(){return vm.maxPercent - 4}, this);
+                vm.tcTopPlatMin = ko.computed(function(){return vm.minPercent - 41}, this);
+                vm.tcTopPlatMax = ko.computed(function(){return vm.maxPercent - 4}, this);
 
                 // Aaaand now to get the filter going
                 // https://stackoverflow.com/questions/20857594/knockout-filtering-on-observable-array
-                vm.currentFilter = ko.observable(); // property to store the filter
+                /*vm.currentFilter = ko.observable(); // property to store the filter
 
                 vm.filterNames = ko.computed(function(){
                     if(!vm.currentFilter()){
@@ -130,9 +141,7 @@ var characters = (function() {
                             return self.name == vm.currentFilter();
                         })
                     }
-                })
-
-
+                })*/
 
 
                 return vm;

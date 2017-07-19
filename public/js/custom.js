@@ -88,9 +88,7 @@ $(document).ready(function(){
 			$('body').addClass('no-scroll character-active');
 			if(($this).find('.characterImageContainer').hasClass('text-dark')){
 				$('body').addClass('text-dark');
-			} else {
-				$('body').removeClass('text-dark');
-			}
+			};
 			$('#characterBackButton').addClass('active');
 
 			// Apply colour of character BG to .characterUnderlay
@@ -184,16 +182,16 @@ $(document).ready(function(){
 			var defaultMinPercent = $minPerc.attr('data-defaultmin');
 			var defaultMaxPercent = $maxPerc.attr('data-defaultmax');
 
-
 			var adjustedMinPercent = parseInt(defaultMinPercent) + rageAdjustment;
+			var adjustedMaxPercent = parseInt(defaultMaxPercent) + rageAdjustment;
 
 			// Some min %'s go below zero at max rage (wtf). Need to round to 0
 			// Adjusting min percent last in case it goes below zero and fucks the percRange var
 			adjustedMinPercent = Math.max(0, adjustedMinPercent);
 
 			$minPerc.text(adjustedMinPercent).removeClass('nosymbol');
-			$maxPerc.text(defaultMaxPercent).removeClass('nosymbol');
-			var percRange = parseInt($maxPerc.text() - $minPerc.text());
+			$maxPerc.text(adjustedMaxPercent).removeClass('nosymbol');
+			var percRange = adjustedMaxPercent - adjustedMinPercent;
 			$percRange.text(percRange).removeClass('nosymbol');
 
 			if( parseInt($maxPerc.text()) < parseInt($minPerc.text()) ){
@@ -220,7 +218,7 @@ $(document).ready(function(){
 		if($('body').hasClass('active-character')){
 			deactivateCharacter();	
 		}
-		$('body').addClass('no-scroll');
+		$('body').addClass('no-scroll').removeClass('text-dark');
 		$('.characterUnderlay').css('backgroundColor', 'rgb(136,136,136)');
 		$('#characterBackButton').addClass('active');
 		$('#' + target).show();
@@ -359,13 +357,6 @@ $(document).ready(function(){
 		}
 
 	});
-
-
-	// Need to vertically centre the prev/next arrows
-	/*$.fn.centre_it_vertical = function(){
-		$(this).css("top", ( ($(window).height() - this.outerHeight() ) / 2) + $(window).scrollTop() + "px");
-		return this;
-	}*/
 
 	$('.filter-toggle').click(function(){
 		var $this = $(this);
