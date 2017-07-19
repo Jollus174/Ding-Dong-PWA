@@ -101,15 +101,6 @@ var characters = (function() {
 
                 vm.fd = vm.minPercent;
 
-<<<<<<< HEAD
-                vm.bfNormal = ko.computed(function(){return vm.minPercent + 7}, this);
-                vm.bfLowPlat = ko.computed(function(){return vm.minPercent - 7}, this);
-                vm.bfTopPlat = ko.computed(function(){return vm.minPercent - 20}, this);
-
-                vm.dlNormal = vm.fd;
-                vm.dlLowPlat = ko.computed(function(){return vm.minPercent - 15}, this);
-                vm.dlTopPlat = ko.computed(function(){return vm.minPercent - 26}, this);
-=======
                 vm.bfNormalMin = ko.computed(function(){return vm.minPercent + 7}, this);
                 vm.bfNormalMax = ko.computed(function(){return vm.maxPercent + 7}, this);
                 vm.bfLowPlatMin = ko.computed(function(){return vm.minPercent - 7}, this);
@@ -123,7 +114,6 @@ var characters = (function() {
                 vm.dlLowPlatMax = ko.computed(function(){return vm.maxPercent}, this);
                 vm.dlTopPlatMin = ko.computed(function(){return vm.minPercent - 26}, this);
                 vm.dlTopPlatMax = ko.computed(function(){return vm.maxPercent}, this);
->>>>>>> dev
 
                 vm.svNormalMin = ko.computed(function(){return vm.minPercent + 1}, this);
                 vm.svNormalMax = ko.computed(function(){return vm.maxPercent + 1}, this);
