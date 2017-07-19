@@ -317,7 +317,7 @@ $(document).ready(function(){
 		}
 		if (isEscape){
 			// if character is active, deactivate it
-			if($('body').hasClass('character-active')){
+			if($('body').hasClass('no-scroll')){
 				deactivateCharacter();
 			} else {
 				// else toggle the sidemenu instead
