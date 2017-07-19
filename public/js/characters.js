@@ -105,7 +105,7 @@ var characters = (function() {
                 vm.bfLowPlat = ko.computed(function(){return vm.minPercent - 7}, this);
                 vm.bfTopPlat = ko.computed(function(){return vm.minPercent - 20}, this);
 
-                vm.dlNormal = vm.bfNormal;
+                vm.dlNormal = vm.fd;
                 vm.dlLowPlat = ko.computed(function(){return vm.minPercent - 15}, this);
                 vm.dlTopPlat = ko.computed(function(){return vm.minPercent - 26}, this);
 
