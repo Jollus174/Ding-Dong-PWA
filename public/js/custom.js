@@ -88,7 +88,9 @@ $(document).ready(function(){
 			$('body').addClass('no-scroll character-active');
 			if(($this).find('.characterImageContainer').hasClass('text-dark')){
 				$('body').addClass('text-dark');
-			};
+			} else {
+				$('body').removeClass('text-dark');
+			}
 			$('#characterBackButton').addClass('active');
 
 			// Apply colour of character BG to .characterUnderlay
