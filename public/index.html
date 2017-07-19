@@ -8,13 +8,21 @@
     <title>DK Ding Dong Percent Reference</title>
     <meta name="description" content="A Progressive Web App for Calculating Donkey Kong Ding Dong Percents in Super Smash Bros. for Wii U." />
 
+	<link rel="manifest" href="/manifest.json">
+	<!-- Add to home screen for Safari on iOS -->
+	<!--<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="apple-mobile-web-app-title" content="Ding Dong Reference">
+	<link rel="apple-touch-icon" href="images/icons/icon-152x152.png">
+	<meta name="msapplication-TileImage" content="images/icons/icon-144x144.png">
+	<meta name="msapplication-TileColor" content="#2F3BA2">-->
+
     <link async rel="stylesheet" href="./css/style.css">
-    <link async rel="stylesheet" href="./css/character-icons.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,600,300italic,600italic" rel="stylesheet" type="text/css">
-    <!--<link rel="manifest" href="./manifest.json">-->
     <meta name="theme-color" content="#ffd54f">
-    <link rel="icon" sizes="192x192" href="./launcher-icon-8x.png">
-    <link rel="icon" href="favicon.png" type="image/x-icon" />
+    <link rel="icon" sizes="192x192" href="./images/icon/launcher-icon-8x.png">
+    <link rel="icon" href="./images/icon/favicon.png" type="image/x-icon" />
+
 </head>
 
 <body id="body" class="loading">
@@ -99,8 +107,8 @@
 
 								<div class="panel-body">
 									
-									<h4 class="panel-label">Upon selecting a character</h4>
-									<p><span class="input-type">ESC</span>Close Character</p>
+									<h4 class="panel-label" style="margin-top:0;">Upon selecting a character</h4>
+									<p><span class="input-type">ESC</span>Close Box</p>
 									<p>
 										<span class="input-type">⇐</span>Previous Character<br>
 									    <span class="input-type">⇒</span>Next Character
@@ -178,7 +186,7 @@
 			    <path d="M0-.25h24v24H0z" fill="none"/>
 			</svg>
 			<ul id="character-list" class="character-list clearfix" data-bind="foreach: character">
-				<li class="character-box clearfix" data-bind="attr: {'data-url': url} "><!--data-bind="click: $root.getItemIndex"-->
+				<li class="character-box clearfix" data-bind="attr: {'data-url': url} ">
 					<div class="characterBorder clearfix">
 						<div class="characterImageContainer" data-bind="style: {backgroundColor: bgColour}, css: imageProperties">
 							<div class="characterImage"><div class="characterImageContainer-lightOverlay"></div></div>
@@ -446,15 +454,13 @@
 
 	<script src="./js/vendor/knockout-3.3.0.js"></script>
 	<!--<script src="./js/vendor/countUp.min.js"></script>-->
-	<!--<script src="./js/vendor/jquery.sticky-kit.min.js"></script>-->
-	<!--<script src="./js/vendor/jquery.waypoints.min.js"></script>
 	<script src="./js/vendor/sticky.min.js"></script>-->
-	<!--<script src="./js/vendor/classlist.min.js"></script>--> <!-- shim for classList toggling in older browsers -->
-	<script src="js/page.js"></script> <!-- loads JSON list if online -->
-	<script src="js/characters.js"></script> <!-- parses the list -->
-	<script src="js/main.js"></script> <!-- displays the list and registers service worker -->
+	<script src="./js/page.js"></script> <!-- loads JSON list if online -->
+	<script src="./js/characters.js"></script> <!-- parses the list -->
+	<script src="./js/main.js"></script> <!-- displays the list and registers service worker -->
 	<script src="./js/vendor/jquery-3.2.1.min.js"></script>
-	<script src="js/custom.js"></script>
+	<script src="./js/custom.js"></script>
+	<link async rel="stylesheet" href="css/character-icons.css">
 
 </body>
 

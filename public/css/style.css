@@ -531,7 +531,7 @@ body.toggle-sidedrawer{
 }
 
 .sidedrawer-toggle{
-    padding: 12px 12px 13px 16px;
+    padding: 12px 12px 12px 17px;
     color: #333;
     cursor: pointer;
     font-size: 20px;
