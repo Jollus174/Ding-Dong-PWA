@@ -21,7 +21,7 @@ var Page = (function(){
 
 		// Sorting arrays within Knockout --> http://www.c-sharpcorner.com/UploadFile/cd7c2e/apply-sort-function-on-observable-array-using-knockoutjs/
 		self.sortName = function(item, event){;
-			var $filterButtons = $('.filter-btn');
+			var $filterButtons = $('.filter-btn').not('#filter-dropdown-btn.filter-btn');
 			var $element = $(event.target);
 
 			if($element.hasClass('active')){
@@ -48,7 +48,7 @@ var Page = (function(){
 		// Sorting tables
 		// http://develothink.com/sorting-tables-using-knockoutjs/
 		self.sortWeight = function(item, event){
-			var $filterButtons = $('.filter-btn');
+			var $filterButtons = $('.filter-btn').not('#filter-dropdown-btn.filter-btn');
 			var $element = $(event.target);
 
 			if($element.hasClass('active')){
@@ -73,7 +73,7 @@ var Page = (function(){
 		}
 
 		self.sortDifficulty = function(item, event){
-			var $filterButtons = $('.filter-btn');
+			var $filterButtons = $('.filter-btn').not('#filter-dropdown-btn.filter-btn');
 			var $element = $(event.target);
 
 			if($element.hasClass('active')){
@@ -98,7 +98,7 @@ var Page = (function(){
 		}
 
 		self.sortFallspeed = function(item, event){
-			var $filterButtons = $('.filter-btn');
+			var $filterButtons = $('.filter-btn').not('#filter-dropdown-btn.filter-btn');
 			var $element = $(event.target);
 
 			if($element.hasClass('active')){
@@ -124,7 +124,7 @@ var Page = (function(){
 
 
 		self.sortGravity = function(item, event){
-			var $filterButtons = $('.filter-btn');
+			var $filterButtons = $('.filter-btn').not('#filter-dropdown-btn.filter-btn');
 			var $element = $(event.target);
 
 			if($element.hasClass('active')){

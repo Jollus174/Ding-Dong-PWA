@@ -83,6 +83,7 @@
     "minPercent": "79",
     "maxPercent": "107",
     "fallspeed": "1.848",
+    "gravity": "0.1078",
     "airdodgeStart": "3",
     "airdodgeEnd": "28"
 }, {
@@ -597,6 +598,7 @@
     "minPercent": "76",
     "maxPercent": "89",
     "fallspeed": "1.5",
+    "gravity": "0.085",
     "airdodgeStart": "3",
     "airdodgeEnd": "28",
     "imagePosition": "rightImage"
