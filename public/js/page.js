@@ -21,7 +21,7 @@ var Page = (function(){
 
 		// Sorting arrays within Knockout --> http://www.c-sharpcorner.com/UploadFile/cd7c2e/apply-sort-function-on-observable-array-using-knockoutjs/
 		self.sortName = function(item, event){;
-			var $filterButtons = $('.filter-btn');
+			var $filterButtons = $('.filter-btn').not('#filter-dropdown-btn.filter-btn');
 			var $element = $(event.target);
 
 			if($element.hasClass('active')){
@@ -48,7 +48,7 @@ var Page = (function(){
 		// Sorting tables
 		// http://develothink.com/sorting-tables-using-knockoutjs/
 		self.sortWeight = function(item, event){
-			var $filterButtons = $('.filter-btn');
+			var $filterButtons = $('.filter-btn').not('#filter-dropdown-btn.filter-btn');
 			var $element = $(event.target);
 
 			if($element.hasClass('active')){
@@ -73,7 +73,7 @@ var Page = (function(){
 		}
 
 		self.sortDifficulty = function(item, event){
-			var $filterButtons = $('.filter-btn');
+			var $filterButtons = $('.filter-btn').not('#filter-dropdown-btn.filter-btn');
 			var $element = $(event.target);
 
 			if($element.hasClass('active')){
@@ -93,6 +93,57 @@ var Page = (function(){
 				// Descending order (default)
 				self.character.sort(function(lower, higher){
 					return (higher.maxPercent - higher.minPercent) - (lower.maxPercent - lower.minPercent);
+				});
+			}
+		}
+
+		self.sortFallspeed = function(item, event){
+			var $filterButtons = $('.filter-btn').not('#filter-dropdown-btn.filter-btn');
+			var $element = $(event.target);
+
+			if($element.hasClass('active')){
+				$element.toggleClass('asc');
+			} else {
+				$filterButtons.removeClass('active asc');
+				$element.addClass('active');
+			};
+
+			// Create conditional to sort the characters low-fallspeed to high-fallspeed or high-fallspeed to low-fallspeed
+			if($element.hasClass('asc')){
+				// Ascending order (default)
+				self.character.sort(function(lower, higher){
+					return higher.fallspeed - lower.fallspeed;
+				});
+			} else {
+				// Descending order (default)
+				self.character.sort(function(lower, higher){
+					return lower.fallspeed - higher.fallspeed;
+				});
+			}
+		}
+
+
+		self.sortGravity = function(item, event){
+			var $filterButtons = $('.filter-btn').not('#filter-dropdown-btn.filter-btn');
+			var $element = $(event.target);
+
+			if($element.hasClass('active')){
+				$element.toggleClass('asc');
+			} else {
+				$filterButtons.removeClass('active asc');
+				$element.addClass('active');
+			};
+
+			// Create conditional to sort the characters low-grav to high-grav or high-grab to low-grav
+			if($element.hasClass('asc')){
+				// Ascending order (default)
+				self.character.sort(function(lower, higher){
+					return higher.gravity - lower.gravity;
+				});
+			} else {
+				// Descending order (default)
+				self.character.sort(function(lower, higher){
+					return lower.gravity - higher.gravity;
 				});
 			}
 		}

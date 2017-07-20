@@ -171,7 +171,10 @@ $(document).ready(function(){
 		if(rageAmount == "125"){rageAdjustment = parseInt("-14");}
 		if(rageAmount == "150"){rageAdjustment = parseInt("-18");}
 
-		//var minPercentValues = $('.minPerc').text();
+		// According to the data, characters with ... dunno, I got nothing
+		// Bowser has 12% window (average), weight 130, gravity 0.11 (mid)
+		// D3 has 30% window (easy), weight 119, gravity 0.08 (low-mid)
+		// including a sort by Grav filter for my own reference
 
 		// I should rewrite this to include the percent diffs to avoid running through everything twice.
 		// EXCELLENT WORK!!
@@ -341,12 +344,9 @@ $(document).ready(function(){
 				}
 
 			} else {
-				if(e.which == keyright){
-					transitionCharacterForward($('.character-box.active'));
-				}
-				if(e.which == keyleft){
-					transitionCharacterBackward($('.character-box.active'));
-				}
+				if(e.which == keyright){transitionCharacterForward($('.character-box.active'));}
+				if(e.which == keyleft){transitionCharacterBackward($('.character-box.active'));}
+
 				if(e.which == key1){rageAdjustment($('.character-box.active .rageBtn:nth-child(1)'))}
 				if(e.which == key2){rageAdjustment($('.character-box.active .rageBtn:nth-child(2)'))}
 				if(e.which == key3){rageAdjustment($('.character-box.active .rageBtn:nth-child(3)'))}
@@ -354,7 +354,6 @@ $(document).ready(function(){
 				if(e.which == key5){rageAdjustment($('.character-box.active .rageBtn:nth-child(5)'))}
 				if(e.which == key6){rageAdjustment($('.character-box.active .rageBtn:nth-child(6)'))}
 				if(e.which == key7){rageAdjustment($('.character-box.active .rageBtn:nth-child(7)'))}
-
 			}
 		}
 
@@ -365,6 +364,23 @@ $(document).ready(function(){
 		$this.toggleClass('active');
 		$this.next('.btn-group.mobile').toggleClass('active');
 		$('#main').toggleClass('filtersActive');
+
+		// If on mobile and at top of screen, the filter row covers the content! Not good.
+		// This detects if the user is partly down the page, and if not will offset the grid by the height of header + height of filter row
+
+		if($('#main').hasClass('filtersActive')){
+			// First check to see if the filters are active. If they aren't, then proceed
+			var scrollTop = $(window).scrollTop();
+			var headerHeight = $('header').height() + $('.btn-group.mobile.active').innerHeight();
+			if(scrollTop < 140){
+				$('#main').css('margin-top', headerHeight);
+			} else {
+				$('#main').css('margin-top', '');
+			}
+			// If they aren't active and the button is clicked, remove the jQuery offset if present
+		} else {
+			$('#main').css('margin-top', '');
+		}
 	});
 
 	$('.sidedrawer-toggle, #sidedrawer-overlay').click(function(){
@@ -414,5 +430,15 @@ $(document).ready(function(){
 	})
 	$('#credits').click(function(){
 		activateMenuBox('page-credits');
+	})
+
+	$('#filter-dropdown-btn').click(function(){
+		$this = $(this);
+		$this.toggleClass('active');
+		$this.closest('.btn-group').toggleClass('open');
+	});
+	$('.add-info-grid').click(function(){
+		$('.add-info-grid').toggleClass('checked');
+		$('body').toggleClass('show-extra-info');
 	})
 });

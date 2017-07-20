@@ -12,6 +12,7 @@ var characters = (function() {
         self.maxPercent = "";
         self.percRange = "";
         self.fallspeed = "";
+        self.gravity = "";
         self.airdodgeStart = "";
         self.airdodgeEnd = "";
         self.imagePosition = "";
@@ -62,6 +63,7 @@ var characters = (function() {
                 vm.bgColour = data.bgColour;
                 vm.weight = data.weight;
                 vm.fallspeed = data.fallspeed;
+                vm.gravity = data.gravity;
 
                 vm.url = data.url;
 
