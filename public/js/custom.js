@@ -171,7 +171,10 @@ $(document).ready(function(){
 		if(rageAmount == "125"){rageAdjustment = parseInt("-14");}
 		if(rageAmount == "150"){rageAdjustment = parseInt("-18");}
 
-		//var minPercentValues = $('.minPerc').text();
+		// According to the data, characters with ... dunno, I got nothing
+		// Bowser has 12% window (average), weight 130, gravity 0.11 (mid)
+		// D3 has 30% window (easy), weight 119, gravity 0.08 (low-mid)
+		// including a sort by Grav filter for my own reference
 
 		// I should rewrite this to include the percent diffs to avoid running through everything twice.
 		// EXCELLENT WORK!!
@@ -414,5 +417,13 @@ $(document).ready(function(){
 	})
 	$('#credits').click(function(){
 		activateMenuBox('page-credits');
+	})
+
+	$('#filter-dropdown-btn').hover(function(){
+		console.log('hovered!');
+		$(this).closest('.btn-group').addClass('open');
+	}, function(){
+		console.log('unhovered!');
+		$(this).closest('.btn-group').removeClass('open');
 	})
 });

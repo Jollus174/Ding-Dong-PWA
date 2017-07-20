@@ -97,6 +97,57 @@ var Page = (function(){
 			}
 		}
 
+		self.sortFallspeed = function(item, event){
+			var $filterButtons = $('.filter-btn');
+			var $element = $(event.target);
+
+			if($element.hasClass('active')){
+				$element.toggleClass('asc');
+			} else {
+				$filterButtons.removeClass('active asc');
+				$element.addClass('active');
+			};
+
+			// Create conditional to sort the characters low-fallspeed to high-fallspeed or high-fallspeed to low-fallspeed
+			if($element.hasClass('asc')){
+				// Ascending order (default)
+				self.character.sort(function(lower, higher){
+					return higher.fallspeed - lower.fallspeed;
+				});
+			} else {
+				// Descending order (default)
+				self.character.sort(function(lower, higher){
+					return lower.fallspeed - higher.fallspeed;
+				});
+			}
+		}
+
+
+		self.sortGravity = function(item, event){
+			var $filterButtons = $('.filter-btn');
+			var $element = $(event.target);
+
+			if($element.hasClass('active')){
+				$element.toggleClass('asc');
+			} else {
+				$filterButtons.removeClass('active asc');
+				$element.addClass('active');
+			};
+
+			// Create conditional to sort the characters low-grav to high-grav or high-grab to low-grav
+			if($element.hasClass('asc')){
+				// Ascending order (default)
+				self.character.sort(function(lower, higher){
+					return higher.gravity - lower.gravity;
+				});
+			} else {
+				// Descending order (default)
+				self.character.sort(function(lower, higher){
+					return lower.gravity - higher.gravity;
+				});
+			}
+		}
+
 
 		// Using traditional jQuery 'click()' bindings will not work on dynamically generated character boxes!
 		// https://stackoverflow.com/questions/6658752/click-event-doesnt-work-on-dynamically-generated-elements

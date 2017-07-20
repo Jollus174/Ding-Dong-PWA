@@ -37,15 +37,27 @@
 				</svg>
 			</button>
 			<div class="btn-group mobile">
-				<button data-bind="click:sortName" class="btn filter-btn active desc">Name <span class="caret"></span></button>
+				<button data-bind="click:sortName" class="btn filter-btn active">Name <span class="caret"></span></button>
 				<button data-bind="click:sortWeight" class="btn filter-btn">Weight <span class="caret"></span></button>
 				<button data-bind="click:sortDifficulty" class="btn filter-btn">Difficulty <span class="caret"></span></button>
+				<!--<button data-bind="click:sortFallspeed" class="btn filter-btn">Fallspeed <span class="caret"></span></button>-->
+				<button data-bind="click:sortGravity" class="btn filter-btn">Gravity <span class="caret"></span></button>
 			</div>
 			<div class="header-filters desktop">
 				<div class="btn-group">
-					<button data-bind="click:sortName" class="btn filter-btn active desc">Name <span class="caret"></span></button>
+					<button data-bind="click:sortName" class="btn filter-btn active">Name <span class="caret"></span></button>
 					<button data-bind="click:sortWeight" class="btn filter-btn">Weight <span class="caret"></span></button>
 					<button data-bind="click:sortDifficulty" class="btn filter-btn">Difficulty <span class="caret"></span></button>
+					<button id="filter-dropdown-btn" class="btn filter-btn">
+						<svg xmlns="http://www.w3.org/2000/svg" fill="#fff" height="14" viewBox="5 4 14 10" width="14">
+	    					<path d="M7.41 7.84L12 12.42l4.59-4.58L18 9.25l-6 6-6-6z"></path>
+	    					<path d="M0-.75h24v24H0z" fill="none"></path>
+						</svg>
+					</button>
+					<ul class="dropdown-menu">
+						<li><button data-bind="click:sortFallspeed" class="btn filter-btn">Fallspeed <span class="caret"></span></button></li>
+						<li><button data-bind="click:sortGravity" class="btn filter-btn">Gravity <span class="caret"></span></button></li>
+					</ul>
 				</div>
 			</div>
 		</div>

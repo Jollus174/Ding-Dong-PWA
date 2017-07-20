@@ -635,6 +635,31 @@ body.toggle-sidedrawer{
     padding: 15px 15px 0;
 }
 
+.open > .dropdown-menu{
+    display:block;
+}
+.dropdown-menu{
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1000;
+    display: none;
+    float: left;
+    min-width: 160px;
+    padding: 5px 0;
+    margin: 2px 0 0;
+    font-size: 14px;
+    text-align: left;
+    list-style: none;
+    background-color: #fff;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+    border: 1px solid #ccc;
+    border: 1px solid rgba(0,0,0,.15);
+    border-radius: 4px;
+    -webkit-box-shadow: 0 6px 12px rgba(0,0,0,.175);
+    box-shadow: 0 6px 12px rgba(0,0,0,.175);
+}
 
 
 /* --- */
@@ -793,20 +818,6 @@ button {
     border-bottom: 4px dashed;
     border-bottom: 4px solid\9;
 }
-
-/*.filter-btn.asc{
-    background:url('../images/sort_asc.png') no-repeat center right;
-}
-.filter-btn.desc{
-    background:url('../images/sort_desc.png') no-repeat center right;
-}
-.filter-btn{
-    background:url('../images/sort_both.png') no-repeat center right;
-}
-.filter-btn{
-    background-color:#FFF !important;
-    padding-right:20px;
-}*/
 
 
 /* --- */
