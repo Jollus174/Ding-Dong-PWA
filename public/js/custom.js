@@ -36,11 +36,9 @@ $(document).ready(function(){
 			var urlDirectory = parts[parts.length - 1];
 			if(urlDirectory == 'about'){
 				// activate About box
-				console.log('about activated!');
 				activateMenuBox('page-about');
 			} else if (urlDirectory == 'credits'){
 				// activate Credits box
-				console.log('credits activated!');
 				activateMenuBox('page-credits');
 			} else {
 				var character = parts[parts.length - 1];
@@ -79,11 +77,6 @@ $(document).ready(function(){
 		if(!$this.hasClass('active')){
 
 			$this.addClass('active');
-
-			/*$('.rageBtn').click(function(){
-				constructUrl($this);
-			});*/
-
 
 			$('body').addClass('no-scroll character-active');
 			if(($this).find('.characterImageContainer').hasClass('text-dark')){
@@ -161,7 +154,7 @@ $(document).ready(function(){
 		
 		self.siblings('.rageBtn').removeClass('active');
 		self.addClass('active');
-		var rageAdjustment = "";
+		var rageAdjustment = 0;
 
 		// Calculate amount to adjust min-percent based on rage
 		if(rageAmount == "50"){rageAdjustment = parseInt("-2");}
@@ -176,8 +169,6 @@ $(document).ready(function(){
 		// D3 has 30% window (easy), weight 119, gravity 0.08 (low-mid)
 		// including a sort by Grav filter for my own reference
 
-		// I should rewrite this to include the percent diffs to avoid running through everything twice.
-		// EXCELLENT WORK!!
 		$('.character-box.active .stagePercents').each(function(){
 			var $this = $(this);
 
@@ -191,15 +182,25 @@ $(document).ready(function(){
 			var adjustedMaxPercent = parseInt(defaultMaxPercent) + rageAdjustment;
 
 			// Some min %'s go below zero at max rage (wtf). Need to round to 0
-			// Adjusting min percent last in case it goes below zero and fucks the percRange var
+			// Adjusting min percent in case it goes below zero and fucks the percRange var
 			adjustedMinPercent = Math.max(0, adjustedMinPercent);
-
-			$minPerc.text(adjustedMinPercent).removeClass('nosymbol');
-			$maxPerc.text(adjustedMaxPercent).removeClass('nosymbol');
 			var percRange = adjustedMaxPercent - adjustedMinPercent;
-			$percRange.text(percRange).removeClass('nosymbol');
 
-			if( parseInt($maxPerc.text()) < parseInt($minPerc.text()) ){
+			$minPerc.removeClass('nosymbol');
+			$maxPerc.removeClass('nosymbol');
+			$percRange.removeClass('nosymbol');
+
+			$minPerc
+				.prop('number', $minPerc.text())
+				.animateNumber({ number : adjustedMinPercent }, 200);
+			$maxPerc
+				.prop('number', $maxPerc.text())
+				.animateNumber({ number : adjustedMaxPercent }, 200);
+			$percRange
+				.prop('number', $percRange.text())
+				.animateNumber({ number : percRange+1 }, 200);
+
+			if( adjustedMaxPercent < adjustedMinPercent ){
 
 				// On some stages, DingDong is impossible to kill with on some characters (like Satan on Battlefield)
 				// Will need to render 'N/A' in those cases
@@ -207,12 +208,9 @@ $(document).ready(function(){
 				$minPerc.text('N/A').addClass('nosymbol');
 				$maxPerc.text('N/A').addClass('nosymbol');
 				$percRange.text('-').addClass('nosymbol');
-
 			}
 
-			//$minPerc.text(adjustedMinPercent);
-
-			// hmm, if min percent goes below zero, this will affect the max percent range, right???? NO
+			// Hmm, if min percent goes below zero, this will affect the max percent range, right???? NO, IT PROBABLY SHOULDN'T (I think...)
 
 		});
 
@@ -302,7 +300,6 @@ $(document).ready(function(){
 	var key6 = 54;
 	var key7 = 55;
 
-
 	$(document).keyup(function(e){
 
 		if(e.which == shiftKey) isShiftActive = false;
@@ -386,13 +383,6 @@ $(document).ready(function(){
 	$('.sidedrawer-toggle, #sidedrawer-overlay').click(function(){
 		$('body').toggleClass('toggle-sidedrawer');
 	});
-
-	$('.rageBtn').click(function(){
-		var $this = $(this);
-		if(!$this.hasClass('active')){
-			rageAdjustment($this);
-		}
-	})
 
 
 	/*$('.characterUnderlay').click(function(){
