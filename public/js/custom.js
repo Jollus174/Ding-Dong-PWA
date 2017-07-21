@@ -161,15 +161,16 @@ $(document).ready(function(){
 		
 		self.siblings('.rageBtn').removeClass('active');
 		self.addClass('active');
-		var rageAdjustment = "";
+		var rageAdjMin = "";
+		var rageAdjMax = "";
 
 		// Calculate amount to adjust min-percent based on rage
-		if(rageAmount == "50"){rageAdjustment = parseInt("-2");}
-		if(rageAmount == "60"){rageAdjustment = parseInt("-5");}
-		if(rageAmount == "80"){rageAdjustment = parseInt("-9");}
-		if(rageAmount == "100"){rageAdjustment = parseInt("-12");}
-		if(rageAmount == "125"){rageAdjustment = parseInt("-14");}
-		if(rageAmount == "150"){rageAdjustment = parseInt("-18");}
+		if(rageAmount == "50"){rageAdjMin = -2; rageAdjMax = -5 }
+		if(rageAmount == "60"){rageAdjMin = -5; rageAdjMax = -9 }
+		if(rageAmount == "80"){rageAdjMin = -9; rageAdjMax = -16 }
+		if(rageAmount == "100"){rageAdjMin = -12; rageAdjMax = -22 }
+		if(rageAmount == "125"){rageAdjMin = -14; rageAdjMax = -27 }
+		if(rageAmount == "150"){rageAdjMin = -18; rageAdjMax = -33 }
 
 		// According to the data, characters with ... dunno, I got nothing
 		// Bowser has 12% window (average), weight 130, gravity 0.11 (mid)
@@ -187,19 +188,15 @@ $(document).ready(function(){
 			var defaultMinPercent = $minPerc.attr('data-defaultmin');
 			var defaultMaxPercent = $maxPerc.attr('data-defaultmax');
 
-			var adjustedMinPercent = parseInt(defaultMinPercent) + rageAdjustment;
-			var adjustedMaxPercent = parseInt(defaultMaxPercent) + rageAdjustment;
+			var adjustedMinPercent = parseInt(defaultMinPercent) + rageAdjMin;
+			var adjustedMaxPercent = parseInt(defaultMaxPercent) + rageAdjMax;
 
 			// Some min %'s go below zero at max rage (wtf). Need to round to 0
 			// Adjusting min percent last in case it goes below zero and fucks the percRange var
 			adjustedMinPercent = Math.max(0, adjustedMinPercent);
+			var percRange = (adjustedMaxPercent - adjustedMinPercent) + 1;
 
-			$minPerc.text(adjustedMinPercent).removeClass('nosymbol');
-			$maxPerc.text(adjustedMaxPercent).removeClass('nosymbol');
-			var percRange = adjustedMaxPercent - adjustedMinPercent;
-			$percRange.text(percRange).removeClass('nosymbol');
-
-			if( parseInt($maxPerc.text()) < parseInt($minPerc.text()) ){
+			if(adjustedMaxPercent < adjustedMinPercent ){
 
 				// On some stages, DingDong is impossible to kill with on some characters (like Satan on Battlefield)
 				// Will need to render 'N/A' in those cases
@@ -207,12 +204,24 @@ $(document).ready(function(){
 				$minPerc.text('N/A').addClass('nosymbol');
 				$maxPerc.text('N/A').addClass('nosymbol');
 				$percRange.text('-').addClass('nosymbol');
-
+			} else {
+				$minPerc.removeClass('nosymbol');
+				$maxPerc.removeClass('nosymbol');
+				$percRange.removeClass('nosymbol');
+				$minPerc
+					.prop('number', $minPerc.text())
+					.animateNumber({ number : adjustedMinPercent }, 200);
+				$maxPerc
+					.prop('number', $maxPerc.text())
+					.animateNumber({ number : adjustedMaxPercent }, 200);
+				$percRange
+					.prop('number', $percRange.text())
+					.animateNumber({ number : percRange }, 200);
 			}
 
 			//$minPerc.text(adjustedMinPercent);
 
-			// hmm, if min percent goes below zero, this will affect the max percent range, right???? NO
+			// Hmm, if min percent goes below zero, this will affect the max percent range, right???? NO, IT PROBABLY SHOULDN'T (I think...)
 
 		});
 
@@ -386,13 +395,6 @@ $(document).ready(function(){
 	$('.sidedrawer-toggle, #sidedrawer-overlay').click(function(){
 		$('body').toggleClass('toggle-sidedrawer');
 	});
-
-	$('.rageBtn').click(function(){
-		var $this = $(this);
-		if(!$this.hasClass('active')){
-			rageAdjustment($this);
-		}
-	})
 
 
 	/*$('.characterUnderlay').click(function(){

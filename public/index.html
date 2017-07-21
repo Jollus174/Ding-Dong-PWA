@@ -42,7 +42,7 @@
 				<button data-bind="click:sortDifficulty" class="btn filter-btn">Difficulty <span class="caret"></span></button>
 				<button data-bind="click:sortFallspeed" class="btn filter-btn">Fallspeed <span class="caret"></span></button>
 				<button data-bind="click:sortGravity" class="btn filter-btn">Gravity <span class="caret"></span></button>
-				<button class="add-info-grid btn filter-btn">View In Grid</button>
+				<button class="add-info-grid btn filter-btn">Show In Grid</button>
 			</div>
 			<div class="header-filters desktop">
 				<div class="btn-group">
@@ -146,11 +146,11 @@
 				<h2>What Is This?</h2>
 				<p>This is a personal project developed to help Super Smash Bros. for Wii U (SSBU) players better understand the character Donkey Kong. On July 30, 2015, patch 1.1.0 was released and Donkey Kong's cargo upthrow was buffed, allowing it to work as a combo starter. This turned DK into a grappler-like character, and allowed him to quickly build damage on his opponents via grabs.</p>
 
-				<p>Within certain percent thresholds, it also functions as a kill confirm into his up air attack. This confirm is known among Donkey Kong specialists as <strong>Aerial Cargo Up Toss up air (ACUT)</strong> or to most Western players, simply as the <strong>Ding Dong</strong>.</p>
+				<p>Within certain percent thresholds, it also functions as a kill confirm into his up air attack. This confirm is known among Donkey Kong specialists as <strong>Aerial Cargo Up Toss up air (ACUT)</strong>, the <strong>DKO</strong>, or to most Western players, simply as the <strong>Ding Dong</strong>.</p>
 
 				<p>Historically within Super Smash Bros. and especially with the release of SSBU, it's been difficult for players to accurately determine exact percent thresholds that confirms will cease to connect or kill, due to the opponent's weight, percentage, DI, stage blastzones, and most recently, their own character's current rage.</p>
 
-				<p>Many dedicated players have recorded and labbed their character's confirms and setups against various opponents with differing DI and rage, and recorded them into spreadsheets for the community. Although useful, many of these spreadsheets still require that the player memorise specific base percent values and recalculate based on the above variable dependencies. This could be harmful to a less experienced Donkey Kong player if they're unfamiliar with the kill percent range against certain characters, or to their opponent, who would be expected to already know these values if they were facing off against a highly experienced DK player.</p>
+				<p>Many dedicated players have recorded and labbed their character's confirms and setups against various opponents with differing DI and rage, and recorded them into spreadsheets for the community. Although useful, many of these spreadsheets still require that the player memorise specific base percent values and recalculate based on the above variable dependencies. This could be harmful to a less experienced Donkey Kong player if they're unfamiliar with the kill percent range against certain characters, or to their opponent, who would be expected to already know these values if they were facing off against an optimal DK player.</p>
 
 				<h2>Why Build This?</h2>
 				<p>To attempt to fill the disconnect, this calculator was developed to help players determine Donkey Kong's kill confirm percent thresholds instantly, rather than relying on memory, retrieving online community spreadsheets, or manually calculating values. As of July 2017, this Web App is only to determine Ding Dong percent thresholds, but this could be later expanded to include all of his percent dependent confirms.</p>
@@ -162,6 +162,15 @@
 				<!--<p>Right now, only Android devices running Google Chrome can utilise the 'Add to Home' feature and download this web page for instant access, but all users running modern browsers can still connect online and use the calculator.</p>-->
 
 				<p>All raw percent values and formulas have been adopted from the <a href="https://docs.google.com/spreadsheets/d/1OvUy2gsTrUj96cAHSkSIZHGnUaaS-UrX6SdFKyctNmU/edit#gid=932844731" target="_blank">DK Doc</a> labbed by <a href="https://twitter.com/thevondk" target="_blank">Poke</a>.</p>
+
+				<div class="panel">
+					<div class="panel-body">
+
+						<p>The raw percent values for the calculator were recorded under optimal conditions, assuming poor DI on the opponent's part, and the Ding Dong executed perfectly. For tournament conditions, it's recommended to<br><strong>add 5% to the minimum percent</strong>, and <strong>subtract 5% from the maximum percent</strong>.</p>
+
+					</div>
+
+				</div>
 
 				<h2>Feedback / Bug Reports</h2>
 
@@ -221,6 +230,9 @@
 							<div hidden class="extra-info grid-gravity">
 								<span>Gravity - <span style="font-weight:700;" data-bind="text: gravity"></span></span>
 							</div>
+							<!--<div hidden class="extra-info grid-difficultyValue">
+								<span>Difficulty Value - <span style="font-weight:700;" data-bind="text: difficultyValue"></span></span>
+							</div>-->
 							<div class="characterName">
 								<span data-bind="text:name"></span>
 							</div>
@@ -474,13 +486,14 @@
 
 
 	<script src="./js/vendor/knockout-3.3.0.js"></script>
-	<script src="js/page.js?v1.1"></script> <!-- loads JSON list if online -->
-	<script src="js/characters.js?v1.1"></script> <!-- parses the list -->
-	<script src="js/main.js?v1.1"></script> <!-- displays the list and registers service worker -->
+	<script src="./js/page.js?v1.2"></script> <!-- loads JSON list if online -->
+	<script src="./js/characters.js?v1.2"></script> <!-- parses the list -->
+	<script src="./js/main.js?v1.2"></script> <!-- displays the list and registers service worker -->
 	<script src="./js/vendor/jquery-3.2.1.min.js"></script>
-	<script src="js/custom.js?v1.1"></script>
+	<script src="./js/vendor/jquery.animateNumber.min.js"></script>
+	<script src="./js/custom.js?v1.2"></script>
 
-    <link async rel="stylesheet" href="./css/character-icons.css?v1.1">
+    <link async rel="stylesheet" href="./css/character-icons.css?v1.2">
 
 </body>
 
