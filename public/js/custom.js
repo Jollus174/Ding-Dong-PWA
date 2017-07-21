@@ -36,9 +36,11 @@ $(document).ready(function(){
 			var urlDirectory = parts[parts.length - 1];
 			if(urlDirectory == 'about'){
 				// activate About box
+				console.log('about activated!');
 				activateMenuBox('page-about');
 			} else if (urlDirectory == 'credits'){
 				// activate Credits box
+				console.log('credits activated!');
 				activateMenuBox('page-credits');
 			} else {
 				var character = parts[parts.length - 1];
@@ -77,6 +79,11 @@ $(document).ready(function(){
 		if(!$this.hasClass('active')){
 
 			$this.addClass('active');
+
+			/*$('.rageBtn').click(function(){
+				constructUrl($this);
+			});*/
+
 
 			$('body').addClass('no-scroll character-active');
 			if(($this).find('.characterImageContainer').hasClass('text-dark')){
@@ -154,21 +161,24 @@ $(document).ready(function(){
 		
 		self.siblings('.rageBtn').removeClass('active');
 		self.addClass('active');
-		var rageAdjustment = 0;
+		var rageAdjMin = "";
+		var rageAdjMax = "";
 
 		// Calculate amount to adjust min-percent based on rage
-		if(rageAmount == "50"){rageAdjustment = parseInt("-2");}
-		if(rageAmount == "60"){rageAdjustment = parseInt("-5");}
-		if(rageAmount == "80"){rageAdjustment = parseInt("-9");}
-		if(rageAmount == "100"){rageAdjustment = parseInt("-12");}
-		if(rageAmount == "125"){rageAdjustment = parseInt("-14");}
-		if(rageAmount == "150"){rageAdjustment = parseInt("-18");}
+		if(rageAmount == "50"){rageAdjMin = -2; rageAdjMax = -5 }
+		if(rageAmount == "60"){rageAdjMin = -5; rageAdjMax = -9 }
+		if(rageAmount == "80"){rageAdjMin = -9; rageAdjMax = -16 }
+		if(rageAmount == "100"){rageAdjMin = -12; rageAdjMax = -22 }
+		if(rageAmount == "125"){rageAdjMin = -14; rageAdjMax = -27 }
+		if(rageAmount == "150"){rageAdjMin = -18; rageAdjMax = -33 }
 
 		// According to the data, characters with ... dunno, I got nothing
 		// Bowser has 12% window (average), weight 130, gravity 0.11 (mid)
 		// D3 has 30% window (easy), weight 119, gravity 0.08 (low-mid)
 		// including a sort by Grav filter for my own reference
 
+		// I should rewrite this to include the percent diffs to avoid running through everything twice.
+		// EXCELLENT WORK!!
 		$('.character-box.active .stagePercents').each(function(){
 			var $this = $(this);
 
@@ -178,29 +188,15 @@ $(document).ready(function(){
 			var defaultMinPercent = $minPerc.attr('data-defaultmin');
 			var defaultMaxPercent = $maxPerc.attr('data-defaultmax');
 
-			var adjustedMinPercent = parseInt(defaultMinPercent) + rageAdjustment;
-			var adjustedMaxPercent = parseInt(defaultMaxPercent) + rageAdjustment;
+			var adjustedMinPercent = parseInt(defaultMinPercent) + rageAdjMin;
+			var adjustedMaxPercent = parseInt(defaultMaxPercent) + rageAdjMax;
 
 			// Some min %'s go below zero at max rage (wtf). Need to round to 0
-			// Adjusting min percent in case it goes below zero and fucks the percRange var
+			// Adjusting min percent last in case it goes below zero and fucks the percRange var
 			adjustedMinPercent = Math.max(0, adjustedMinPercent);
-			var percRange = adjustedMaxPercent - adjustedMinPercent;
+			var percRange = (adjustedMaxPercent - adjustedMinPercent) + 1;
 
-			$minPerc.removeClass('nosymbol');
-			$maxPerc.removeClass('nosymbol');
-			$percRange.removeClass('nosymbol');
-
-			$minPerc
-				.prop('number', $minPerc.text())
-				.animateNumber({ number : adjustedMinPercent }, 200);
-			$maxPerc
-				.prop('number', $maxPerc.text())
-				.animateNumber({ number : adjustedMaxPercent }, 200);
-			$percRange
-				.prop('number', $percRange.text())
-				.animateNumber({ number : percRange+1 }, 200);
-
-			if( adjustedMaxPercent < adjustedMinPercent ){
+			if(adjustedMaxPercent < adjustedMinPercent ){
 
 				// On some stages, DingDong is impossible to kill with on some characters (like Satan on Battlefield)
 				// Will need to render 'N/A' in those cases
@@ -208,7 +204,22 @@ $(document).ready(function(){
 				$minPerc.text('N/A').addClass('nosymbol');
 				$maxPerc.text('N/A').addClass('nosymbol');
 				$percRange.text('-').addClass('nosymbol');
+			} else {
+				$minPerc.removeClass('nosymbol');
+				$maxPerc.removeClass('nosymbol');
+				$percRange.removeClass('nosymbol');
+				$minPerc
+					.prop('number', $minPerc.text())
+					.animateNumber({ number : adjustedMinPercent }, 200);
+				$maxPerc
+					.prop('number', $maxPerc.text())
+					.animateNumber({ number : adjustedMaxPercent }, 200);
+				$percRange
+					.prop('number', $percRange.text())
+					.animateNumber({ number : percRange }, 200);
 			}
+
+			//$minPerc.text(adjustedMinPercent);
 
 			// Hmm, if min percent goes below zero, this will affect the max percent range, right???? NO, IT PROBABLY SHOULDN'T (I think...)
 
@@ -299,6 +310,7 @@ $(document).ready(function(){
 	var key5 = 53;
 	var key6 = 54;
 	var key7 = 55;
+
 
 	$(document).keyup(function(e){
 

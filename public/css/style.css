@@ -394,7 +394,7 @@ span.mobile{display:inline;}
 .active #icon-filter .pathfill{fill:#FFF;}
 
 #icon-arrowback .pathfill, #icon-prev .pathfill, #icon-next .pathfill{fill:#FFF;}
-.text-dark #icon-arrowback .pathfill, .text-dark #icon-prev .pathfill, .text-dark #icon-next .pathfill{fill:#333;}
+.text-dark #icon-arrowback .pathfill{fill:#333;}
 
 
 #notification{
@@ -979,11 +979,16 @@ button {
 
 .characterName{display:none;}
 
-.grid-difficulty, .grid-percRange, .grid-fallspeed, .grid-gravity{position:absolute;}
+.grid-difficulty, .grid-percRange, .grid-fallspeed, .grid-gravity, .grid-difficultyValue{position:absolute;}
 .grid-percRange{top:6px; left:6px;}
 .grid-difficulty{top:32px; left:2px;}
 .grid-fallspeed{top:58px; left:6px;}
 .grid-gravity{top:77px; left:6px;}
+.grid-difficultyValue{
+    top: 77px;
+    right: 5px;
+    left: initial;
+}
 .extra-info{
     font-size: 12px;
     line-height: 12px;
@@ -1480,6 +1485,8 @@ tr.table-descs td{
         margin-top:-3px;
         font-size:14px;
     }
+
+    .text-dark #icon-prev .pathfill, .text-dark #icon-next .pathfill{fill:#333;}
 
     #character-list li.active .characterBorder{
         /*height:90%;*/

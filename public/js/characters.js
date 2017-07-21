@@ -86,6 +86,12 @@ var characters = (function() {
                     return diff;
                 }, this);
 
+                vm.difficultyValue = ko.computed(function(){
+                    var floatiness = vm.fallspeed * vm.gravity;
+                    var diffValue = vm.weight / floatiness;
+                    return Math.ceil(diffValue);
+                }, this);
+
                 vm.airdodgeStart = data.airdodgeStart;
                 vm.airdodgeEnd = data.airdodgeEnd;
                 vm.imagePosition = data.imagePosition;
@@ -123,13 +129,13 @@ var characters = (function() {
                 vm.svPlatMax = ko.computed(function(){return vm.maxPercent}, this);
 
                 vm.tcNormalMin = ko.computed(function(){return vm.minPercent - 4}, this);
-                vm.tcNormalMax = ko.computed(function(){return vm.maxPercent - 4}, this);
+                vm.tcNormalMax = ko.computed(function(){return vm.maxPercent}, this);
                 vm.tcLowPlatMin = ko.computed(function(){return vm.minPercent - 20}, this);
-                vm.tcLowPlatMax = ko.computed(function(){return vm.maxPercent - 4}, this);
+                vm.tcLowPlatMax = ko.computed(function(){return vm.maxPercent}, this);
                 vm.tcSidePlatMin = ko.computed(function(){return vm.minPercent - 25}, this);
-                vm.tcSidePlatMax = ko.computed(function(){return vm.maxPercent - 4}, this);
+                vm.tcSidePlatMax = ko.computed(function(){return vm.maxPercent}, this);
                 vm.tcTopPlatMin = ko.computed(function(){return vm.minPercent - 41}, this);
-                vm.tcTopPlatMax = ko.computed(function(){return vm.maxPercent - 4}, this);
+                vm.tcTopPlatMax = ko.computed(function(){return vm.maxPercent}, this);
 
                 // Aaaand now to get the filter going
                 // https://stackoverflow.com/questions/20857594/knockout-filtering-on-observable-array
