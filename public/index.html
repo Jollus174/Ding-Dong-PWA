@@ -10,10 +10,26 @@
 
     <link async rel="stylesheet" href="./css/style.css?v1.1">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,600,300italic,600italic" rel="stylesheet" type="text/css">
-    <!--<link rel="manifest" href="./manifest.json">-->
+    <link rel="manifest" href="./manifest.json">
     <meta name="theme-color" content="#ffd54f">
-    <link rel="icon" sizes="192x192" href="./launcher-icon-8x.png">
-    <link rel="icon" href="favicon.png" type="image/x-icon" />
+
+	<link rel="icon" sizes="32x32" href="images/icons/launcher-icon-32x32.png">
+	<link rel="icon" sizes="48x48" href="images/icons/launcher-icon-48x48.png">
+	<link rel="icon" sizes="96x96" href="images/icons/launcher-icon-96x96.png">
+	<link rel="icon" sizes="128x128" href="images/icons/launcher-icon-128x128.png">
+	<link rel="icon" sizes="144x144" href="images/icons/launcher-icon-144x144.png">
+	<link rel="icon" sizes="152x152" href="images/icons/launcher-icon-152x152.png">
+	<link rel="icon" sizes="192x192" href="images/icons/launcher-icon-192x192.png">
+    <link rel="icon" sizes="256x256" href="images/icons/launcher-icon-256x256.png">
+    <link rel="icon" href="images/icons/favicon.png" type="x-icon" />
+
+	<!-- Add to home screen for Safari on iOS -->
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="apple-mobile-web-app-title" content="Ding Dong Calculator">
+	<link rel="apple-touch-icon" href="images/icons/launcher-icon-152x152.png">
+	<meta name="msapplication-TileImage" content="images/icons/icon-144x144.png">
+	<meta name="msapplication-TileColor" content="#ffd54f">
 </head>
 
 <body id="body" class="loading">
@@ -489,11 +505,12 @@
 	<script src="./js/page.js?v1.2"></script> <!-- loads JSON list if online -->
 	<script src="./js/characters.js?v1.2"></script> <!-- parses the list -->
 	<script src="./js/main.js?v1.2"></script> <!-- displays the list and registers service worker -->
-	<script src="./js/vendor/jquery-3.2.1.min.js"></script>
-	<script src="./js/vendor/jquery.animateNumber.min.js"></script>
-	<script src="./js/custom.js?v1.2"></script>
 
-    <link async rel="stylesheet" href="./css/character-icons.css?v1.2">
+	<link async rel="stylesheet" href="./css/character-icons.css?v1.2">
+
+	<!--<script src="./js/vendor/jquery-3.2.1.min.js"></script>
+	<script src="./js/vendor/jquery.animateNumber.min.js"></script>
+	<script src="./js/custom.js?v1.2"></script>-->
 
 </body>
 
