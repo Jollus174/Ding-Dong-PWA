@@ -1322,7 +1322,7 @@ body.show-extra-info .extra-info{display:block;}
 
 .col-3 table.stagePercents{
     float:left;
-    width:32.3%;
+    width:32.2%;
     margin:1%;
     margin-top:0;
 }
@@ -1330,7 +1330,7 @@ body.show-extra-info .extra-info{display:block;}
     margin-left:0;
     margin-right:0;
 }
-.col-3 table.stagePercents:nth-child(3n+1){margin-left:0.5%;} /* Right-most tables */
+.col-3 table.stagePercents:nth-child(3n+1){margin-left:1%;} /* Right-most tables */
 .col-3 table.stagePercents:nth-child(3n+3){margin-right:0;} /* Right-most tables */
 
 
