@@ -10,10 +10,26 @@
 
     <link async rel="stylesheet" href="./css/style.css?v1.1">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,600,300italic,600italic" rel="stylesheet" type="text/css">
-    <!--<link rel="manifest" href="./manifest.json">-->
+    <link rel="manifest" href="./manifest.json">
     <meta name="theme-color" content="#ffd54f">
-    <link rel="icon" sizes="192x192" href="./images/icons/launcher-icon-8x.png">
-    <link rel="icon" href="./images/icons/favicon.png" type="image/x-icon" />
+
+	<link rel="icon" sizes="32x32" href="images/icons/launcher-icon-32x32.png">
+	<link rel="icon" sizes="48x48" href="images/icons/launcher-icon-48x48.png">
+	<link rel="icon" sizes="96x96" href="images/icons/launcher-icon-96x96.png">
+	<link rel="icon" sizes="128x128" href="images/icons/launcher-icon-128x128.png">
+	<link rel="icon" sizes="144x144" href="images/icons/launcher-icon-144x144.png">
+	<link rel="icon" sizes="152x152" href="images/icons/launcher-icon-152x152.png">
+	<link rel="icon" sizes="192x192" href="images/icons/launcher-icon-192x192.png">
+    <link rel="icon" sizes="256x256" href="images/icons/launcher-icon-256x256.png">
+    <link rel="icon" href="images/icons/favicon.png" type="x-icon" />
+
+	<!-- Add to home screen for Safari on iOS -->
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="apple-mobile-web-app-title" content="Ding Dong Calculator">
+	<link rel="apple-touch-icon" href="images/icons/launcher-icon-152x152.png">
+	<meta name="msapplication-TileImage" content="images/icons/icon-144x144.png">
+	<meta name="msapplication-TileColor" content="#ffd54f">
 </head>
 
 <body id="body" class="loading">
@@ -148,9 +164,9 @@
 
 				<p>Within certain percent thresholds, it also functions as a kill confirm into his up air attack. This confirm is known among Donkey Kong specialists as <strong>Aerial Cargo Up Toss up air (ACUT)</strong>, the <strong>DKO</strong>, or to most Western players, simply as the <strong>Ding Dong</strong>.</p>
 
-				<p>Historically within Super Smash Bros. and especially with the release of SSBU, it's been difficult for players to accurately determine percent thresholds that confirms will cease to connect or kill, due to the opponent's weight, percentage, DI, stage blastzones, and most recently, their own character's current rage.</p>
+				<p>Historically within Super Smash Bros. and especially with the release of SSBU, it's been difficult for players to accurately determine exact percent thresholds that confirms will cease to connect or kill, due to the opponent's weight, percentage, DI, stage blastzones, and most recently, their own character's current rage.</p>
 
-				<p>Many dedicated players have recorded and labbed their character's confirms and setups against various opponents with differing DI and rage, and recorded them into spreadsheets for the community. Although useful, many of these spreadsheets still require that the player memorise base values and recalculate them based on the above variable dependencies. This could be harmful to a less experienced Donkey Kong player if they're unfamiliar with the kill percent range against certain characters, or to their opponent, who would be expected to already know these values if they were facing off against an optimal DK player.</p>
+				<p>Many dedicated players have recorded and labbed their character's confirms and setups against various opponents with differing DI and rage, and recorded them into spreadsheets for the community. Although useful, many of these spreadsheets still require that the player memorise specific base percent values and recalculate based on the above variable dependencies. This could be harmful to a less experienced Donkey Kong player if they're unfamiliar with the kill percent range against certain characters, or to their opponent, who would be expected to already know these values if they were facing off against an optimal DK player.</p>
 
 				<h2>Why Build This?</h2>
 				<p>To attempt to fill the disconnect, this calculator was developed to help players determine Donkey Kong's kill confirm percent thresholds instantly, rather than relying on memory, retrieving online community spreadsheets, or manually calculating values. As of July 2017, this Web App is only to determine Ding Dong percent thresholds, but this could be later expanded to include all of his percent dependent confirms.</p>
@@ -239,8 +255,8 @@
 							<div class="characterOverview">
 								<ul>
 									<li>Weight <span class="value" data-bind="text: weight"></span></li>
-									<li>Airdodge <span class="value"><span data-bind="text: airdodgeStart"></span> - <span data-bind="text: airdodgeEnd"></span></span></li>
 									<li>Fallspeed<span class="value" data-bind="text: fallspeed"></span></li>
+									<li>Airdodge <span class="value"><span data-bind="text: airdodgeStart"></span> - <span data-bind="text: airdodgeEnd"></span></span></li>
 									<li>Gravity <span class="value" data-bind="text: gravity"></span></li>
 								</ul>
 							</div>
@@ -485,15 +501,16 @@
 	</script>
 
 
-	<script src="./js/vendor/knockout-3.3.0.js"></script>
-	<script src="./js/page.js?v1.2"></script> <!-- loads JSON list if online -->
-	<script src="./js/characters.js?v1.2"></script> <!-- parses the list -->
-	<script src="./js/main.js?v1.2"></script> <!-- displays the list and registers service worker -->
-	<script src="./js/vendor/jquery-3.2.1.min.js"></script>
-	<script src="./js/vendor/jquery.animateNumber.min.js"></script>
-	<script src="./js/custom.js?v1.2"></script>
+	<script type="text/javascript" src="./js/vendor/knockout-3.3.0.js"></script>
+	<script type="text/javascript" src="./js/page.js?v1.2"></script> <!-- loads JSON list if online -->
+	<script type="text/javascript" src="./js/characters.js?v1.2"></script> <!-- parses the list -->
+	<script type="text/javascript" src="./js/main.js?v1.2"></script> <!-- displays the list and registers service worker -->
 
-    <link async rel="stylesheet" href="./css/character-icons.css?v1.2">
+	<link async rel="stylesheet" href="./css/character-icons.css?v1.2">
+
+	<script type="text/javascript" src="./js/vendor/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="./js/vendor/jquery.animateNumber.min.js"></script>
+	<script type="text/javascript" src="./js/custom.js"></script>
 
 </body>
 

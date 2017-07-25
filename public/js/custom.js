@@ -1,4 +1,14 @@
-$(document).ready(function(){
+function defer(method) {
+    if (window.jQuery) {
+    	// Service Worker seems to want to try and call jQuery before this script is ready
+    	// https://stackoverflow.com/questions/7486309/how-to-make-script-execution-wait-until-jquery-is-loaded
+        method();
+    } else {
+        setTimeout(function() { defer(method()) }, 50);
+    }
+}
+
+defer(function(){
 
 	// This would all normally be under 'activateCharacter()', with an event listener to check for custom URLs from incoming visitors
 	// Execept NOT. About and Credits will be under separate URLs too, and would not use the activateCharacter() function.
@@ -6,16 +16,8 @@ $(document).ready(function(){
 		var locationHost = window.location.host;
 		var baseUrl = window.location.protocol + "//" + locationHost;
 		var dataUrl = self.attr('data-url');
-		//var rageAmount = self.find('.rageBtn.active').attr('data-rage');
-		//console.log('current rage is ' + rageAmount);
-		/*if(rageAmount != '0' && rageAmount != 'undefined' && locationHost != 'dev.glideagency.com/'){
-			rageAmount = '?rage=' + rageAmount;
-		} else {
-			rageAmount = "";
-		}*/
+
 		var constructedUrl = baseUrl + '/#/' + dataUrl;
-		
-		//console.log(constructedUrl);
 		window.location.replace(constructedUrl);
 	}
 
@@ -45,9 +47,6 @@ $(document).ready(function(){
 			} else {
 				var character = parts[parts.length - 1];
 
-				// This is working...
-				// console.log(character);
-
 				// Target the character with the class defined in the URl
 				var urlCharacter = $('.' + String(character)).closest('.character-box');
 				// and activate it
@@ -59,18 +58,9 @@ $(document).ready(function(){
 					$('#notification').html('Looks like this character does not exist.<br>Please check the URL.').show();
 					$('#notification').delay(3000).fadeOut();
 				}
-
-				// Need to activate the correct rage button depending on the URL...
-				//var rageAmount = current
-				//rageAdjustment($(urlCharacter).find('.rageBtn[data-rage='));
-
 			}
-
-
-
 		}
 	}
-	deconstructUrl();
 
 
 	function activateCharacter(self){
@@ -443,4 +433,9 @@ $(document).ready(function(){
 		$('.add-info-grid').toggleClass('checked');
 		$('body').toggleClass('show-extra-info');
 	})
+
+	$(document).ready(function(){
+		deconstructUrl();
+	})
+
 });
