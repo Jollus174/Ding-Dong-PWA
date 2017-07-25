@@ -199,6 +199,7 @@ var characters = (function() {
                 document.getElementById("body").classList.remove('loading')
                 // displays the grid now that shiz is loaded
                 //document.getElementById('main').style.display = "block";
+                Custom();
             });
         }
     }
