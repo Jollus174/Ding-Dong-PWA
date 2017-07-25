@@ -18,13 +18,12 @@ var filesToCache = [
   '/',
   '/index.html',
   '/offline.html',
-  '/js/characters.js',
-  '/js/main.js',
-  '/js/page.js',
+  '/css/style-minified.css',
+  '/css/character-icons.css',
+  '/js/build/script.min.js',
   '/js/vendor/jquery-3.2.1.min.js',
   '/js/vendor/knockout-3.3.0.js',
   '/js/vendor/jquery.animateNumber.min.js',
-  '/js/custom.js',
 
   '/images/characters/bayonetta.png',
   '/images/characters/bowser.png',
@@ -89,7 +88,18 @@ var filesToCache = [
   '/images/characters/wiifittrainer.png',
   '/images/characters/yoshi.png',
   '/images/characters/zelda.png',
-  '/images/characters/zerosuitsamus.png'
+  '/images/characters/zerosuitsamus.png',
+
+  '/images/stages/stage_bf.jpg',
+  '/images/stages/stage_dl.jpg',
+  '/images/stages/stage_fd.jpg',
+  '/images/stages/stage_ly.jpg',
+  '/images/stages/stage_sv.jpg',
+  '/images/stages/stage_tc.jpg',
+
+  '/images/spinner.svg',
+  '/images/stripe.png',
+  '/images/dk-credits.png'
 
 ];
 
