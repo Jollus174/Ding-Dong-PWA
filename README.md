@@ -14,6 +14,6 @@ To attempt to fill the disconnect, this calculator was developed to help players
 
 This is a development build of an open-source <a href="https://developers.google.com/web/progressive-web-apps/" target="_blank">Progressive Web App (PWA)</a>, an emerging web technology that allows users to download a website to their mobile or tablet device for offline use. It is a Single Page Application that runs on simple JS frameworks, and utilises the Knockout.js and Jquery libraries. This is not a native mobile app that can be downloaded from an App Store, but contains similar functions and provides the same user experience and benefits.
 
-The PWA features are not yet available, but they are being developed and will be released shortly.
+The PWA features are now available, and the website can be downloaded to a mobile or tablet device for quick reference and offline reference.
 
 All raw percent values and formulas have been adopted from the <a href="https://docs.google.com/spreadsheets/d/1OvUy2gsTrUj96cAHSkSIZHGnUaaS-UrX6SdFKyctNmU/edit#gid=932844731" target="_blank">DK Doc</a> labbed by <a href="https://twitter.com/thevondk" target="_blank">Poke</a>.
