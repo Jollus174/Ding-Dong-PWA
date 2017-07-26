@@ -172,7 +172,7 @@ var characters = (function() {
         var self = this;
 
         self.getAll = function() {
-            // retrieve all the arrivals from the API
+            // retrieve all the characters from the API
             return characterApiService.getAll().then(function(response) {
                 /*var obj = JSON.parse(characterApiService.getAll());
                 console.log(obj);*/
