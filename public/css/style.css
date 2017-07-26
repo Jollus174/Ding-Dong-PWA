@@ -1,3 +1,5 @@
+/* Minimal */
+
 @font-face {
     font-family: 'Roboto';
     font-style: normal;
@@ -285,10 +287,7 @@ ol {
     padding: 0;
 }
 
-
-
 .content {
-    /*max-width: 72em;*/
     margin-left: auto;
     margin-right: auto;
 }
@@ -299,8 +298,6 @@ ol {
     flex-direction: column;
     position:relative;
 }
-
-
 
 header h3 {
     margin: 0;
@@ -342,11 +339,6 @@ header h3 {
     position:relative;
 }
 .loading #main{display:none; /* Will show this when Knockout is doing its thing */}
-/*.filtersActive{
-    margin-top:6.5em !important;
-}*/
-
-
 
 #offline {
     background: #f00;
@@ -665,8 +657,6 @@ body.toggle-sidedrawer{
     -webkit-box-shadow: 0 6px 12px rgba(0,0,0,.175);
     box-shadow: 0 6px 6px rgba(0,0,0,.175);
 }
-
-
 /* --- */
 
 /* --- TYPOGRAPHY --- */
