@@ -33,8 +33,7 @@ var Custom = (function() {
 				console.log('urls do not match!');
 
 				// Time to deconstruct that sucker
-				var parts = currentUrl.split('/');
-
+				var parts = currentUrl.splita
 				// Need to check if they're dialling one of the menu links, or a character
 				var urlDirectory = parts[parts.length - 1];
 				// Make it all lowercase so it doesn't fudge the selectors
@@ -65,7 +64,7 @@ var Custom = (function() {
 		}
 		// This line is the reason custom.js must be loaded via callback within characters.js.
 		// deconstructUrl() function will throw serious errors unless the Knockout JS has done its things
-		deconstructUrl();
+		//deconstructUrl();
 
 
 		function activateCharacter(self){
@@ -74,11 +73,6 @@ var Custom = (function() {
 			if(!$this.hasClass('active')){
 
 				$this.addClass('active');
-
-				/*$('.rageBtn').click(function(){
-					constructUrl($this);
-				});*/
-
 
 				$('body').addClass('no-scroll character-active');
 				if(($this).find('.characterImageContainer').hasClass('text-dark')){
@@ -146,7 +140,7 @@ var Custom = (function() {
 					fixedRagebar($('.character-box.active .characterBorder'));
 				})
 
-				constructUrl(self);
+				//constructUrl(self);
 			}
 		}
 		
@@ -284,9 +278,10 @@ var Custom = (function() {
 			
 			// Page does not force reload if '#' is in the URL
 			// https://stackoverflow.com/questions/2405117/difference-between-window-location-href-window-location-href-and-window-location
-			var baseUrl = window.location.protocol + "//" + window.location.host + '/#/';
+			/*var baseUrl = window.location.protocol + "//" + window.location.host + '/#/';
 			console.log(baseUrl);
-			window.location.replace(baseUrl);
+			window.location.replace(baseUrl);*/
+			// This seems to cause problems with the PWA side of things, and forces some kind of reload anyway.
 		};
 
 

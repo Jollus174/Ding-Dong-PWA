@@ -140,7 +140,6 @@ var Page = (function(){
 			}
 		}
 
-
 		// Using traditional jQuery 'click()' bindings will not work on dynamically generated character boxes!
 		// https://stackoverflow.com/questions/6658752/click-event-doesnt-work-on-dynamically-generated-elements
 
@@ -159,7 +158,7 @@ var Page = (function(){
 		},
 		showOfflineWarning: function(){
 			// disable the live data
-			document.querySelector('body').classList.add('loading')
+			// document.querySelector('body').classList.add('loading')
 			// load html template informing the user they are offline
 			var request = new XMLHttpRequest();
 			request.open('GET', './offline.html', true);
@@ -169,21 +168,12 @@ var Page = (function(){
 					// success
 					// create offline element with HTML loaded from offline.html template
 
-					//var offlineMessageElement = document.createElement('div');
- 					//offlineMessageElement.setAttribute("id", "offline");
-                    //offlineMessageElement.innerHTML = request.responseText;
-                    //document.getElementById("main").appendChild(offlineMessageElement);
-
 					document.getElementById('notification').innerHTML = request.responseText;
 					document.getElementById('notification').style.display = 'block';
 					setTimeout(function(){
 						document.getElementById('notification').style.display = 'none';
 					}, 3000);
 
-					/*var offlineMessageElement = document.createElement('div');
- 					offlineMessageElement.setAttribute("id", "offline");
-                    offlineMessageElement.innerHTML = request.responseText;
-                    document.getElementById("main").appendChild(offlineMessageElement);*/
                 } else {
                     // error retrieving file
                     console.warn('Error retrieving offline.html');
@@ -197,7 +187,6 @@ var Page = (function(){
 
             request.send();
         }
-
    }
 
 })();
