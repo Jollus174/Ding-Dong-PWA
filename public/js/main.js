@@ -1,16 +1,13 @@
 // Register the service worker (if available).
 // Updating this to include push manager for updating the PWA
 // https://developers.google.com/web/fundamentals/getting-started/codelabs/push-notifications/
-if('serviceWorker' in navigator /*&& 'PushManager' in window*/){
+/*if('serviceWorker' in navigator){
     console.log('Service Worker is supported');
     navigator.serviceWorker.register('./service-worker.js').then(function(reg){
         console.log('Successfully registered service worker', reg);
     }).catch(function(err){
         console.warn('Error while registering service worker', err);
     });
-} /*else {
-    console.warn('Push messaging is not supported');
-    //pushButton.textContent = 'Push Not Supported';
 }*/
 
 window.addEventListener('online', function(e) {

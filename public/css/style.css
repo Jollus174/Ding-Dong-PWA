@@ -1073,7 +1073,7 @@ body.show-extra-info .extra-info{display:block;}
     padding:0 20px 20px;
 }
 
-#character-list li.active{
+#characterModal.active{
     position:fixed;
     z-index:10;
     margin:0 !important;
@@ -1083,12 +1083,13 @@ body.show-extra-info .extra-info{display:block;}
     right:0;
     top:0;
     bottom:0;
+    display:block;
 }
 
-#character-list li.active .grid-index{display:none;}
+/*#characterModal.active .grid-index{display:none;}*/
 
 
-#character-list li.active .characterBorder{
+#characterModal.active .characterContainer{
     /*will-change: transform;*/ /* Don't know what this does. Stolen from pokedex.org styles */ /* ??? This stops the rage sticky bar from sticking! */
     position: absolute;
     z-index: 10;
@@ -1105,11 +1106,11 @@ body.show-extra-info .extra-info{display:block;}
     margin:55px auto 20px;
 }
 
-.characterUnderlay{
+.modalUnderlay{
     -webkit-transform-origin: 0 0;
     transform-origin: 0 0;
 }
-.no-scroll .characterUnderlay{
+.no-scroll .modalUnderlay{
     display:block;
     position: absolute;
     width: 100%;
@@ -1122,7 +1123,7 @@ body.show-extra-info .extra-info{display:block;}
     opacity:1;
     transition:background-color 0.5s ease;
 }
-#character-list li.active .characterImage{
+#characterModal.active .characterImage{
     cursor:initial;
     opacity:0.3;
 }
@@ -1130,7 +1131,7 @@ body.show-extra-info .extra-info{display:block;}
 
 
 
-#character-list li.active .characterName{
+#characterModal.active .characterName{
     display: block;
     position: absolute;
     margin:auto;
@@ -1144,7 +1145,7 @@ body.show-extra-info .extra-info{display:block;}
     text-transform: uppercase;
 }
 
-#characterBackButton{
+.backButton{
     position:fixed;
     top:10px;
     left:-100px;
@@ -1156,7 +1157,7 @@ body.show-extra-info .extra-info{display:block;}
     line-height: 0;
     transition:background-color 0.2s ease, opacity 0.5s ease, left 0.5s ease;
 }
-#characterBackButton.active{
+.active .backButton{
     display: block;
     top:10px;
     left: 10px;
@@ -1164,7 +1165,7 @@ body.show-extra-info .extra-info{display:block;}
     background: rgba(0,0,0,0.1);
     transition:opacity 0.5s ease, background-color 0.2s ease;
 }
-#characterBackButton.active:hover{
+.active .backButton:hover{
     background: rgba(0,0,0,0.5);
     cursor:pointer;
 }
@@ -1179,7 +1180,7 @@ body.show-extra-info .extra-info{display:block;}
     /*padding: 20px 0;*/
     height:60px;
 }
-.character-active #icon-prev, .character-active #icon-next{
+#character-modal.active #icon-prev, #character-modal.active #icon-next{
     display:block;
 }
 #icon-prev{left: 5px;}
@@ -1462,7 +1463,7 @@ tr.table-descs td{
 
     .btn-group.mobile{display:none !important;}
 
-    .no-scroll .characterUnderlay{opacity:0.95;}
+    .no-scroll .modalUnderlay{opacity:0.95;}
 
     .header-filters.desktop .btn-group{
         float:right;
@@ -1478,7 +1479,7 @@ tr.table-descs td{
 
     .text-dark #icon-prev .pathfill, .text-dark #icon-next .pathfill{fill:#333;}
 
-    #character-list li.active .characterBorder{
+    #character-list li.active .characterContainer{
         /*height:90%;*/
     }
 
@@ -1486,7 +1487,7 @@ tr.table-descs td{
     .leftImage .characterImage:hover{background-position:center -7px;}
     .rightImage .characterImage:hover{background-position:center -7px;}
 
-    #characterBackButton{
+    .backButton{
         padding:1em;
     }
 
@@ -1532,7 +1533,7 @@ tr.table-descs td{
     }
 
     .table-sm td, .table-sm th{padding:0.3rem;}
-    #character-list li.active .characterBorder{
+    #character-list li.active .characterContainer{
         margin: 20px auto 20px;  
     }
 

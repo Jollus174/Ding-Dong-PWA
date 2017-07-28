@@ -11,138 +11,107 @@ var Custom = (function() {
 
 	defer(function(){
 
-		// This would all normally be under 'activateCharacter()', with an event listener to check for custom URLs from incoming visitors
-		// Execept NOT. About and Credits will be under separate URLs too, and would not use the activateCharacter() function.
-		function constructUrl(self){
-			var locationHost = window.location.host;
-			var baseUrl = window.location.protocol + "//" + locationHost;
-			var dataUrl = self.attr('data-url');
-
-			var constructedUrl = baseUrl + '/#/' + dataUrl;
-			window.location.replace(constructedUrl);
-		}
-
-		function deconstructUrl(){
-			var baseUrl = window.location.protocol + "//" + window.location.host + '/';
-			var currentUrl = $(location).attr('href');
-			console.log('base url is ' + baseUrl + ' and current url is ' + currentUrl);
-
-			if(baseUrl != currentUrl && baseUrl + '#' != currentUrl && baseUrl + '#/' != currentUrl){
-
-				// Current URL is not the base URL
-				console.log('urls do not match!');
-
-				// Time to deconstruct that sucker
-				var parts = currentUrl.splita
-				// Need to check if they're dialling one of the menu links, or a character
-				var urlDirectory = parts[parts.length - 1];
-				// Make it all lowercase so it doesn't fudge the selectors
-				urlDirectory = urlDirectory.toLowerCase();
-				if(urlDirectory == 'about'){
-					// activate About box
-					console.log('about activated!');
-					activateMenuBox('page-about');
-				} else if (urlDirectory == 'credits'){
-					// activate Credits box
-					console.log('credits activated!');
-					activateMenuBox('page-credits');
-				} else {
-
-					// Target the character with the class defined in the URl
-					var urlCharacter = $('.' + String(urlDirectory)).closest('.character-box');
-					// and activate it
-					if(urlCharacter.length){
-						activateCharacter(urlCharacter);
-					} else {
-						// It needs to fallback though in case the character is undefined.
-						console.log('This character does not exist, yo');
-						$('#notification').html('Looks like this character does not exist.<br>Please check the URL.').show();
-						$('#notification').delay(3000).fadeOut();
-					}
-				}
-			}
-		}
-		// This line is the reason custom.js must be loaded via callback within characters.js.
-		// deconstructUrl() function will throw serious errors unless the Knockout JS has done its things
-		//deconstructUrl();
-
-
 		function activateCharacter(self){
 			var $this = self;
+			var $charModal = $('#characterModal');
 
-			if(!$this.hasClass('active')){
+			// Add class of 'selected' to the clicked character box. This is used for transitioning between characters while the modal box is open
+			$this.addClass('selected');
 
-				$this.addClass('active');
+			$charModal.addClass('active');
+			//$charModal.find('.backButton').addClass('active');
 
-				$('body').addClass('no-scroll character-active');
-				if(($this).find('.characterImageContainer').hasClass('text-dark')){
-					$('body').addClass('text-dark');
+
+			$('body').addClass('no-scroll character-active');
+
+			/*if(($this).find('.characterImageContainer').hasClass('text-dark')){
+				$('body').addClass('text-dark');
+			} else {
+				$('body').removeClass('text-dark');
+			}*/
+
+
+			// Apply colour of character BG to .characterUnderlay
+			/*var bgColour = $('.character-box.active .characterImageContainer').css('backgroundColor');
+			$('.characterUnderlay').css('backgroundColor', bgColour);*/
+
+			// Set max/min percentage differences for each stage section
+			/*rageAdjustment($this.find('.rageBtn.active'));*/
+
+			// RAGE MODIFIER STICKY
+			/*function fixedRagebar(self){
+				var windowTop = self.scrollTop();
+	            containerWidth = $('#character-list li.active .characterBorder').innerWidth();
+	            marginOffset = $('#character-list li.active .characterBorder').css('margin-top');
+	            if(120 < windowTop){
+	                $('#character-list li.active .sticky').addClass('stuck');
+	                $('.stuck').css({ top: marginOffset, width: containerWidth });
+
 				} else {
-					$('body').removeClass('text-dark');
+					$('.stuck').css({ top: 0, width: '100%' }); // restore the original top value of the sticky element
+					$('.sticky').removeClass('stuck');
 				}
-				$('#characterBackButton').addClass('active');
-
-				// Apply colour of character BG to .characterUnderlay
-				var bgColour = $('.character-box.active .characterImageContainer').css('backgroundColor');
-				$('.characterUnderlay').css('backgroundColor', bgColour);
-
-				// Set max/min percentage differences for each stage section
-				rageAdjustment($this.find('.rageBtn.active'));
-
-				// RAGE MODIFIER STICKY
-				function fixedRagebar(self){
-					var windowTop = self.scrollTop();
-		            containerWidth = $('#character-list li.active .characterBorder').innerWidth();
-		            marginOffset = $('#character-list li.active .characterBorder').css('margin-top');
-		            if(120 < windowTop){
-		                $('#character-list li.active .sticky').addClass('stuck');
-		                $('.stuck').css({ top: marginOffset, width: containerWidth });
-
-					} else {
-						$('.stuck').css({ top: 0, width: '100%' }); // restore the original top value of the sticky element
-						$('.sticky').removeClass('stuck');
-					}
-				}
-				fixedRagebar($('.character-box.active .characterBorder'));
-
-				// Limiting min execution interval on scroll to help prevent scroll jank
-				// http://joji.me/en-us/blog/how-to-develop-high-performance-onscroll-event
-				var scroll = function(){
-					fixedRagebar($('.character-box.active .characterBorder'));
-				}
-				var raf = window.requestAnimationFrame ||
-				    window.webkitRequestAnimationFrame ||
-				    window.mozRequestAnimationFrame ||
-				    window.msRequestAnimationFrame ||
-				    window.oRequestAnimationFrame;
-				var $window = $('.character-box.active .characterBorder');
-				var lastScrollTop = $window.scrollTop();
-
-				if (raf) {
-		    		loop();
-				}
-				function loop() {
-				    var scrollTop = $window.scrollTop();
-				    if (lastScrollTop === scrollTop) {
-				        raf(loop);
-				        return;
-				    } else {
-				        lastScrollTop = scrollTop;
-				        // fire scroll function if scrolls vertically
-				        scroll();
-				        raf(loop);
-				    }
-				}
-
-				// Need to resize based on window.innerHeight due to mobile address bar sizings.
-				// https://developers.google.com/web/updates/2016/12/url-bar-resizing
-				$(window).resize(function(e){
-					fixedRagebar($('.character-box.active .characterBorder'));
-				})
-
-				//constructUrl(self);
 			}
+			fixedRagebar($('.character-box.active .characterBorder'));*/
+
+			// Limiting min execution interval on scroll to help prevent scroll jank
+			// http://joji.me/en-us/blog/how-to-develop-high-performance-onscroll-event
+			/*var scroll = function(){
+				fixedRagebar($('.character-box.active .characterBorder'));
+			}
+			var raf = window.requestAnimationFrame ||
+			    window.webkitRequestAnimationFrame ||
+			    window.mozRequestAnimationFrame ||
+			    window.msRequestAnimationFrame ||
+			    window.oRequestAnimationFrame;
+			var $window = $('.character-box.active .characterBorder');
+			var lastScrollTop = $window.scrollTop();
+
+			if (raf) {
+	    		loop();
+			}
+			function loop() {
+			    var scrollTop = $window.scrollTop();
+			    if (lastScrollTop === scrollTop) {
+			        raf(loop);
+			        return;
+			    } else {
+			        lastScrollTop = scrollTop;
+			        // fire scroll function if scrolls vertically
+			        scroll();
+			        raf(loop);
+			    }
+			}*/
+
+			// Need to resize based on window.innerHeight due to mobile address bar sizings.
+			// https://developers.google.com/web/updates/2016/12/url-bar-resizing
+			/*$(window).resize(function(e){
+				fixedRagebar($('.character-box.active .characterBorder'));
+			})*/
 		}
+
+		function deactivateCharacter(){
+			var $body = $('body');
+			$body.removeClass('no-scroll');
+			// determine if body has clas 'character-active', to see if we're deactivating a character or a menu page
+			if($body.hasClass('character-active')){
+				var $charModal = $('#characterModal');
+				$charModal.removeClass('active');
+				$charModal.find('.rageModifier').removeClass('stuck');
+				$charModal.find('.characterBorder').css('height', 'auto');
+				$('#character-list li.selected').removeClass('selected');
+				$body.removeClass('character-active');
+			} else {
+				$('.menu-page > div').hide();
+			}
+			
+			// Page does not force reload if '#' is in the URL
+			// https://stackoverflow.com/questions/2405117/difference-between-window-location-href-window-location-href-and-window-location
+			/*var baseUrl = window.location.protocol + "//" + window.location.host + '/#/';
+			console.log(baseUrl);
+			window.location.replace(baseUrl);*/
+			// This seems to cause problems with the PWA side of things, and forces some kind of reload anyway.
+		};
 		
 
 		function rageAdjustment(self){
@@ -153,6 +122,11 @@ var Custom = (function() {
 			var rageAdjMin = "";
 			var rageAdjMax = "";
 
+			// According to the data, characters with ... dunno, I got nothing
+			// There seems to be no distinct pattern of how rage causes the min and max% windows to decay
+			// Earlier, a rough spreadsheet was put together to try and measure the variance of decay between characters --> https://docs.google.com/spreadsheets/d/10YmEZihWk6oPPXnynnfIpyEApfl0ANPRlCq4WnHv3Ls/edit#gid=0
+			// The stuff in red measures accumulated decay. Doesn't seem to be a pattern, so an average value is taken
+
 			// Calculate amount to adjust min-percent based on rage
 			if(rageAmount == "50"){rageAdjMin = -2; rageAdjMax = -5 }
 			if(rageAmount == "60"){rageAdjMin = -5; rageAdjMax = -9 }
@@ -161,13 +135,7 @@ var Custom = (function() {
 			if(rageAmount == "125"){rageAdjMin = -14; rageAdjMax = -27 }
 			if(rageAmount == "150"){rageAdjMin = -18; rageAdjMax = -33 }
 
-			// According to the data, characters with ... dunno, I got nothing
-			// Bowser has 12% window (average), weight 130, gravity 0.11 (mid)
-			// D3 has 30% window (easy), weight 119, gravity 0.08 (low-mid)
-			// including a sort by Grav filter for my own reference
-
 			// I should rewrite this to include the percent diffs to avoid running through everything twice.
-			// EXCELLENT WORK!!
 			$('.character-box.active .stagePercents').each(function(){
 				var $this = $(this);
 
@@ -223,7 +191,7 @@ var Custom = (function() {
 			}
 			$('body').addClass('no-scroll').removeClass('text-dark');
 			$('.characterUnderlay').css('backgroundColor', 'rgb(136,136,136)');
-			$('#characterBackButton').addClass('active');
+			$('.characterBackButton').addClass('active');
 			$('#' + target).show();
 		}
 
@@ -261,28 +229,7 @@ var Custom = (function() {
 			}
 		}
 
-		function deactivateCharacter(){
-			var $body = $('body');
-			$('#characterBackButton').removeClass('active');
-			$body.removeClass('no-scroll');
 
-			// determine if body has clas 'character-active', to see if we're deactivating a character or a menu page
-			if($body.hasClass('character-active')){
-				$('#character-list li.active .rageModifier').removeClass('stuck');
-				$('#character-list li.active .characterBorder').css('height', 'auto');
-				$('#character-list li.active').removeClass('active');
-				$body.removeClass('character-active');
-			} else {
-				$('.menu-page > div').hide();
-			}
-			
-			// Page does not force reload if '#' is in the URL
-			// https://stackoverflow.com/questions/2405117/difference-between-window-location-href-window-location-href-and-window-location
-			/*var baseUrl = window.location.protocol + "//" + window.location.host + '/#/';
-			console.log(baseUrl);
-			window.location.replace(baseUrl);*/
-			// This seems to cause problems with the PWA side of things, and forces some kind of reload anyway.
-		};
 
 
 
@@ -388,7 +335,7 @@ var Custom = (function() {
 
 		// Using traditional 'click()' bindings will not work on dynamically generated character boxes!
 		// https://stackoverflow.com/questions/6658752/click-event-doesnt-work-on-dynamically-generated-elements
-		$('#main').on('click', '.character-box', function(){
+		$('#main').on('click', '#character-list .character-box', function(){
 			activateCharacter($(this));
 		})
 		$('#main').on('click', '.rageBtn', function(){
@@ -405,7 +352,7 @@ var Custom = (function() {
 		$('#icon-prev').click(function(){
 			transitionCharacterBackward($('.character-box.active'));
 		});
-		$('#characterBackButton').click(function(){
+		$('.backButton').click(function(){
 			deactivateCharacter();
 		});
 
