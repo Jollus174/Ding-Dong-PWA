@@ -8,8 +8,8 @@
     <title>DK Ding Dong Percent Reference</title>
     <meta name="description" content="A Progressive Web App for Calculating Donkey Kong Ding Dong Percents in Super Smash Bros. for Wii U." />
 
-    <link async rel="stylesheet" href="./css/style.css">
-    <!--<link async rel="stylesheet" href="./css/style-minified.css">-->
+    <!--<link async rel="stylesheet" href="./css/style.css">-->
+    <link async rel="stylesheet" href="./css/style-minified.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,500,700" rel="stylesheet" type="text/css">
     <link rel="manifest" href="./manifest.json">
     <meta name="theme-color" content="#ffd54f">
@@ -129,12 +129,11 @@
 		  	</ul>
 	  	</div>
 	</div>
-
-	<div class="modalUnderlay" style="background-color: rgb(125, 120, 152);" hidden></div>
+	<div class="characterUnderlay" hidden></div>
 
 	<div id="content-wrapper" class="container">
 
-		<div id="menuBackButton" class="backButton">
+		<div id="characterBackButton">
 			<svg id="icon-arrowback" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
 			    <path d="M0 0h24v24H0z" fill="none"/>
 			    <path class="pathfill" d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
@@ -220,7 +219,7 @@
 
 				<p>Credit to <a href="https://twitter.com/LittleZ_SSB">Little Z</a> for creating his Little Book of Ding Dong and inspiring the idea of the online calculator to begin with.</p>
 
-				<p>Thanks to <a href="https://twitter.com/KuroganeHammer" target="_blank" rel="noopener">Kurogane Hammer</a> for cataloguing the frame data for every character, <a href="https://twitter.com/Ruben_dal" target_"blank">Ruben</a> for creating the Android app, and <a href="https://twitter.com/franndotexe" target="_blank" rel="noopener">FrannSoft</a> for developing the KH API.</p>
+				<p>Thanks to <a href="https://twitter.com/KuroganeHammer" target="_blank" rel="noopener">Kurogane Hammer</a> for cataloguing the frame data for every character, <a href="https://twitter.com/Ruben_dal" target_"blank">Ruben</a> for creating the Android app, and <a href="https://twitter.com/franndotexe" target="_blank" rel="noopener">FrannSoft</a> for developing the KH API.
 
 				<p>Shoutouts to <a href="https://twitter.com/likeacyansunday">Shiva</a> for helping out with the images, and <a href="https://twitter.com/lhc_maribro?lang=en">Maribro</a> for Friday night Ganon dittos and keeping me sane.</p>
 
@@ -233,314 +232,267 @@
 		</div> <!-- menu-page -->
 		<div id="main" class="content">
 
+			<svg id="icon-prev" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+			    <path class="pathfill" d="M15.41 16.09l-4.58-4.59 4.58-4.59L14 5.5l-6 6 6 6z"/>
+			    <path d="M0-.5h24v24H0z" fill="none"/>
+			</svg>
+			<svg id="icon-next" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+			    <path class="pathfill" d="M8.59 16.34l4.58-4.59-4.58-4.59L10 5.75l6 6-6 6z"/>
+			    <path d="M0-.25h24v24H0z" fill="none"/>
+			</svg>
 			<ul id="character-list" class="character-list clearfix" data-bind="foreach: character">
-				<li class="character-box clearfix" data-bind="attr: {'data-url': url} ">
+				<li class="character-box clearfix" data-bind="attr: {'data-url': url} "><!--data-bind="click: $root.getItemIndex"-->
 					<div class="characterBorder clearfix">
 						<div class="characterImageContainer" data-bind="style: {backgroundColor: bgColour}, css: imageProperties">
 							<div class="characterImage"><div class="characterImageContainer-lightOverlay"></div></div>
 							
 							<div class="grid-difficulty">
-								<span data-bind="attr: {class: difficulty}" class="easy"><span data-bind="text: difficulty">easy</span> - <span data-bind="text: percRange">28</span>%</span>
+								<span data-bind="attr: {class: difficulty}"><span data-bind="text: difficulty"></span> - <span data-bind="text: percRange"></span>%</span>
 							</div>
 							<div class="grid-index">
-								<span data-bind="text: ($index() + 1)">16</span>
+								<span data-bind="text: ($index() + 1)"></span>
 							</div>
 							<div class="grid-percRange">
-								<span><span data-bind="text: minPercent">83</span> - <span data-bind="text: maxPercent">111</span>%</span>
+								<span><span data-bind="text: minPercent"></span> - <span data-bind="text: maxPercent"></span>%</span>
 							</div>
-							<div hidden="" class="extra-info grid-fallspeed">
-								<span>Fallspeed - <span style="font-weight:700;" data-bind="text: fallspeed">1.65</span></span>
+							<div hidden class="extra-info grid-fallspeed">
+								<span>Fallspeed - <span style="font-weight:700;" data-bind="text: fallspeed"></span></span>
 							</div>
-							<div hidden="" class="extra-info grid-gravity">
-								<span>Gravity - <span style="font-weight:700;" data-bind="text: gravity">0.10784</span></span>
+							<div hidden class="extra-info grid-gravity">
+								<span>Gravity - <span style="font-weight:700;" data-bind="text: gravity"></span></span>
 							</div>
+							<!--<div hidden class="extra-info grid-difficultyValue">
+								<span>Difficulty Value - <span style="font-weight:700;" data-bind="text: difficultyValue"></span></span>
+							</div>-->
 							<div class="characterName">
-								<span data-bind="text:name">Ganondorf</span>
+								<span data-bind="text:name"></span>
 							</div>
 							<div class="characterOverview">
 								<ul>
-									<li>Weight <span class="value" data-bind="text: weight">113</span></li>
-									<li>Fallspeed<span class="value" data-bind="text: fallspeed">1.65</span></li>
-									<li>Airdodge <span class="value"><span data-bind="text: airdodgeStart">4</span> - <span data-bind="text: airdodgeEnd">29</span></span></li>
-									<li>Gravity <span class="value" data-bind="text: gravity">0.10784</span></li>
+									<li>Weight <span class="value" data-bind="text: weight"></span></li>
+									<li>Fallspeed<span class="value" data-bind="text: fallspeed"></span></li>
+									<li>Airdodge <span class="value"><span data-bind="text: airdodgeStart"></span> - <span data-bind="text: airdodgeEnd"></span></span></li>
+									<li>Gravity <span class="value" data-bind="text: gravity"></span></li>
 								</ul>
 							</div>
 							<div class="characterTitleBar">
-								<span class="name" data-bind="text: name">Ganondorf</span>
+								<span class="name" data-bind="text: name"></span>
 							</div>
 						</div>
 
-					</div> <!-- characterContainer -->
+						<div class="characterDetails" hidden>
+							<div class="rageModifier sticky">
+								<h3>Donkey Kong Rage Modifier</h3>
+								<div class="btn-group">
+									<button class="btn rageBtn resetBtn active" data-rage="0">0%</button>
+									<button class="btn rageBtn" data-rage="50">50%</button>
+									<button class="btn rageBtn" data-rage="60">60%</button>
+									<button class="btn rageBtn" data-rage="80">80%</button>
+									<button class="btn rageBtn" data-rage="100">100%</button>
+									<button class="btn rageBtn" data-rage="125">125%</button>
+									<button class="btn rageBtn maxRageBtn" data-rage="150">150%</button>
+								</div>
+
+							</div>
+
+							<div class="stages">
+
+								<div class="stage stage-fd col-1 clearfix">
+									<h3>Final Destination</h3>
+									<div class="stage-content clearfix">
+										<div class="stageImage clearfix"></div>
+										<div class="stageTables clearfix">
+											<table class="stagePercents table table-bordered table-sm 1-col" cellpadding="0" cellspacing="0" border="0">
+												<tr>
+													<th colspan="3">FD Normal</th>
+												</tr>
+												<tr class="table-descs">
+													<td>Min DD %</td>
+													<td>Max DD %</td>
+													<td>Window</td>
+												</tr>
+												<tr>
+													<td>
+														<p><span data-bind="text: fd, attr: {'data-defaultmin': fd, class: 'minPerc'}"></span</p>
+													</td>
+													<td>
+														<p><span data-bind="text: maxPercent, attr: {'data-defaultmax': maxPercent, class: 'maxPerc'}"></span></p>
+													</td>
+													<td class="percRange-cell">
+														<p><span class="percRange"></span></p>
+													</td>
+												</tr>
+											</table>
+										</div>
+									</div>
+								</div>
+
+								<div class="stage stage-bf clearfix col-3">
+									<h3>Battlefield</h3>
+									<div class="stage-content clearfix">
+										<div class="stageImage clearfix"></div>
+										<div class="stageTables clearfix">
+											<table class="stagePercents table table-bordered table-sm" cellpadding="0" cellspacing="0" border="0">
+												<tr>
+													<th colspan="3">BF Normal</th>
+												</tr>
+												<tr>
+													<td><p><span data-bind="text: bfNormalMin, attr: {'data-defaultmin': bfNormalMin, class: 'minPerc'}"></span></p></td>
+													<td><p><span data-bind="text: bfNormalMax, attr: {'data-defaultmax': bfNormalMax, class: 'maxPerc'}"></span></p></td>
+													<td class="percRange-cell"><p><span class="percRange"></span></p></td>
+												</tr>
+											</table>
+											<table class="stagePercents table table-bordered table-sm" cellpadding="0" cellspacing="0" border="0">
+												<tr>
+													<th colspan="3">BF Low Plat<span class="desktop">form</span></th>
+												</tr>
+												<tr>
+													<td><p><span data-bind="text: bfLowPlatMin, attr: {'data-defaultmin': bfLowPlatMin, class: 'minPerc'}"></span></p></td>
+													<td><p><span data-bind="text: bfLowPlatMax, attr: {'data-defaultmax': bfLowPlatMax, class: 'maxPerc'}"></span></p></td>
+													<td class="percRange-cell"><p><span class="percRange"></span></p></td>
+												</tr>
+											</table>
+											<table class="stagePercents table table-bordered table-sm" cellpadding="0" cellspacing="0" border="0">
+												<tr>
+													<th colspan="3">BF Top Plat<span class="desktop">form</span></th>
+												</tr>
+												<tr>
+													<td><p><span data-bind="text: bfTopPlatMin, attr: {'data-defaultmin': bfTopPlatMin, class: 'minPerc'}"></span></p></td>
+													<td><p><span data-bind="text: bfTopPlatMax, attr: {'data-defaultmax': bfTopPlatMax, class: 'maxPerc'}"></span></p></td>
+													<td class="percRange-cell"><p><span class="percRange"></span></p></td>
+												</tr>
+											</table>
+										</div>
+									</div>
+								</div>
+
+								<div class="stage stage-dl col-3 clearfix">
+									<h3>Dreamland</h3>
+									<div class="stage-content clearfix">
+										<div class="stageImage clearfix"></div>
+										<div class="stageTables clearfix">
+											<table class="stagePercents table table-bordered table-sm" cellpadding="0" cellspacing="0" border="0">
+												<tr>
+													<th colspan="3">DL Normal</th>
+												</tr>
+												<tr>
+													<td><p><span data-bind="text: dlNormalMin, attr: {'data-defaultmin': dlNormalMin, class: 'minPerc'}"></span></p></td>
+													<td><p><span data-bind="text: dlNormalMax, attr: {'data-defaultmax': dlNormalMax, class: 'maxPerc'}"></span></p></td>
+													<td class="percRange-cell"><p><span class="percRange"></span></p></td>
+												</tr>
+											</table>
+											<table class="stagePercents table table-bordered table-sm" cellpadding="0" cellspacing="0" border="0">
+												<tr>
+													<th colspan="3">DL Low Plat<span class="desktop">form</span></th>
+												</tr>
+												<tr>
+													<td><p><span data-bind="text: dlLowPlatMin, attr: {'data-defaultmin': dlLowPlatMin, class: 'minPerc'}"></span></p></td>
+													<td><p><span data-bind="text: dlLowPlatMax, attr: {'data-defaultmax': dlLowPlatMax, class: 'maxPerc'}"></span></p></td>
+													<td class="percRange-cell"><p><span class="percRange"></span></p></td>
+												</tr>
+											</table>
+											<table class="stagePercents table table-bordered table-sm" cellpadding="0" cellspacing="0" border="0">
+												<tr>
+													<th colspan="3">DL Top Plat<span class="desktop">form</span></th>
+												</tr>
+												<tr>
+													<td><p><span data-bind="text: dlTopPlatMin, attr: {'data-defaultmin': dlTopPlatMin, class: 'minPerc'}"></span></p></td>
+													<td><p><span data-bind="text: dlTopPlatMax, attr: {'data-defaultmax': dlTopPlatMax, class: 'maxPerc'}"></span></p></td>
+													<td class="percRange-cell"><p><span class="percRange"></span></p></td>
+												</tr>
+											</table>
+										</div>
+									</div>
+								</div>
+
+								<div class="stage stage-sv col-2 clearfix">
+									<h3>Smashville</h3>
+									<div class="stage-content clearfix">
+										<div class="stageImage clearfix"></div>
+										<div class="stageTables clearfix">
+											<table class="stagePercents table table-bordered table-sm" cellpadding="0" cellspacing="0" border="0">
+												<tr>
+													<th colspan="3">SV Normal</th>
+												</tr>
+												<tr>
+													<td><p><span data-bind="text: svNormalMin, attr: {'data-defaultmin': svNormalMin, class: 'minPerc'}"></span></p></td>
+													<td><p><span data-bind="text: svNormalMax, attr: {'data-defaultmax': svNormalMax, class: 'maxPerc'}"></span></p></td>
+													<td class="percRange-cell"><p><span class="percRange"></span></p></td>
+												</tr>
+											</table>
+											<table class="stagePercents table table-bordered table-sm" cellpadding="0" cellspacing="0" border="0">
+												<tr>
+													<th colspan="3">SV Plat<span class="desktop">form</span></th>
+												</tr>
+												<tr>
+													<td><p><span data-bind="text: svPlatMin, attr: {'data-defaultmin': svPlatMin, class: 'minPerc'}"></span></p></td>
+													<td><p><span data-bind="text: svPlatMax, attr: {'data-defaultmax': svPlatMax, class: 'maxPerc'}"></span></p></td>
+													<td class="percRange-cell"><p><span class="percRange"></span></p></td>
+												</tr>
+											</table>
+										</div>
+									</div>
+								</div>
+
+								<div class="stage stage-tc col-2 clearfix">
+									<h3>Town &amp; City</h3>
+									<div class="stage-content clearfix">
+										<div class="stageImage clearfix"></div>
+										<div class="stageTables clearfix">
+											<table class="stagePercents table table-bordered table-sm" cellpadding="0" cellspacing="0" border="0">
+												<tr>
+													<th colspan="3">TC Normal</th>
+												</tr>
+												<tr>
+													<td><p><span data-bind="text: tcNormalMin, attr: {'data-defaultmin': tcNormalMin, class: 'minPerc'}"></span></p></td>
+													<td><p><span data-bind="text: tcNormalMax, attr: {'data-defaultmax': tcNormalMax, class: 'maxPerc'}"></span></p></td>
+													<td class="percRange-cell"><p><span class="percRange"></span></p></td>
+												</tr>
+											</table>
+											<table class="stagePercents table table-bordered table-sm" cellpadding="0" cellspacing="0" border="0">
+												<tr>
+													<th colspan="3">TC Low Plat<span class="desktop">form</span></th>
+												</tr>
+												<tr>
+													<td><p><span data-bind="text: tcLowPlatMin, attr: {'data-defaultmin': tcLowPlatMin, class: 'minPerc'}"></span></p></td>
+													<td><p><span data-bind="text: tcLowPlatMax, attr: {'data-defaultmax': tcLowPlatMax, class: 'maxPerc'}"></span></p></td>
+													<td class="percRange-cell"><p><span class="percRange"></span></p></td>
+												</tr>
+											</table>
+											<table class="stagePercents table table-bordered table-sm" cellpadding="0" cellspacing="0" border="0">
+												<tr>
+													<th colspan="3">TC Side Plat<span class="desktop">form</span></th>
+												</tr>
+												<tr>
+													<td><p><span data-bind="text: tcSidePlatMin, attr: {'data-defaultmin': tcSidePlatMin, class: 'minPerc'}"></span></p></td>
+													<td><p><span data-bind="text: tcSidePlatMax, attr: {'data-defaultmax': tcSidePlatMax, class: 'maxPerc'}"></span></p></td>
+													<td class="percRange-cell"><p><span class="percRange"></span></p></td>
+												</tr>
+											</table>
+											<table class="stagePercents table table-bordered table-sm" cellpadding="0" cellspacing="0" border="0">
+												<tr>
+													<th colspan="3">TC Top Plat<span class="desktop">form</span></th>
+												</tr>
+												<tr>
+													<td><p><span data-bind="text: tcTopPlatMin, attr: {'data-defaultmin': tcTopPlatMin, class: 'minPerc'}"></span></p></td>
+													<td><p><span data-bind="text: tcTopPlatMax, attr: {'data-defaultmax': tcTopPlatMax, class: 'maxPerc'}"></span></p></td>
+													<td class="percRange-cell"><p><span class="percRange"></span></p></td>
+												</tr>
+											</table>
+										</div>
+									</div>
+								</div>
+
+							</div>
+
+						</div>
+					</div>
+					
 				</li>
 					
 			</ul>
 			
 		</div>
-
-		<!-- new character box -->
-		<div id="characterModal" hidden>
-
-			<div id="characterBackButton" class="backButton">
-				<svg id="icon-arrowback" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
-				    <path d="M0 0h24v24H0z" fill="none"/>
-				    <path class="pathfill" d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
-				</svg>
-			</div>
-
-			<svg id="icon-prev" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
-			    <path class="pathfill" d="M15.41 16.09l-4.58-4.59 4.58-4.59L14 5.5l-6 6 6 6z"></path>
-			    <path d="M0-.5h24v24H0z" fill="none"></path>
-			</svg>
-			<svg id="icon-next" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
-			    <path class="pathfill" d="M8.59 16.34l4.58-4.59-4.58-4.59L10 5.75l6 6-6 6z"></path>
-			    <path d="M0-.25h24v24H0z" fill="none"></path>
-			</svg>
-
-			<div class="characterContainer clearfix">
-				<div class="characterImageContainer ganondorf" style="background-color: rgb(125, 120, 152);"><!--data-bind="style: {backgroundColor: bgColour}, css: imageProperties"-->
-					<div class="characterImage"><div class="characterImageContainer-lightOverlay"></div></div>
-					
-					<!--<div class="grid-difficulty">
-						<span data-bind="attr: {class: difficulty}" class="easy"><span data-bind="text: difficulty">easy</span> - <span data-bind="text: percRange">28</span>%</span>
-					</div>
-					<div class="grid-index">
-						<span data-bind="text: ($index() + 1)">16</span>
-					</div>
-					<div class="grid-percRange">
-						<span><span data-bind="text: minPercent">83</span> - <span data-bind="text: maxPercent">111</span>%</span>
-					</div>
-					<div hidden="" class="extra-info grid-fallspeed">
-						<span>Fallspeed - <span style="font-weight:700;" data-bind="text: fallspeed">1.65</span></span>
-					</div>
-					<div hidden="" class="extra-info grid-gravity">
-						<span>Gravity - <span style="font-weight:700;" data-bind="text: gravity">0.10784</span></span>
-					</div>
-					<div class="characterName">
-						<span data-bind="text:name">Ganondorf</span>
-					</div>
-					<div class="characterOverview">
-						<ul>
-							<li>Weight <span class="value" data-bind="text: weight">113</span></li>
-							<li>Fallspeed<span class="value" data-bind="text: fallspeed">1.65</span></li>
-							<li>Airdodge <span class="value"><span data-bind="text: airdodgeStart">4</span> - <span data-bind="text: airdodgeEnd">29</span></span></li>
-							<li>Gravity <span class="value" data-bind="text: gravity">0.10784</span></li>
-						</ul>
-					</div>
-					<div class="characterTitleBar">
-						<span class="name" data-bind="text: name">Ganondorf</span>
-					</div>-->
-				</div>
-
-				<div class="characterDetails">
-					<div class="rageModifier sticky">
-						<h3>Donkey Kong Rage Modifier</h3>
-						<div class="btn-group">
-							<button class="btn rageBtn resetBtn active" data-rage="0">0%</button>
-							<button class="btn rageBtn" data-rage="50">50%</button>
-							<button class="btn rageBtn" data-rage="60">60%</button>
-							<button class="btn rageBtn" data-rage="80">80%</button>
-							<button class="btn rageBtn" data-rage="100">100%</button>
-							<button class="btn rageBtn" data-rage="125">125%</button>
-							<button class="btn rageBtn maxRageBtn" data-rage="150">150%</button>
-						</div>
-
-					</div>
-
-					<!--<div class="stages">
-
-						<div class="stage stage-fd col-1 clearfix">
-							<h3>Final Destination</h3>
-							<div class="stage-content clearfix">
-								<div class="stageImage clearfix"></div>
-								<div class="stageTables clearfix">
-									<table class="stagePercents table table-bordered table-sm 1-col" cellpadding="0" cellspacing="0" border="0">
-										<tr>
-											<th colspan="3">FD Normal</th>
-										</tr>
-										<tr class="table-descs">
-											<td>Min DD %</td>
-											<td>Max DD %</td>
-											<td>Window</td>
-										</tr>
-										<tr>
-											<td>
-												<p><span data-bind="text: fd, attr: {'data-defaultmin': fd, class: 'minPerc'}"></span></p>
-											</td>
-											<td>
-												<p><span data-bind="text: maxPercent, attr: {'data-defaultmax': maxPercent, class: 'maxPerc'}"></span></p>
-											</td>
-											<td class="percRange-cell">
-												<p><span class="percRange"></span></p>
-											</td>
-										</tr>
-									</table>
-								</div>
-							</div>
-						</div>
-
-						<div class="stage stage-bf clearfix col-3">
-							<h3>Battlefield</h3>
-							<div class="stage-content clearfix">
-								<div class="stageImage clearfix"></div>
-								<div class="stageTables clearfix">
-									<table class="stagePercents table table-bordered table-sm" cellpadding="0" cellspacing="0" border="0">
-										<tr>
-											<th colspan="3">BF Normal</th>
-										</tr>
-										<tr>
-											<td><p><span data-bind="text: bfNormalMin, attr: {'data-defaultmin': bfNormalMin, class: 'minPerc'}"></span></p></td>
-											<td><p><span data-bind="text: bfNormalMax, attr: {'data-defaultmax': bfNormalMax, class: 'maxPerc'}"></span></p></td>
-											<td class="percRange-cell"><p><span class="percRange"></span></p></td>
-										</tr>
-									</table>
-									<table class="stagePercents table table-bordered table-sm" cellpadding="0" cellspacing="0" border="0">
-										<tr>
-											<th colspan="3">BF Low Plat<span class="desktop">form</span></th>
-										</tr>
-										<tr>
-											<td><p><span data-bind="text: bfLowPlatMin, attr: {'data-defaultmin': bfLowPlatMin, class: 'minPerc'}"></span></p></td>
-											<td><p><span data-bind="text: bfLowPlatMax, attr: {'data-defaultmax': bfLowPlatMax, class: 'maxPerc'}"></span></p></td>
-											<td class="percRange-cell"><p><span class="percRange"></span></p></td>
-										</tr>
-									</table>
-									<table class="stagePercents table table-bordered table-sm" cellpadding="0" cellspacing="0" border="0">
-										<tr>
-											<th colspan="3">BF Top Plat<span class="desktop">form</span></th>
-										</tr>
-										<tr>
-											<td><p><span data-bind="text: bfTopPlatMin, attr: {'data-defaultmin': bfTopPlatMin, class: 'minPerc'}"></span></p></td>
-											<td><p><span data-bind="text: bfTopPlatMax, attr: {'data-defaultmax': bfTopPlatMax, class: 'maxPerc'}"></span></p></td>
-											<td class="percRange-cell"><p><span class="percRange"></span></p></td>
-										</tr>
-									</table>
-								</div>
-							</div>
-						</div>
-
-						<div class="stage stage-dl col-3 clearfix">
-							<h3>Dreamland</h3>
-							<div class="stage-content clearfix">
-								<div class="stageImage clearfix"></div>
-								<div class="stageTables clearfix">
-									<table class="stagePercents table table-bordered table-sm" cellpadding="0" cellspacing="0" border="0">
-										<tr>
-											<th colspan="3">DL Normal</th>
-										</tr>
-										<tr>
-											<td><p><span data-bind="text: dlNormalMin, attr: {'data-defaultmin': dlNormalMin, class: 'minPerc'}"></span></p></td>
-											<td><p><span data-bind="text: dlNormalMax, attr: {'data-defaultmax': dlNormalMax, class: 'maxPerc'}"></span></p></td>
-											<td class="percRange-cell"><p><span class="percRange"></span></p></td>
-										</tr>
-									</table>
-									<table class="stagePercents table table-bordered table-sm" cellpadding="0" cellspacing="0" border="0">
-										<tr>
-											<th colspan="3">DL Low Plat<span class="desktop">form</span></th>
-										</tr>
-										<tr>
-											<td><p><span data-bind="text: dlLowPlatMin, attr: {'data-defaultmin': dlLowPlatMin, class: 'minPerc'}"></span></p></td>
-											<td><p><span data-bind="text: dlLowPlatMax, attr: {'data-defaultmax': dlLowPlatMax, class: 'maxPerc'}"></span></p></td>
-											<td class="percRange-cell"><p><span class="percRange"></span></p></td>
-										</tr>
-									</table>
-									<table class="stagePercents table table-bordered table-sm" cellpadding="0" cellspacing="0" border="0">
-										<tr>
-											<th colspan="3">DL Top Plat<span class="desktop">form</span></th>
-										</tr>
-										<tr>
-											<td><p><span data-bind="text: dlTopPlatMin, attr: {'data-defaultmin': dlTopPlatMin, class: 'minPerc'}"></span></p></td>
-											<td><p><span data-bind="text: dlTopPlatMax, attr: {'data-defaultmax': dlTopPlatMax, class: 'maxPerc'}"></span></p></td>
-											<td class="percRange-cell"><p><span class="percRange"></span></p></td>
-										</tr>
-									</table>
-								</div>
-							</div>
-						</div>
-
-						<div class="stage stage-sv col-2 clearfix">
-							<h3>Smashville</h3>
-							<div class="stage-content clearfix">
-								<div class="stageImage clearfix"></div>
-								<div class="stageTables clearfix">
-									<table class="stagePercents table table-bordered table-sm" cellpadding="0" cellspacing="0" border="0">
-										<tr>
-											<th colspan="3">SV Normal</th>
-										</tr><
-										<tr>
-											<td><p><span data-bind="text: svNormalMin, attr: {'data-defaultmin': svNormalMin, class: 'minPerc'}"></span></p></td>
-											<td><p><span data-bind="text: svNormalMax, attr: {'data-defaultmax': svNormalMax, class: 'maxPerc'}"></span></p></td>
-											<td class="percRange-cell"><p><span class="percRange"></span></p></td>
-										</tr><
-									</table>
-									<table class="stagePercents table table-bordered table-sm" cellpadding="0" cellspacing="0" border="0">
-										<tr>
-											<th colspan="3">SV Plat<span class="desktop">form</span></th>
-										</tr>
-										<tr><
-											<td><p><span data-bind="text: svPlatMin, attr: {'data-defaultmin': svPlatMin, class: 'minPerc'}"></span></p></td>
-											<td><p><span data-bind="text: svPlatMax, attr: {'data-defaultmax': svPlatMax, class: 'maxPerc'}"></span></p></td>
-											<td class="percRange-cell"><p><span class="percRange"></span></p></td>
-										</tr>
-									</table>
-								</div>
-							</div>
-						</div>
-
-						<div class="stage stage-tc col-2 clearfix">
-							<h3>Town &amp; City</h3>
-							<div class="stage-content clearfix">
-								<div class="stageImage clearfix"></div>
-								<div class="stageTables clearfix">
-									<table class="stagePercents table table-bordered table-sm" cellpadding="0" cellspacing="0" border="0">
-										<tr>
-											<th colspan="3">TC Normal</th>
-										</tr>
-										<tr>
-											<td><p><span data-bind="text: tcNormalMin, attr: {'data-defaultmin': tcNormalMin, class: 'minPerc'}"></span></p></td>
-											<td><p><span data-bind="text: tcNormalMax, attr: {'data-defaultmax': tcNormalMax, class: 'maxPerc'}"></span></p></td>
-											<td class="percRange-cell"><p><span class="percRange"></span></p></td>
-										</tr>
-									</table>
-									<table class="stagePercents table table-bordered table-sm" cellpadding="0" cellspacing="0" border="0">
-										<tr>
-											<th colspan="3">TC Low Plat<span class="desktop">form</span></th>
-										</tr>
-										<tr>
-											<td><p><span data-bind="text: tcLowPlatMin, attr: {'data-defaultmin': tcLowPlatMin, class: 'minPerc'}"></span></p></td>
-											<td><p><span data-bind="text: tcLowPlatMax, attr: {'data-defaultmax': tcLowPlatMax, class: 'maxPerc'}"></span></p></td>
-											<td class="percRange-cell"><p><span class="percRange"></span></p></td>
-										</tr>
-									</table>
-									<table class="stagePercents table table-bordered table-sm" cellpadding="0" cellspacing="0" border="0">
-										<tr>
-											<th colspan="3">TC Side Plat<span class="desktop">form</span></th>
-										</tr>
-										<tr>
-											<td><p><span data-bind="text: tcSidePlatMin, attr: {'data-defaultmin': tcSidePlatMin, class: 'minPerc'}"></span></p></td>
-											<td><p><span data-bind="text: tcSidePlatMax, attr: {'data-defaultmax': tcSidePlatMax, class: 'maxPerc'}"></span></p></td>
-											<td class="percRange-cell"><p><span class="percRange"></span></p></td>
-										</tr>
-									</table>
-									<table class="stagePercents table table-bordered table-sm" cellpadding="0" cellspacing="0" border="0">
-										<tr>
-											<th colspan="3">TC Top Plat<span class="desktop">form</span></th>
-										</tr>
-										<tr>
-											<td><p><span data-bind="text: tcTopPlatMin, attr: {'data-defaultmin': tcTopPlatMin, class: 'minPerc'}"></span></p></td>
-											<td><p><span data-bind="text: tcTopPlatMax, attr: {'data-defaultmax': tcTopPlatMax, class: 'maxPerc'}"></span></p></td>
-											<td class="percRange-cell"><p><span class="percRange"></span></p></td>
-										</tr>
-									</table>
-								</div>
-							</div>
-						</div>
-
-					</div>-->
-
-				</div> <!-- characterDetails -->
-			</div> <!-- characterContainer -->
-		</div> <!-- characterModal -->
-
-		<!-- /new character box -->
 
 
 		<div id="notification"></div>
