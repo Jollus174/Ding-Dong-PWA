@@ -71,7 +71,9 @@ var characters = (function() {
                 vm.maxPercent = parseInt(data.maxPercent);
 
                 vm.percRange = ko.computed(function(){
-                    return vm.maxPercent - vm.minPercent;
+                    var percRange = vm.maxPercent - vm.minPercent;
+                    percRange++;
+                    return percRange;
                 }, this);
 
                 vm.difficulty = ko.computed(function(){
