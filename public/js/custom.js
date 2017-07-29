@@ -12,82 +12,199 @@ var Custom = (function() {
 	defer(function(){
 
 		function activateCharacter(self){
-			var $this = self;
-			var $charModal = $('#characterModal');
 
 			// Add class of 'selected' to the clicked character box. This is used for transitioning between characters while the modal box is open
-			$this.addClass('selected');
+			self.addClass('selected');
 
-			$charModal.addClass('active');
 			//$charModal.find('.backButton').addClass('active');
-
-
 			$('body').addClass('no-scroll character-active');
 
-			/*if(($this).find('.characterImageContainer').hasClass('text-dark')){
+			// Grab the data-index attr added by Knockout for each box. This is used to link the box to the JSON data that's generated in the modal
+			var $index = self.closest('.character-box.selected').data('index');
+
+			// Firstly, generate a request for the JSON file
+			jQuery.getJSON('./api/data.json', function(data){
+
+				console.log('success');
+
+				// Begin the mapping
+				var name = data[$index].name;
+				var urlName = data[$index].url;
+				var bgColour = data[$index].bgColour;
+				var weight = data[$index].weight;
+				var minPercent = parseInt(data[$index].minPercent);
+				var maxPercent = parseInt(data[$index].maxPercent);
+				var fallspeed = data[$index].fallspeed;
+				var gravity = data[$index].gravity;
+				var airdodgeStart = data[$index].airdodgeStart;
+				var airdodgeEnd = data[$index].airdodgeEnd;
+				var textContrast = data[$index].textContrast;
+
+				var airdodge = airdodgeStart + ' - ' + airdodgeEnd;
+				var percRange = (maxPercent - minPercent) + 1;
+
+				// Character Modal initialisers
+				var $charModal = $('#characterModal');
+				// Need to strip all classes from 'characterImageContainer' to remove the applied character class
+				// https://stackoverflow.com/questions/5363289/remove-all-classes-except-one
+				$charModal.find('.characterImageContainer').attr('class', 'characterImageContainer').addClass(urlName).css('backgroundColor', bgColour);
+				$charModal.addClass('active animate');
+				if(textContrast){
+					$charModal.addClass(textContrast);
+				}
+
+				$('.modalUnderlay').css('backgroundColor', bgColour);
+
+				$charModal.find('.grid-percRange .minPerc').text(minPercent);
+				$charModal.find('.grid-percRange .maxPerc').text(maxPercent);
+				$charModal.find('span[data-ref="name"]').text(name);
+
+				// Generating the difficulty text via the global function in characters.js
+				var difficultyAmount = computeDifficulty(minPercent, maxPercent);
+				$charModal.find('.grid-difficulty').html('<span class="' + difficultyAmount + '">' + difficultyAmount + ' - ' + percRange + '%</span>');
+				$charModal.find('.characterName').text(name);
+
+				var $charOverviewItem = $charModal.find('.characterOverview');
+				$charOverviewItem.find('li[data-ref="weight"]').html('Weight' + '<span class="value">' + weight + '</span>');
+				$charOverviewItem.find('li[data-ref="fallspeed"]').html('Gravity' + '<span class="value">' + fallspeed + '</span>');
+				$charOverviewItem.find('li[data-ref="airdodge"]').html('Airdodge' + '<span class="value">' + airdodge + '</span>');
+				$charOverviewItem.find('li[data-ref="gravity"]').html('Gravity' + '<span class="value">' + gravity + '</span>');
+
+				// Map those mf-ing values
+				var $fd = $charModal.find('.stage-fd');
+				$fd.find('span[data-ref="minPerc"]').text(minPercent).attr('data-defaultmin', minPercent);
+				$fd.find('span[data-ref="maxPerc"]').text(maxPercent).attr('data-defaultmax', maxPercent);
+
+				var $bf = $charModal.find('.stage-bf');
+				$bf.find('span[data-ref="bfNormalMin"]').text(minPercent+7).attr('data-defaultmin', minPercent);
+				$bf.find('span[data-ref="bfNormalMax"]').text(maxPercent).attr('data-defaultmax', maxPercent);
+				$bf.find('span[data-ref="bfLowPlatMin"]').text(minPercent-7).attr('data-defaultmin', minPercent-7);
+				$bf.find('span[data-ref="bfLowPlatMax"]').text(maxPercent).attr('data-defaultmax', maxPercent);
+				$bf.find('span[data-ref="bfTopPlatMin"]').text(minPercent-20).attr('data-defaultmin', minPercent-20);
+				$bf.find('span[data-ref="bfTopPlatMax"]').text(maxPercent).attr('data-defaultmax', maxPercent);
+
+				var $dl = $charModal.find('.stage-dl');
+				$dl.find('span[data-ref="dlNormalMin"]').text(minPercent).attr('data-defaultmin', minPercent);
+				$dl.find('span[data-ref="dlNormalMax"]').text(maxPercent).attr('data-defaultmax', maxPercent);
+				$dl.find('span[data-ref="dlLowPlatMin"]').text(minPercent-15).attr('data-defaultmin', minPercent-15);
+				$dl.find('span[data-ref="dlLowPlatMax"]').text(maxPercent).attr('data-defaultmax', maxPercent);
+				$dl.find('span[data-ref="dlTopPlatMin"]').text(minPercent-26).attr('data-defaultmin', minPercent-26);
+				$dl.find('span[data-ref="dlTopPlatMax"]').text(maxPercent).attr('data-defaultmax', maxPercent);
+
+				var $sv = $charModal.find('.stage-sv');
+				$sv.find('span[data-ref="svNormalMin"]').text(minPercent+1).attr('data-defaultmin', minPercent+1);
+				$sv.find('span[data-ref="svNormalMax"]').text(maxPercent).attr('data-defaultmax', maxPercent);
+				$sv.find('span[data-ref="svPlatMin"]').text(minPercent-14).attr('data-defaultmin', minPercent-14);
+				$sv.find('span[data-ref="svPlatMax"]').text(maxPercent).attr('data-defaultmax', maxPercent);
+
+				var $tc = $charModal.find('.stage-tc');
+				$tc.find('span[data-ref="tcNormalMin"]').text(minPercent-4).attr('data-defaultmin', minPercent-4);
+				$tc.find('span[data-ref="tcNormalMax"]').text(maxPercent).attr('data-defaultmax', maxPercent);
+				$tc.find('span[data-ref="tcLowPlatMin"]').text(minPercent-20).attr('data-defaultmin', minPercent-20);
+				$tc.find('span[data-ref="tcLowPlatMax"]').text(maxPercent).attr('data-defaultmax', maxPercent);
+				$tc.find('span[data-ref="tcSidePlatMin"]').text(minPercent-25).attr('data-defaultmin', minPercent-25);
+				$tc.find('span[data-ref="tcSidePlatMax"]').text(maxPercent).attr('data-defaultmax', maxPercent);
+				$tc.find('span[data-ref="tcTopPlatMin"]').text(minPercent-41).attr('data-defaultmin', minPercent-41);
+				$tc.find('span[data-ref="tcTopPlatMax"]').text(maxPercent).attr('data-defaultmax', maxPercent);
+
+				// Now to render % differences... Better to take care of them all in one loop
+				// I want to see if rage button is not at default first though, two avoid double-handling the percent range calculations
+				if($charModal.find('.btn[data-rage="0"]').hasClass('active')){
+					//console.log('default rage');
+					$charModal.find('.percRange-cell').each(function(){
+						var $this = $(this);
+						var $target = $this.find('.percRange');
+						var $minPercent = $this.prev().prev().find('.minPerc').text();
+						var $maxPercent = $this.prev().find('.maxPerc').text();
+						$target.text($maxPercent - $minPercent + 1);
+					});
+
+					// Thingy doesn't animate is rage is at 0 and transitioning
+					/*$minPerc
+						.prop('number', $minPerc.text())
+						.animateNumber({ number : adjustedMinPercent }, 200);
+					$maxPerc
+						.prop('number', $maxPerc.text())
+						.animateNumber({ number : adjustedMaxPercent }, 200);
+					$percRange
+						.prop('number', $percRange.text())
+						.animateNumber({ number : percRange }, 200);*/
+
+
+				} else {
+					//console.log('NOT default rage');
+					// Set max/min percentage differences for each stage section
+					rageAdjustment($charModal.find('.rageBtn.active'));
+				}
+
+
+				// RAGE MODIFIER STICKY
+				var $charContainer = $('#characterModal .characterContainer');
+				function fixedRagebar(self){
+					var windowTop = self.scrollTop();
+					
+		            containerWidth = $charContainer.innerWidth();
+		            marginOffset = $charContainer.css('margin-top');
+		            if(120 < windowTop){
+		                $('#characterModal .sticky').addClass('stuck');
+		                $('.stuck').css({ top: marginOffset, width: containerWidth });
+
+					} else {
+						$('.stuck').css({ top: 0, width: '100%' }); // restore the original top value of the sticky element
+						$('.sticky').removeClass('stuck');
+					}
+				}
+				fixedRagebar($charContainer);
+
+				// Limiting min execution interval on scroll to help prevent scroll jank
+				// http://joji.me/en-us/blog/how-to-develop-high-performance-onscroll-event
+				var scroll = function(){
+					fixedRagebar($charContainer);
+				}
+				var raf = window.requestAnimationFrame ||
+				    window.webkitRequestAnimationFrame ||
+				    window.mozRequestAnimationFrame ||
+				    window.msRequestAnimationFrame ||
+				    window.oRequestAnimationFrame;
+				var $window = $charContainer;
+				var lastScrollTop = $window.scrollTop();
+
+				if (raf) {
+		    		loop();
+				}
+				function loop() {
+				    var scrollTop = $window.scrollTop();
+				    if (lastScrollTop === scrollTop) {
+				        raf(loop);
+				        return;
+				    } else {
+				        lastScrollTop = scrollTop;
+				        // fire scroll function if scrolls vertically
+				        scroll();
+				        raf(loop);
+				    }
+				}
+
+				// Need to resize based on window.innerHeight due to mobile address bar sizings.
+				// https://developers.google.com/web/updates/2016/12/url-bar-resizing
+				$(window).resize(function(e){
+					fixedRagebar($charContainer);
+				})
+
+
+
+			})
+			.fail(function(){
+				console.log('error retrieving data');
+			});
+
+
+			/*if((self).find('.characterImageContainer').hasClass('text-dark')){
 				$('body').addClass('text-dark');
 			} else {
 				$('body').removeClass('text-dark');
 			}*/
-
-
-			// Apply colour of character BG to .characterUnderlay
-			/*var bgColour = $('.character-box.active .characterImageContainer').css('backgroundColor');
-			$('.characterUnderlay').css('backgroundColor', bgColour);*/
-
-			// Set max/min percentage differences for each stage section
-			/*rageAdjustment($this.find('.rageBtn.active'));*/
-
-			// RAGE MODIFIER STICKY
-			/*function fixedRagebar(self){
-				var windowTop = self.scrollTop();
-	            containerWidth = $('#character-list li.active .characterBorder').innerWidth();
-	            marginOffset = $('#character-list li.active .characterBorder').css('margin-top');
-	            if(120 < windowTop){
-	                $('#character-list li.active .sticky').addClass('stuck');
-	                $('.stuck').css({ top: marginOffset, width: containerWidth });
-
-				} else {
-					$('.stuck').css({ top: 0, width: '100%' }); // restore the original top value of the sticky element
-					$('.sticky').removeClass('stuck');
-				}
-			}
-			fixedRagebar($('.character-box.active .characterBorder'));*/
-
-			// Limiting min execution interval on scroll to help prevent scroll jank
-			// http://joji.me/en-us/blog/how-to-develop-high-performance-onscroll-event
-			/*var scroll = function(){
-				fixedRagebar($('.character-box.active .characterBorder'));
-			}
-			var raf = window.requestAnimationFrame ||
-			    window.webkitRequestAnimationFrame ||
-			    window.mozRequestAnimationFrame ||
-			    window.msRequestAnimationFrame ||
-			    window.oRequestAnimationFrame;
-			var $window = $('.character-box.active .characterBorder');
-			var lastScrollTop = $window.scrollTop();
-
-			if (raf) {
-	    		loop();
-			}
-			function loop() {
-			    var scrollTop = $window.scrollTop();
-			    if (lastScrollTop === scrollTop) {
-			        raf(loop);
-			        return;
-			    } else {
-			        lastScrollTop = scrollTop;
-			        // fire scroll function if scrolls vertically
-			        scroll();
-			        raf(loop);
-			    }
-			}*/
-
-			// Need to resize based on window.innerHeight due to mobile address bar sizings.
-			// https://developers.google.com/web/updates/2016/12/url-bar-resizing
-			/*$(window).resize(function(e){
-				fixedRagebar($('.character-box.active .characterBorder'));
-			})*/
+			
 		}
 
 		function deactivateCharacter(){
@@ -96,11 +213,12 @@ var Custom = (function() {
 			// determine if body has clas 'character-active', to see if we're deactivating a character or a menu page
 			if($body.hasClass('character-active')){
 				var $charModal = $('#characterModal');
-				$charModal.removeClass('active');
+				$charModal.removeClass();
 				$charModal.find('.rageModifier').removeClass('stuck');
 				$charModal.find('.characterBorder').css('height', 'auto');
 				$('#character-list li.selected').removeClass('selected');
 				$body.removeClass('character-active');
+				$('.modalUnderlay').css('backgroundColor', 'transparent');
 			} else {
 				$('.menu-page > div').hide();
 			}
@@ -112,6 +230,17 @@ var Custom = (function() {
 			window.location.replace(baseUrl);*/
 			// This seems to cause problems with the PWA side of things, and forces some kind of reload anyway.
 		};
+		function transitionCharacter(){
+			var $charModal = $('#characterModal');
+			$charModal.attr('class', 'active');
+			$('#character-list li.selected').removeClass('selected');
+			// In order to reset the animation of image between characters with the new single modal setup, it needs to be REMOVED ENTIRELY. Guh!
+			// https://css-tricks.com/restart-css-animation/
+			var el = $charModal.find('.characterImage'), newone = el.clone(true);
+			el.before(newone);
+			$('.' + el.attr('class') + ':last').remove();
+			//$('#characterModal').find('.characterImage').css('left', '50');
+		}
 		
 
 		function rageAdjustment(self){
@@ -135,8 +264,7 @@ var Custom = (function() {
 			if(rageAmount == "125"){rageAdjMin = -14; rageAdjMax = -27 }
 			if(rageAmount == "150"){rageAdjMin = -18; rageAdjMax = -33 }
 
-			// I should rewrite this to include the percent diffs to avoid running through everything twice.
-			$('.character-box.active .stagePercents').each(function(){
+			$('#characterModal .stagePercents').each(function(){
 				var $this = $(this);
 
 				var $minPerc = $this.find('.minPerc');
@@ -165,6 +293,7 @@ var Custom = (function() {
 					$minPerc.removeClass('nosymbol');
 					$maxPerc.removeClass('nosymbol');
 					$percRange.removeClass('nosymbol');
+
 					$minPerc
 						.prop('number', $minPerc.text())
 						.animateNumber({ number : adjustedMinPercent }, 200);
@@ -174,6 +303,7 @@ var Custom = (function() {
 					$percRange
 						.prop('number', $percRange.text())
 						.animateNumber({ number : percRange }, 200);
+
 				}
 
 				//$minPerc.text(adjustedMinPercent);
@@ -211,7 +341,8 @@ var Custom = (function() {
 		}
 		function transitionCharacterForward($activeContainer){
 			//var $activateContainer = $('#character-list .character-box.active');
-			deactivateCharacter();
+			//deactivateCharacter();
+			transitionCharacter();
 			if(!$activeContainer.is(':last-child')){
 				activateCharacter($activeContainer.next());
 			} else {
@@ -220,7 +351,8 @@ var Custom = (function() {
 			}	
 		}
 		function transitionCharacterBackward($activeContainer){
-			deactivateCharacter();
+			//deactivateCharacter();
+			transitionCharacter();
 			if(!$activeContainer.is(':first-child')){
 				activateCharacter($($activeContainer.prev()));
 			} else {
@@ -277,29 +409,31 @@ var Custom = (function() {
 			if(e.which == shiftKey) isShiftActive = true;
 
 			// Need to check if character is currently active.
-			if($('.character-box.active').length){
+			if($('#characterModal.active').length){
+				var $this = $(this);
+				//console.log('modal is active!');
 				// Need to check if SHIFT is held.
 				if(isShiftActive){
 					if(e.which == keyright){
 						//console.log('shift held and right');
-						transitionRageForward($('.character-box.active .rageBtn.active'));
+						transitionRageForward($this.find('.rageBtn.active'));
 					}
 					if(e.which == keyleft){
 						//console.log('shift held and left');
-						transitionRageBackward($('.character-box.active .rageBtn.active'));
+						transitionRageBackward($this.find('.rageBtn.active'));
 					}
 
 				} else {
-					if(e.which == keyright){transitionCharacterForward($('.character-box.active'));}
-					if(e.which == keyleft){transitionCharacterBackward($('.character-box.active'));}
+					if(e.which == keyright){transitionCharacterForward($('.character-box.selected'))};
+					if(e.which == keyleft){transitionCharacterBackward($('.character-box.selected'))};
 
-					if(e.which == key1){rageAdjustment($('.character-box.active .rageBtn:nth-child(1)'))}
-					if(e.which == key2){rageAdjustment($('.character-box.active .rageBtn:nth-child(2)'))}
-					if(e.which == key3){rageAdjustment($('.character-box.active .rageBtn:nth-child(3)'))}
-					if(e.which == key4){rageAdjustment($('.character-box.active .rageBtn:nth-child(4)'))}
-					if(e.which == key5){rageAdjustment($('.character-box.active .rageBtn:nth-child(5)'))}
-					if(e.which == key6){rageAdjustment($('.character-box.active .rageBtn:nth-child(6)'))}
-					if(e.which == key7){rageAdjustment($('.character-box.active .rageBtn:nth-child(7)'))}
+					if(e.which == key1){rageAdjustment($this.find('.rageBtn:nth-child(1)'))};
+					if(e.which == key2){rageAdjustment($this.find('.rageBtn:nth-child(2)'))};
+					if(e.which == key3){rageAdjustment($this.find('.rageBtn:nth-child(3)'))};
+					if(e.which == key4){rageAdjustment($this.find('.rageBtn:nth-child(4)'))};
+					if(e.which == key5){rageAdjustment($this.find('.rageBtn:nth-child(5)'))};
+					if(e.which == key6){rageAdjustment($this.find('.rageBtn:nth-child(6)'))};
+					if(e.which == key7){rageAdjustment($this.find('.rageBtn:nth-child(7)'))};
 				}
 			}
 
@@ -338,7 +472,7 @@ var Custom = (function() {
 		$('#main').on('click', '#character-list .character-box', function(){
 			activateCharacter($(this));
 		})
-		$('#main').on('click', '.rageBtn', function(){
+		$('#characterModal').on('click', '.rageBtn', function(){
 			rageAdjustment($(this));
 		});
 
@@ -347,10 +481,10 @@ var Custom = (function() {
 
 
 		$('#icon-next').click(function(){
-			transitionCharacterForward($('.character-box.active'));
+			transitionCharacterForward($('.character-box.selected'));
 		});
 		$('#icon-prev').click(function(){
-			transitionCharacterBackward($('.character-box.active'));
+			transitionCharacterBackward($('.character-box.selected'));
 		});
 		$('.backButton').click(function(){
 			deactivateCharacter();

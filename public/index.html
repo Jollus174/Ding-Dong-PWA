@@ -130,7 +130,7 @@
 	  	</div>
 	</div>
 
-	<div class="modalUnderlay" style="background-color: rgb(125, 120, 152);" hidden></div>
+	<div class="modalUnderlay" style="background-color: transparent;" hidden></div>
 
 	<div id="content-wrapper" class="container">
 
@@ -234,7 +234,7 @@
 		<div id="main" class="content">
 
 			<ul id="character-list" class="character-list clearfix" data-bind="foreach: character">
-				<li class="character-box clearfix" data-bind="attr: {'data-url': url} ">
+				<li class="character-box clearfix" data-bind="attr: {'data-url': url, 'data-index': $index()}">
 					<div class="characterBorder clearfix">
 						<div class="characterImageContainer" data-bind="style: {backgroundColor: bgColour}, css: imageProperties">
 							<div class="characterImage"><div class="characterImageContainer-lightOverlay"></div></div>
@@ -297,38 +297,28 @@
 			</svg>
 
 			<div class="characterContainer clearfix">
-				<div class="characterImageContainer ganondorf" style="background-color: rgb(125, 120, 152);"><!--data-bind="style: {backgroundColor: bgColour}, css: imageProperties"-->
-					<div class="characterImage"><div class="characterImageContainer-lightOverlay"></div></div>
-					
-					<!--<div class="grid-difficulty">
-						<span data-bind="attr: {class: difficulty}" class="easy"><span data-bind="text: difficulty">easy</span> - <span data-bind="text: percRange">28</span>%</span>
-					</div>
-					<div class="grid-index">
-						<span data-bind="text: ($index() + 1)">16</span>
-					</div>
+				<div class="characterImageContainer">
+					<div class="characterImage"></div>
+
 					<div class="grid-percRange">
-						<span><span data-bind="text: minPercent">83</span> - <span data-bind="text: maxPercent">111</span>%</span>
+						<span><span class="minPerc">83</span> - <span class="maxPerc">111</span>%</span>
 					</div>
-					<div hidden="" class="extra-info grid-fallspeed">
-						<span>Fallspeed - <span style="font-weight:700;" data-bind="text: fallspeed">1.65</span></span>
-					</div>
-					<div hidden="" class="extra-info grid-gravity">
-						<span>Gravity - <span style="font-weight:700;" data-bind="text: gravity">0.10784</span></span>
+
+					<div class="grid-difficulty">
+						<span class="easy"><span>easy</span> - <span class="percRange">28</span>%</span>
 					</div>
 					<div class="characterName">
-						<span data-bind="text:name">Ganondorf</span>
+						<span data-ref="name"></span>
 					</div>
+
 					<div class="characterOverview">
 						<ul>
-							<li>Weight <span class="value" data-bind="text: weight">113</span></li>
-							<li>Fallspeed<span class="value" data-bind="text: fallspeed">1.65</span></li>
-							<li>Airdodge <span class="value"><span data-bind="text: airdodgeStart">4</span> - <span data-bind="text: airdodgeEnd">29</span></span></li>
-							<li>Gravity <span class="value" data-bind="text: gravity">0.10784</span></li>
+							<li data-ref="weight">Weight <span class="value">113</span></li>
+							<li data-ref="fallspeed">Fallspeed<span class="value">1.65</span></li>
+							<li data-ref="airdodge">Airdodge <span class="value">3 - 28</span></li>
+							<li data-ref="gravity">Gravity <span class="value">0.10784</span></li>
 						</ul>
 					</div>
-					<div class="characterTitleBar">
-						<span class="name" data-bind="text: name">Ganondorf</span>
-					</div>-->
 				</div>
 
 				<div class="characterDetails">
@@ -364,10 +354,10 @@
 										</tr>
 										<tr>
 											<td>
-												<p><span></span></p><!--data-bind="text: fd, attr: {'data-defaultmin': fd, class: 'minPerc'}"-->
+												<p><span class="minPerc" data-ref="minPerc">0</span></p>
 											</td>
 											<td>
-												<p><span></span></p><!--data-bind="text: maxPercent, attr: {'data-defaultmax': maxPercent, class: 'maxPerc'}"-->
+												<p><span class="maxPerc" data-ref="maxPerc">0</span></p>
 											</td>
 											<td class="percRange-cell">
 												<p><span class="percRange"></span></p>
@@ -378,37 +368,8 @@
 							</div>
 						</div>
 
-						<!--<div class="stage stage-fd col-1 clearfix">
-							<h3>Final Destination</h3>
-							<div class="stage-content clearfix">
-								<div class="stageImage clearfix"></div>
-								<div class="stageTables clearfix">
-									<table class="stagePercents table table-bordered table-sm 1-col" cellpadding="0" cellspacing="0" border="0">
-										<tr>
-											<th colspan="3">FD Normal</th>
-										</tr>
-										<tr class="table-descs">
-											<td>Min DD %</td>
-											<td>Max DD %</td>
-											<td>Window</td>
-										</tr>
-										<tr>
-											<td>
-												<p><span data-bind="text: fd, attr: {'data-defaultmin': fd, class: 'minPerc'}"></span></p>
-											</td>
-											<td>
-												<p><span data-bind="text: maxPercent, attr: {'data-defaultmax': maxPercent, class: 'maxPerc'}"></span></p>
-											</td>
-											<td class="percRange-cell">
-												<p><span class="percRange"></span></p>
-											</td>
-										</tr>
-									</table>
-								</div>
-							</div>
-						</div>-->
 
-						<!--<div class="stage stage-bf clearfix col-3">
+						<div class="stage stage-bf clearfix col-3">
 							<h3>Battlefield</h3>
 							<div class="stage-content clearfix">
 								<div class="stageImage clearfix"></div>
@@ -418,8 +379,8 @@
 											<th colspan="3">BF Normal</th>
 										</tr>
 										<tr>
-											<td><p><span data-bind="text: bfNormalMin, attr: {'data-defaultmin': bfNormalMin, class: 'minPerc'}"></span></p></td>
-											<td><p><span data-bind="text: bfNormalMax, attr: {'data-defaultmax': bfNormalMax, class: 'maxPerc'}"></span></p></td>
+											<td><p><span class="minPerc" data-ref="bfNormalMin">0</span></p></td>
+											<td><p><span class="maxPerc" data-ref="bfNormalMax">0</span></p></td>
 											<td class="percRange-cell"><p><span class="percRange"></span></p></td>
 										</tr>
 									</table>
@@ -428,8 +389,8 @@
 											<th colspan="3">BF Low Plat<span class="desktop">form</span></th>
 										</tr>
 										<tr>
-											<td><p><span data-bind="text: bfLowPlatMin, attr: {'data-defaultmin': bfLowPlatMin, class: 'minPerc'}"></span></p></td>
-											<td><p><span data-bind="text: bfLowPlatMax, attr: {'data-defaultmax': bfLowPlatMax, class: 'maxPerc'}"></span></p></td>
+											<td><p><span class="minPerc" data-ref="bfLowPlatMin">0</span></p></td>
+											<td><p><span class="maxPerc" data-ref="bfLowPlatMax">0</span></p></td>
 											<td class="percRange-cell"><p><span class="percRange"></span></p></td>
 										</tr>
 									</table>
@@ -438,8 +399,8 @@
 											<th colspan="3">BF Top Plat<span class="desktop">form</span></th>
 										</tr>
 										<tr>
-											<td><p><span data-bind="text: bfTopPlatMin, attr: {'data-defaultmin': bfTopPlatMin, class: 'minPerc'}"></span></p></td>
-											<td><p><span data-bind="text: bfTopPlatMax, attr: {'data-defaultmax': bfTopPlatMax, class: 'maxPerc'}"></span></p></td>
+											<td><p><span class="minPerc" data-ref="bfTopPlatMin">0</span></p></td>
+											<td><p><span class="maxPerc" data-ref="bfTopPlatMax">0</span></p></td>
 											<td class="percRange-cell"><p><span class="percRange"></span></p></td>
 										</tr>
 									</table>
@@ -457,8 +418,8 @@
 											<th colspan="3">DL Normal</th>
 										</tr>
 										<tr>
-											<td><p><span data-bind="text: dlNormalMin, attr: {'data-defaultmin': dlNormalMin, class: 'minPerc'}"></span></p></td>
-											<td><p><span data-bind="text: dlNormalMax, attr: {'data-defaultmax': dlNormalMax, class: 'maxPerc'}"></span></p></td>
+											<td><p><span class="minPerc" data-ref="dlNormalMin"></span></p></td>
+											<td><p><span class="maxPerc" data-ref="dlNormalMax"></span></p></td>
 											<td class="percRange-cell"><p><span class="percRange"></span></p></td>
 										</tr>
 									</table>
@@ -467,8 +428,8 @@
 											<th colspan="3">DL Low Plat<span class="desktop">form</span></th>
 										</tr>
 										<tr>
-											<td><p><span data-bind="text: dlLowPlatMin, attr: {'data-defaultmin': dlLowPlatMin, class: 'minPerc'}"></span></p></td>
-											<td><p><span data-bind="text: dlLowPlatMax, attr: {'data-defaultmax': dlLowPlatMax, class: 'maxPerc'}"></span></p></td>
+											<td><p><span class="minPerc" data-ref="dlLowPlatMin">0</span></p></td>
+											<td><p><span class="maxPerc" data-ref="dlLowPlatMax">0</span></p></td>
 											<td class="percRange-cell"><p><span class="percRange"></span></p></td>
 										</tr>
 									</table>
@@ -477,8 +438,8 @@
 											<th colspan="3">DL Top Plat<span class="desktop">form</span></th>
 										</tr>
 										<tr>
-											<td><p><span data-bind="text: dlTopPlatMin, attr: {'data-defaultmin': dlTopPlatMin, class: 'minPerc'}"></span></p></td>
-											<td><p><span data-bind="text: dlTopPlatMax, attr: {'data-defaultmax': dlTopPlatMax, class: 'maxPerc'}"></span></p></td>
+											<td><p><span class="minPerc" data-ref="dlTopPlatMin">0</span></p></td>
+											<td><p><span class="maxPerc" data-ref="dlTopPlatMax">0</span></p></td>
 											<td class="percRange-cell"><p><span class="percRange"></span></p></td>
 										</tr>
 									</table>
@@ -494,20 +455,20 @@
 									<table class="stagePercents table table-bordered table-sm" cellpadding="0" cellspacing="0" border="0">
 										<tr>
 											<th colspan="3">SV Normal</th>
-										</tr><
+										</tr>
 										<tr>
-											<td><p><span data-bind="text: svNormalMin, attr: {'data-defaultmin': svNormalMin, class: 'minPerc'}"></span></p></td>
-											<td><p><span data-bind="text: svNormalMax, attr: {'data-defaultmax': svNormalMax, class: 'maxPerc'}"></span></p></td>
+											<td><p><span class="minPerc" data-ref="svNormalMin"></span></p></td>
+											<td><p><span class="maxPerc" data-ref="svNormalMax"></span></p></td>
 											<td class="percRange-cell"><p><span class="percRange"></span></p></td>
-										</tr><
+										</tr>
 									</table>
 									<table class="stagePercents table table-bordered table-sm" cellpadding="0" cellspacing="0" border="0">
 										<tr>
 											<th colspan="3">SV Plat<span class="desktop">form</span></th>
 										</tr>
-										<tr><
-											<td><p><span data-bind="text: svPlatMin, attr: {'data-defaultmin': svPlatMin, class: 'minPerc'}"></span></p></td>
-											<td><p><span data-bind="text: svPlatMax, attr: {'data-defaultmax': svPlatMax, class: 'maxPerc'}"></span></p></td>
+										<tr>
+											<td><p><span class="minPerc" data-ref="svPlatMin"></span></p></td>
+											<td><p><span class="maxPerc" data-ref="svPlatMax"></span></p></td>
 											<td class="percRange-cell"><p><span class="percRange"></span></p></td>
 										</tr>
 									</table>
@@ -525,8 +486,8 @@
 											<th colspan="3">TC Normal</th>
 										</tr>
 										<tr>
-											<td><p><span data-bind="text: tcNormalMin, attr: {'data-defaultmin': tcNormalMin, class: 'minPerc'}"></span></p></td>
-											<td><p><span data-bind="text: tcNormalMax, attr: {'data-defaultmax': tcNormalMax, class: 'maxPerc'}"></span></p></td>
+											<td><p><span class="minPerc" data-ref="tcNormalMin"></span></p></td>
+											<td><p><span class="maxPerc" data-ref="tcNormalMax"></span></p></td>
 											<td class="percRange-cell"><p><span class="percRange"></span></p></td>
 										</tr>
 									</table>
@@ -535,8 +496,8 @@
 											<th colspan="3">TC Low Plat<span class="desktop">form</span></th>
 										</tr>
 										<tr>
-											<td><p><span data-bind="text: tcLowPlatMin, attr: {'data-defaultmin': tcLowPlatMin, class: 'minPerc'}"></span></p></td>
-											<td><p><span data-bind="text: tcLowPlatMax, attr: {'data-defaultmax': tcLowPlatMax, class: 'maxPerc'}"></span></p></td>
+											<td><p><span class="minPerc" data-ref="tcLowPlatMin"></span></p></td>
+											<td><p><span class="maxPerc" data-ref="tcLowPlatMax"></span></p></td>
 											<td class="percRange-cell"><p><span class="percRange"></span></p></td>
 										</tr>
 									</table>
@@ -545,8 +506,8 @@
 											<th colspan="3">TC Side Plat<span class="desktop">form</span></th>
 										</tr>
 										<tr>
-											<td><p><span data-bind="text: tcSidePlatMin, attr: {'data-defaultmin': tcSidePlatMin, class: 'minPerc'}"></span></p></td>
-											<td><p><span data-bind="text: tcSidePlatMax, attr: {'data-defaultmax': tcSidePlatMax, class: 'maxPerc'}"></span></p></td>
+											<td><p><span class="minPerc" data-ref="tcSidePlatMin"></span></p></td>
+											<td><p><span class="maxPerc" data-ref="tcSidePlatMax"></span></p></td>
 											<td class="percRange-cell"><p><span class="percRange"></span></p></td>
 										</tr>
 									</table>
@@ -555,14 +516,14 @@
 											<th colspan="3">TC Top Plat<span class="desktop">form</span></th>
 										</tr>
 										<tr>
-											<td><p><span data-bind="text: tcTopPlatMin, attr: {'data-defaultmin': tcTopPlatMin, class: 'minPerc'}"></span></p></td>
-											<td><p><span data-bind="text: tcTopPlatMax, attr: {'data-defaultmax': tcTopPlatMax, class: 'maxPerc'}"></span></p></td>
+											<td><p><span class="minPerc" data-ref="tcTopPlatMin"></span></p></td>
+											<td><p><span class="maxPerc" data-ref="tcTopPlatMax"></span></p></td>
 											<td class="percRange-cell"><p><span class="percRange"></span></p></td>
 										</tr>
 									</table>
 								</div>
 							</div>
-						</div>-->
+						</div>
 
 					</div>
 
@@ -590,7 +551,7 @@
 	<script src="./js/vendor/jquery.animateNumber.min.js"></script>
 
 	<!-- Moving the Firebase initialisation codes to bottom, as they break all the JS scripts in Microsoft Edge browser -->
-	<script src="https://www.gstatic.com/firebasejs/4.1.3/firebase.js"></script>
+	<!--<script src="https://www.gstatic.com/firebasejs/4.1.3/firebase.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/4.1.3/firebase-app.js"></script>
 	<script>
 	  // Initialize Firebase
@@ -603,7 +564,7 @@
 	    messagingSenderId: "77024238100"
 	  };
 	  firebase.initializeApp(config);
-	</script>
+	</script>-->
 
 </body>
 

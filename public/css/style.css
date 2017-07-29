@@ -915,8 +915,8 @@ button {
     height:120px;
     position:relative;
     overflow:hidden;
-
 }
+.characterImageContainer ul{margin:0;}
 .characterImage{
     background-position:-20px center;
     background-repeat:no-repeat;
@@ -924,6 +924,10 @@ button {
     height:100%;
     position:absolute;
     opacity:0.3;
+    transition:opacity 0.5s ease, background-position 0.5s ease;
+}
+#characterModal .characterImage{
+    opacity:0;
     transition:opacity 0.5s ease, background-position 0.5s ease;
 }
 .leftImage .characterImage{background-position:20px center;}
@@ -956,7 +960,6 @@ button {
     padding-top:10px;
     position:absolute;
     right:-200px;
-    transition:none;
 }
 .characterOverview li span.value{
     float:right;
@@ -1121,12 +1124,9 @@ body.show-extra-info .extra-info{display:block;}
     left: 0;
     z-index: 9;
     opacity:1;
-    transition:background-color 0.5s ease;
+    transition:background-color 0.2s ease;
 }
-#characterModal.active .characterImage{
-    cursor:initial;
-    opacity:0.3;
-}
+
 /*#character-list li.active .characterDetails{display:none;}*/
 
 
@@ -1180,7 +1180,7 @@ body.show-extra-info .extra-info{display:block;}
     /*padding: 20px 0;*/
     height:60px;
 }
-#character-modal.active #icon-prev, #character-modal.active #icon-next{
+#characterModal.active #icon-prev, #characterModal.active #icon-next{
     display:block;
 }
 #icon-prev{left: 5px;}
@@ -1192,9 +1192,10 @@ body.show-extra-info .extra-info{display:block;}
     cursor:pointer;
 }
 
-
-.active .characterImage{
+#characterModal.animate .characterImage{
     background-position:left center !important;
+    transition:opacity 0.5s ease, background-position 0.5s ease;
+    opacity:0.3;
 }
 .active .characterTitleBar{
     bottom:-30px;
@@ -1275,6 +1276,7 @@ body.show-extra-info .extra-info{display:block;}
     width:100%;
     float:none;
     margin:0;
+    text-align:left;
 }
 .stagePercents p{margin-bottom:0;}
 

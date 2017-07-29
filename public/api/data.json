@@ -25,7 +25,6 @@
     "imagePosition": "rightImage"
 }, {
     "name": "Bowser Jr.",
-    "className": "bowserjr",
     "url": "bowser-jr",
     "weight": "108",
     "bgColour": "#cfce37",
@@ -39,7 +38,6 @@
     "textContrast": "text-dark"
 }, {
     "name": "Captain Falcon",
-    "className": "cfalcon",
     "url": "captain-falcon",
     "weight": "104",
     "bgColour": "#9088e2",
@@ -52,7 +50,6 @@
     "imagePosition": "rightImage"
 }, {
     "name": "Charizard",
-    "className": "charizard",
     "url": "charizard",
     "weight": "116",
     "bgColour": "#f66624",
@@ -64,7 +61,6 @@
     "airdodgeEnd": "28"
 }, {
     "name": "Cloud",
-    "className": "cloud",
     "url": "cloud",
     "weight": "100",
     "bgColour": "#009684",
@@ -76,7 +72,6 @@
     "airdodgeEnd": "28"
 }, {
     "name": "Cloud - Limit",
-    "className": "cloudlimit",
     "url": "cloud-limit",
     "weight": "100",
     "bgColour": "#009684",
@@ -88,7 +83,6 @@
     "airdodgeEnd": "28"
 }, {
     "name": "Corrin",
-    "className": "corrin",
     "url": "corrin",
     "weight": "98",
     "bgColour": "#733131",
