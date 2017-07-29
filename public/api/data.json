@@ -35,7 +35,8 @@
     "airdodgeStart": "3",
     "airdodgeEnd": "28",
     "imagePosition": "leftImage",
-    "textContrast": "text-dark"
+    "textContrast": "text-dark",
+    "ledgeFsmash": "yes"
 }, {
     "name": "Captain Falcon",
     "url": "captain-falcon",
@@ -58,7 +59,8 @@
     "fallspeed": "1.4",
     "gravity": "0.11",
     "airdodgeStart": "3",
-    "airdodgeEnd": "28"
+    "airdodgeEnd": "28",
+    "ledgeFsmash": "yes"
 }, {
     "name": "Cloud",
     "url": "cloud",
@@ -129,7 +131,8 @@
     "airdodgeStart": "4",
     "airdodgeEnd": "29",
     "imagePosition": "rightImage",
-    "textContrast": "text-dark"
+    "textContrast": "text-dark",
+    "ledgeFsmash": "yes"
 }, {
     "name": "Dr. Mario",
     "url": "dr-mario",
@@ -140,7 +143,8 @@
     "fallspeed": "1.5",
     "gravity": "0.08715",
     "airdodgeStart": "3",
-    "airdodgeEnd": "27"
+    "airdodgeEnd": "27",
+    "ledgeFsmash": "yes"
 }, {
     "name": "Duck Hunt",
     "url": "duck-hunt",
@@ -151,7 +155,8 @@
     "fallspeed": "1.65",
     "gravity": "0.076",
     "airdodgeStart": "2",
-    "airdodgeEnd": "25"
+    "airdodgeEnd": "25",
+    "ledgeFsmash": "yes"
 }, {
     "name": "Falco",
     "url": "falco",
@@ -163,7 +168,8 @@
     "gravity": "0.13",
     "airdodgeStart": "2",
     "airdodgeEnd": "26",
-    "imagePosition": "rightImage"
+    "imagePosition": "rightImage",
+    "ledgeFsmash": "yes"
 }, {
     "name": "Fox",
     "url": "fox",
@@ -220,7 +226,8 @@
     "fallspeed": "0.98",
     "gravity": "0.05309",
     "airdodgeStart": "4",
-    "airdodgeEnd": "29"
+    "airdodgeEnd": "29",
+    "ledgeFsmash": "yes"
 }, {
     "name": "King Dedede",
     "url": "king-dedede",
@@ -232,7 +239,8 @@
     "gravity": "0.08788",
     "airdodgeStart": "4",
     "airdodgeEnd": "29",
-    "textContrast": "text-dark"
+    "textContrast": "text-dark",
+    "ledgeFsmash": "yes"
 }, {
     "name": "Kirby",
     "url": "kirby",
@@ -278,7 +286,8 @@
     "gravity": "0.084",
     "airdodgeStart": "2",
     "airdodgeEnd": "25",
-    "textContrast": "text-dark"
+    "textContrast": "text-dark",
+    "ledgeFsmash": "yes"
 }, {
     "name": "Lucas",
     "url": "lucas",
@@ -289,7 +298,8 @@
     "fallspeed": "1.37",
     "gravity": "0.09",
     "airdodgeStart": "3",
-    "airdodgeEnd": "28"
+    "airdodgeEnd": "28",
+    "ledgeFsmash": "yes"
 }, {
     "name": "Lucina",
     "url": "lucina",
@@ -311,7 +321,8 @@
     "fallspeed": "1.25",
     "gravity": "0.075",
     "airdodgeStart": "3",
-    "airdodgeEnd": "27"
+    "airdodgeEnd": "27",
+    "ledgeFsmash": "yes"
 }, {
     "name": "Mario",
     "url": "mario",
@@ -322,7 +333,8 @@
     "fallspeed": "1.5",
     "gravity": "0.08715",
     "airdodgeStart": "3",
-    "airdodgeEnd": "27"
+    "airdodgeEnd": "27",
+    "ledgeFsmash": "yes"
 }, {
     "name": "Marth",
     "url": "marth",
@@ -355,7 +367,8 @@
     "fallspeed": "1.66",
     "gravity": "0.11",
     "airdodgeStart": "2",
-    "airdodgeEnd": "25"
+    "airdodgeEnd": "25",
+    "ledgeFsmash": "yes"
 }, {
     "name": "Mewtwo",
     "url": "mewtwo",
@@ -367,7 +380,8 @@
     "gravity": "0.082",
     "airdodgeStart": "2",
     "airdodgeEnd": "24",
-    "imagePosition": "leftImage"
+    "imagePosition": "leftImage",
+    "ledgeFsmash": "yes"
 }, {
     "name": "Mii Brawler",
     "url": "mii-brawler",
@@ -378,7 +392,8 @@
     "fallspeed": "1.7",
     "gravity": "0.1",
     "airdodgeStart": "3",
-    "airdodgeEnd": "27"
+    "airdodgeEnd": "27",
+    "ledgeFsmash": "yes"
 }, {
     "name": "Mii Gunner",
     "url": "mii-gunner",
@@ -389,7 +404,8 @@
     "fallspeed": "1.7",
     "gravity": "0.08715",
     "airdodgeStart": "3",
-    "airdodgeEnd": "27"
+    "airdodgeEnd": "27",
+    "ledgeFsmash": "yes"
 }, {
     "name": "Mii Swordfighter",
     "url": "mii-swordfighter",
@@ -400,7 +416,8 @@
     "fallspeed": "1.7",
     "gravity": "0.096",
     "airdodgeStart": "3",
-    "airdodgeEnd": "28"
+    "airdodgeEnd": "28",
+    "ledgeFsmash": "yes"
 }, {
     "name": "Mr. Game and Watch",
     "url": "game-and-watch",
@@ -411,7 +428,8 @@
     "fallspeed": "1.24",
     "gravity": "0.08",
     "airdodgeStart": "2",
-    "airdodgeEnd": "26"
+    "airdodgeEnd": "26",
+    "ledgeFsmash": "yes"
 }, {
     "name": "Ness",
     "url": "ness",
@@ -422,7 +440,8 @@
     "fallspeed": "1.31",
     "gravity": "0.077",
     "airdodgeStart": "3",
-    "airdodgeEnd": "28"
+    "airdodgeEnd": "28",
+    "ledgeFsmash": "yes"
 }, {
     "name": "Olimar",
     "url": "olimar",
@@ -434,7 +453,8 @@
     "gravity": "0.068",
     "airdodgeStart": "3",
     "airdodgeEnd": "27",
-    "textContrast": "text-dark"
+    "textContrast": "text-dark",
+    "ledgeFsmash": "yes"
 }, {
     "name": "Pac-Man",
     "url": "pacman",
@@ -480,7 +500,8 @@
     "fallspeed": "1.55",
     "gravity": "0.095",
     "airdodgeStart": "2",
-    "airdodgeEnd": "25"
+    "airdodgeEnd": "25",
+    "ledgeFsmash": "yes"
 }, {
     "name": "Pit",
     "url": "pit",
@@ -503,7 +524,8 @@
     "fallspeed": "1.6",
     "gravity": "0.09",
     "airdodgeStart": "3",
-    "airdodgeEnd": "27"
+    "airdodgeEnd": "27",
+    "ledgeFsmash": "yes"
 }, {
     "name": "Robin",
     "url": "robin",
@@ -549,7 +571,8 @@
     "fallspeed": "1.6",
     "gravity": "0.12",
     "airdodgeStart": "4",
-    "airdodgeEnd": "25"
+    "airdodgeEnd": "25",
+    "ledgeFsmash": "yes"
 }, {
     "name": "Samus",
     "url": "samus",
@@ -665,7 +688,8 @@
     "fallspeed": "1.32",
     "gravity": "0.078",
     "airdodgeStart": "3",
-    "airdodgeEnd": "28"
+    "airdodgeEnd": "28",
+    "ledgeFsmash": "yes"
 }, {
     "name": "Wario",
     "url": "wario",
@@ -700,7 +724,8 @@
     "fallspeed": "1.29",
     "gravity": "0.08",
     "airdodgeStart": "3",
-    "airdodgeEnd": "28"
+    "airdodgeEnd": "28",
+    "ledgeFsmash": "yes"
 }, {
     "name": "Zelda",
     "url": "zelda",

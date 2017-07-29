@@ -30,6 +30,7 @@ var characters = (function() {
         self.airdodgeEnd = "";
         self.imagePosition = "";
         self.textContrast = "";
+        self.ledgeFsmash = "";
     }
 
     function CharacterApiService() {
@@ -88,12 +89,6 @@ var characters = (function() {
                     return percRange;
                 }, this);
 
-
-
-                /*vm.difficulty = ko.computed(function computeDifficulty(vm.maxPercent, vm.minPercent){
-
-                }, this);*/
-
                 vm.difficulty = computeDifficulty(vm.minPercent, vm.maxPercent);
 
                 vm.difficultyValue = ko.computed(function(){
@@ -105,17 +100,21 @@ var characters = (function() {
                 vm.airdodgeStart = data.airdodgeStart;
                 vm.airdodgeEnd = data.airdodgeEnd;
                 vm.imagePosition = data.imagePosition;
-                /*vm.textContrast = ko.computed(function(){
-                    var textColour = "";
-                    if(data.textContrast == 'dark'){
-                        textColour = 'text-dark';
-                    }
-                    return textColour;
-                }, this);*/
                 vm.textContrast = data.textContrast;
 
                 // Generating image properties
                 vm.imageProperties = ko.observable(vm.url + ' ' + vm.imagePosition + ' ' + vm.textContrast);
+
+                // NEW!
+                if(data.ledgeFsmash){
+                    vm.ledgeFsmash = 'yes';
+                } else {
+                    vm.ledgeFsmash = 'no';
+                }
+                
+                /*if(!vm.canFsmash){
+                    vm.canFsmash = 'no';
+                }*/
 
 
                 // Aaaand now to get the filter going

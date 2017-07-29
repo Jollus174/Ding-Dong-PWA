@@ -92,7 +92,19 @@
 					<ul class="dropdown-menu">
 						<li><button data-bind="click:sortFallspeed" class="btn filter-btn">Fallspeed <span class="caret"></span></button></li>
 						<li><button data-bind="click:sortGravity" class="btn filter-btn">Gravity <span class="caret"></span></button></li>
-						<li><button class="add-info-grid btn filter-btn">View In Grid 
+						<li><button class="add-info-grid btn">View In Grid 
+						<span class="checkbox">
+							<svg class="icon-cross" xmlns="http://www.w3.org/2000/svg" fill="#333" height="16" viewBox="0 0 24 24" width="16">
+							    <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+							    <path d="M0 0h24v24H0z" fill="none"/>
+							</svg>
+							<svg class="icon-check" xmlns="http://www.w3.org/2000/svg" fill="#333" height="16" viewBox="0 0 24 24" width="16">
+							    <path d="M0 0h24v24H0z" fill="none"/>
+							    <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+							</svg>
+						</span></button></li>
+
+						<li class="li-separater"><button class="add-ledgeFsmash-grid btn">Can Fsmash at ledge?
 						<span class="checkbox">
 							<svg class="icon-cross" xmlns="http://www.w3.org/2000/svg" fill="#333" height="16" viewBox="0 0 24 24" width="16">
 							    <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
@@ -224,7 +236,7 @@
 
 				<p>Shoutouts to <a href="https://twitter.com/likeacyansunday">Shiva</a> for helping out with the images, and <a href="https://twitter.com/lhc_maribro?lang=en">Maribro</a> for Friday night Ganon dittos and keeping me sane.</p>
 
-				<p>Thanks to Nintendo, Namco Bandai, and Sora for developing Super Smash Bros for Wii U.</p><br>
+				<p>Thanks to Nintendo, Namco Bandai, and Sora for developing Super Smash Bros. for Wii U.</p><br>
 
 				<img src="images/dk-credits.jpg" alt="Donkey Kong Credits" />
 
@@ -254,6 +266,11 @@
 							<div hidden="" class="extra-info grid-gravity">
 								<span>Gravity - <span style="font-weight:700;" data-bind="text: gravity">0.10784</span></span>
 							</div>
+							<!--<span data-bind="attr: {class: difficulty}" class="easy">-->
+							<div data-bind="css: ledgeFsmash" class="grid-ledgeFsmash">
+								<span>Ledge Fsmash - <span style="font-weight:700;" data-bind="text: ledgeFsmash"></span></span>
+							</div>
+
 							<div class="characterName">
 								<span data-bind="text:name">Ganondorf</span>
 							</div>
@@ -322,16 +339,19 @@
 				</div>
 
 				<div class="characterDetails">
-					<div class="rageModifier sticky">
-						<h3>Donkey Kong Rage Modifier</h3>
-						<div class="btn-group">
-							<button class="btn rageBtn resetBtn active" data-rage="0">0%</button>
-							<button class="btn rageBtn" data-rage="50">50%</button>
-							<button class="btn rageBtn" data-rage="60">60%</button>
-							<button class="btn rageBtn" data-rage="80">80%</button>
-							<button class="btn rageBtn" data-rage="100">100%</button>
-							<button class="btn rageBtn" data-rage="125">125%</button>
-							<button class="btn rageBtn maxRageBtn" data-rage="150">150%</button>
+					<div class="sticky">
+						<div class="stickyName" data-ref="name">Test Name</div>
+						<div class="rageModifier">
+							<h3>Donkey Kong Rage Modifier</h3>
+							<div class="btn-group">
+								<button class="btn rageBtn resetBtn active" data-rage="0">0%</button>
+								<button class="btn rageBtn" data-rage="50">50%</button>
+								<button class="btn rageBtn" data-rage="60">60%</button>
+								<button class="btn rageBtn" data-rage="80">80%</button>
+								<button class="btn rageBtn" data-rage="100">100%</button>
+								<button class="btn rageBtn" data-rage="125">125%</button>
+								<button class="btn rageBtn maxRageBtn" data-rage="150">150%</button>
+							</div>
 						</div>
 
 					</div>
@@ -547,7 +567,7 @@
 	<script src="./js/main.js?v1.2"></script>
 	<!--<script type="text/javascript" src="./js/build/script.min.js"></script>-->
 
-	<link async rel="stylesheet" href="./css/character-icons.css">
+	<link rel="stylesheet" href="./css/character-icons.css">
 	<script src="./js/vendor/jquery.animateNumber.min.js"></script>
 
 	<!-- Moving the Firebase initialisation codes to bottom, as they break all the JS scripts in Microsoft Edge browser -->

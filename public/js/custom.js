@@ -25,8 +25,6 @@ var Custom = (function() {
 			// Firstly, generate a request for the JSON file
 			jQuery.getJSON('./api/data.json', function(data){
 
-				console.log('success');
-
 				// Begin the mapping
 				var name = data[$index].name;
 				var urlName = data[$index].url;
@@ -45,19 +43,22 @@ var Custom = (function() {
 
 				// Character Modal initialisers
 				var $charModal = $('#characterModal');
+
 				// Need to strip all classes from 'characterImageContainer' to remove the applied character class
 				// https://stackoverflow.com/questions/5363289/remove-all-classes-except-one
 				$charModal.find('.characterImageContainer').attr('class', 'characterImageContainer').addClass(urlName).css('backgroundColor', bgColour);
-				$charModal.addClass('active animate');
 				if(textContrast){
 					$charModal.addClass(textContrast);
 				}
+				$charModal.addClass('active');
+				$charModal.find('.characterImage').addClass('animate');
 
-				$('.modalUnderlay').css('backgroundColor', bgColour);
+				$('.modalUnderlay, .stickyName').css('backgroundColor', bgColour);
 
 				$charModal.find('.grid-percRange .minPerc').text(minPercent);
 				$charModal.find('.grid-percRange .maxPerc').text(maxPercent);
-				$charModal.find('span[data-ref="name"]').text(name);
+				$charModal.find('span[data-ref="name"], .stickyName').text(name);
+				//$charModal.find('.stickyName').text(name);
 
 				// Generating the difficulty text via the global function in characters.js
 				var difficultyAmount = computeDifficulty(minPercent, maxPercent);
@@ -109,7 +110,7 @@ var Custom = (function() {
 
 				// Now to render % differences... Better to take care of them all in one loop
 				// I want to see if rage button is not at default first though, two avoid double-handling the percent range calculations
-				if($charModal.find('.btn[data-rage="0"]').hasClass('active')){
+				/*if($charModal.find('.btn[data-rage="0"]').hasClass('active')){
 					//console.log('default rage');
 					$charModal.find('.percRange-cell').each(function(){
 						var $this = $(this);
@@ -131,11 +132,12 @@ var Custom = (function() {
 						.animateNumber({ number : percRange }, 200);*/
 
 
-				} else {
+				//} else {
 					//console.log('NOT default rage');
 					// Set max/min percentage differences for each stage section
-					rageAdjustment($charModal.find('.rageBtn.active'));
-				}
+					
+				//}
+				rageAdjustment($charModal.find('.rageBtn.active'));
 
 
 				// RAGE MODIFIER STICKY
@@ -148,10 +150,12 @@ var Custom = (function() {
 		            if(120 < windowTop){
 		                $('#characterModal .sticky').addClass('stuck');
 		                $('.stuck').css({ top: marginOffset, width: containerWidth });
+		                $('.stickyName').slideDown('fast');
 
 					} else {
 						$('.stuck').css({ top: 0, width: '100%' }); // restore the original top value of the sticky element
 						$('.sticky').removeClass('stuck');
+						$('.stickyName').hide();
 					}
 				}
 				fixedRagebar($charContainer);
@@ -191,25 +195,17 @@ var Custom = (function() {
 					fixedRagebar($charContainer);
 				})
 
-
-
 			})
 			.fail(function(){
 				console.log('error retrieving data');
 			});
 
-
-			/*if((self).find('.characterImageContainer').hasClass('text-dark')){
-				$('body').addClass('text-dark');
-			} else {
-				$('body').removeClass('text-dark');
-			}*/
-			
 		}
 
 		function deactivateCharacter(){
 			var $body = $('body');
 			$body.removeClass('no-scroll');
+			$('.modalUnderlay').css('backgroundColor', 'transparent');
 			// determine if body has clas 'character-active', to see if we're deactivating a character or a menu page
 			if($body.hasClass('character-active')){
 				var $charModal = $('#characterModal');
@@ -218,9 +214,9 @@ var Custom = (function() {
 				$charModal.find('.characterBorder').css('height', 'auto');
 				$('#character-list li.selected').removeClass('selected');
 				$body.removeClass('character-active');
-				$('.modalUnderlay').css('backgroundColor', 'transparent');
 			} else {
 				$('.menu-page > div').hide();
+				$('#menuBackButton').removeClass('active');
 			}
 			
 			// Page does not force reload if '#' is in the URL
@@ -234,8 +230,17 @@ var Custom = (function() {
 			var $charModal = $('#characterModal');
 			$charModal.attr('class', 'active');
 			$('#character-list li.selected').removeClass('selected');
+
 			// In order to reset the animation of image between characters with the new single modal setup, it needs to be REMOVED ENTIRELY. Guh!
 			// https://css-tricks.com/restart-css-animation/
+			/*element = document.getElementById('characterModal');
+			element.classList.remove('animate');
+			void element.offsetWidth;
+			element.classList.add('animate');*/
+			/*$charModal.find('.characterImage').removeClass('animate');
+			void $charModal.offsetWidth;*/
+			//$charModal.addClass('animate');
+			$charModal.find('.characterImage').removeClass('animate');
 			var el = $charModal.find('.characterImage'), newone = el.clone(true);
 			el.before(newone);
 			$('.' + el.attr('class') + ':last').remove();
@@ -320,8 +325,8 @@ var Custom = (function() {
 				deactivateCharacter();	
 			}
 			$('body').addClass('no-scroll').removeClass('text-dark');
-			$('.characterUnderlay').css('backgroundColor', 'rgb(136,136,136)');
-			$('.characterBackButton').addClass('active');
+			$('.modalUnderlay').css('backgroundColor', 'rgb(136,136,136)');
+			$('#menuBackButton').addClass('active');
 			$('#' + target).show();
 		}
 
@@ -360,9 +365,6 @@ var Custom = (function() {
 				activateCharacter($activeContainer.siblings('.character-box:last-child'));
 			}
 		}
-
-
-
 
 
 		// Character key events
@@ -505,6 +507,10 @@ var Custom = (function() {
 		$('.add-info-grid').click(function(){
 			$('.add-info-grid').toggleClass('checked');
 			$('body').toggleClass('show-extra-info');
+		})
+		$('.add-ledgeFsmash-grid').click(function(){
+			$('.add-ledgeFsmash-grid').toggleClass('checked');
+			$('body').toggleClass('show-ledgeFsmash');
 		})
 
 	});
