@@ -99,23 +99,27 @@ var characters = (function() {
 
                 vm.airdodgeStart = data.airdodgeStart;
                 vm.airdodgeEnd = data.airdodgeEnd;
-                vm.imagePosition = data.imagePosition;
-                vm.textContrast = data.textContrast;
+
+                if(data.imagePosition){
+                    vm.imagePosition = data.imagePosition;
+                } else {
+                    vm.imagePosition = '';
+                }
+                if(data.textContrast){
+                    vm.textContrast = data.textContrast;
+                } else {
+                    vm.textContrast = '';
+                }
 
                 // Generating image properties
                 vm.imageProperties = ko.observable(vm.url + ' ' + vm.imagePosition + ' ' + vm.textContrast);
 
-                // NEW!
                 if(data.ledgeFsmash){
                     vm.ledgeFsmash = 'yes';
                 } else {
                     vm.ledgeFsmash = 'no';
                 }
                 
-                /*if(!vm.canFsmash){
-                    vm.canFsmash = 'no';
-                }*/
-
 
                 // Aaaand now to get the filter going
                 // https://stackoverflow.com/questions/20857594/knockout-filtering-on-observable-array

@@ -11,6 +11,70 @@ var Custom = (function() {
 
 	defer(function(){
 
+
+		// RAGE MODIFIER STICKY
+		// This begins to cause functions when modals are transitioned. Causes scroll jank.
+		
+		var $charContainer = $('#characterModal .characterContainer');
+		function fixedRagebar(self){
+			
+			var windowTop = self.scrollTop();
+			
+            containerWidth = $charContainer.innerWidth();
+            marginOffset = $charContainer.css('margin-top');
+            if(120 < windowTop){
+                $('#characterModal .sticky').addClass('stuck');
+                $('.stuck').css({ top: marginOffset, width: containerWidth });
+                $('.stickyName').slideDown('fast');
+
+			} else {
+				$('.stuck').css({ top: 0, width: '100%' }); // restore the original top value of the sticky element
+				$('.sticky').removeClass('stuck');
+				$('.stickyName').hide();
+			}
+		}
+
+		// Limiting min execution interval on scroll to help prevent scroll jank
+		// http://joji.me/en-us/blog/how-to-develop-high-performance-onscroll-event
+		var scroll = function(){
+			fixedRagebar($charContainer);
+		}
+		var raf = window.requestAnimationFrame ||
+		    window.webkitRequestAnimationFrame ||
+		    window.mozRequestAnimationFrame ||
+		    window.msRequestAnimationFrame ||
+		    window.oRequestAnimationFrame;
+		var $window = $charContainer;
+		var lastScrollTop = $window.scrollTop();
+
+		if (raf) {
+    		loop();
+		}
+		function loop() {
+		    var scrollTop = $window.scrollTop();
+		    if (lastScrollTop === scrollTop) {
+		        raf(loop);
+		        return;
+		    } else {
+		        lastScrollTop = scrollTop;
+		        // fire scroll function if scrolls vertically
+		        scroll();
+		        raf(loop);
+		    }
+		}
+		fixedRagebar($charContainer);
+
+		// Could save this JSON to a var for easy referral
+		// No more loading times between characters
+		// https://stackoverflow.com/questions/15764844/jquery-getjson-save-result-into-variable
+		var myjson;
+		$.getJSON("./api/data.json", function(jsonCallback){
+		    myjson = jsonCallback;
+		})
+		.fail(function(){
+			console.log('error retrieving data');
+		});
+
 		function activateCharacter(self){
 
 			// Add class of 'selected' to the clicked character box. This is used for transitioning between characters while the modal box is open
@@ -22,183 +86,134 @@ var Custom = (function() {
 			// Grab the data-index attr added by Knockout for each box. This is used to link the box to the JSON data that's generated in the modal
 			var $index = self.closest('.character-box.selected').data('index');
 
+			// Character Modal initialisers
+			// I want these outside the 'getJSON' request so they're loaded before the JSON is, otherwise there is NO IMAGE for a brief moment.
+			var $charModal = $('#characterModal');
+
+			// Need to strip all classes from 'characterImageContainer' to remove the applied character class
+			// https://stackoverflow.com/questions/5363289/remove-all-classes-except-one
+			$charModal.find('.characterImageContainer').attr('class', 'characterImageContainer');
+
+			$charModal.removeClass('animate');
+
+
 			// Firstly, generate a request for the JSON file
-			jQuery.getJSON('./api/data.json', function(data){
+			// This is using the jsonCallback
 
-				// Begin the mapping
-				var name = data[$index].name;
-				var urlName = data[$index].url;
-				var bgColour = data[$index].bgColour;
-				var weight = data[$index].weight;
-				var minPercent = parseInt(data[$index].minPercent);
-				var maxPercent = parseInt(data[$index].maxPercent);
-				var fallspeed = data[$index].fallspeed;
-				var gravity = data[$index].gravity;
-				var airdodgeStart = data[$index].airdodgeStart;
-				var airdodgeEnd = data[$index].airdodgeEnd;
-				var textContrast = data[$index].textContrast;
+			// Begin the mapping
+			var name = myjson[$index].name;
+			var urlName = myjson[$index].url;
+			var bgColour = myjson[$index].bgColour;
+			var weight = myjson[$index].weight;
+			var minPercent = parseInt(myjson[$index].minPercent);
+			var maxPercent = parseInt(myjson[$index].maxPercent);
+			var fallspeed = myjson[$index].fallspeed;
+			var gravity = myjson[$index].gravity;
+			var airdodgeStart = myjson[$index].airdodgeStart;
+			var airdodgeEnd = myjson[$index].airdodgeEnd;
+			var textContrast = myjson[$index].textContrast;
 
-				var airdodge = airdodgeStart + ' - ' + airdodgeEnd;
-				var percRange = (maxPercent - minPercent) + 1;
+			var airdodge = airdodgeStart + ' - ' + airdodgeEnd;
+			var percRange = (maxPercent - minPercent) + 1;
 
-				// Character Modal initialisers
-				var $charModal = $('#characterModal');
+			// Time to activate the Character Modal
+			$charModal.addClass('active');
 
-				// Need to strip all classes from 'characterImageContainer' to remove the applied character class
-				// https://stackoverflow.com/questions/5363289/remove-all-classes-except-one
-				$charModal.find('.characterImageContainer').attr('class', 'characterImageContainer').addClass(urlName).css('backgroundColor', bgColour);
-				if(textContrast){
-					$charModal.addClass(textContrast);
-				}
-				$charModal.addClass('active');
-				$charModal.find('.characterImage').addClass('animate');
+			if(textContrast){
+				$charModal.addClass(textContrast);
+			}
+			$charModal.addClass(urlName);
 
-				$('.modalUnderlay, .stickyName').css('backgroundColor', bgColour);
-
-				$charModal.find('.grid-percRange .minPerc').text(minPercent);
-				$charModal.find('.grid-percRange .maxPerc').text(maxPercent);
-				$charModal.find('span[data-ref="name"], .stickyName').text(name);
-				//$charModal.find('.stickyName').text(name);
-
-				// Generating the difficulty text via the global function in characters.js
-				var difficultyAmount = computeDifficulty(minPercent, maxPercent);
-				$charModal.find('.grid-difficulty').html('<span class="' + difficultyAmount + '">' + difficultyAmount + ' - ' + percRange + '%</span>');
-				$charModal.find('.characterName').text(name);
-
-				var $charOverviewItem = $charModal.find('.characterOverview');
-				$charOverviewItem.find('li[data-ref="weight"]').html('Weight' + '<span class="value">' + weight + '</span>');
-				$charOverviewItem.find('li[data-ref="fallspeed"]').html('Gravity' + '<span class="value">' + fallspeed + '</span>');
-				$charOverviewItem.find('li[data-ref="airdodge"]').html('Airdodge' + '<span class="value">' + airdodge + '</span>');
-				$charOverviewItem.find('li[data-ref="gravity"]').html('Gravity' + '<span class="value">' + gravity + '</span>');
-
-				// Map those mf-ing values
-				var $fd = $charModal.find('.stage-fd');
-				$fd.find('span[data-ref="minPerc"]').text(minPercent).attr('data-defaultmin', minPercent);
-				$fd.find('span[data-ref="maxPerc"]').text(maxPercent).attr('data-defaultmax', maxPercent);
-
-				var $bf = $charModal.find('.stage-bf');
-				$bf.find('span[data-ref="bfNormalMin"]').text(minPercent+7).attr('data-defaultmin', minPercent);
-				$bf.find('span[data-ref="bfNormalMax"]').text(maxPercent).attr('data-defaultmax', maxPercent);
-				$bf.find('span[data-ref="bfLowPlatMin"]').text(minPercent-7).attr('data-defaultmin', minPercent-7);
-				$bf.find('span[data-ref="bfLowPlatMax"]').text(maxPercent).attr('data-defaultmax', maxPercent);
-				$bf.find('span[data-ref="bfTopPlatMin"]').text(minPercent-20).attr('data-defaultmin', minPercent-20);
-				$bf.find('span[data-ref="bfTopPlatMax"]').text(maxPercent).attr('data-defaultmax', maxPercent);
-
-				var $dl = $charModal.find('.stage-dl');
-				$dl.find('span[data-ref="dlNormalMin"]').text(minPercent).attr('data-defaultmin', minPercent);
-				$dl.find('span[data-ref="dlNormalMax"]').text(maxPercent).attr('data-defaultmax', maxPercent);
-				$dl.find('span[data-ref="dlLowPlatMin"]').text(minPercent-15).attr('data-defaultmin', minPercent-15);
-				$dl.find('span[data-ref="dlLowPlatMax"]').text(maxPercent).attr('data-defaultmax', maxPercent);
-				$dl.find('span[data-ref="dlTopPlatMin"]').text(minPercent-26).attr('data-defaultmin', minPercent-26);
-				$dl.find('span[data-ref="dlTopPlatMax"]').text(maxPercent).attr('data-defaultmax', maxPercent);
-
-				var $sv = $charModal.find('.stage-sv');
-				$sv.find('span[data-ref="svNormalMin"]').text(minPercent+1).attr('data-defaultmin', minPercent+1);
-				$sv.find('span[data-ref="svNormalMax"]').text(maxPercent).attr('data-defaultmax', maxPercent);
-				$sv.find('span[data-ref="svPlatMin"]').text(minPercent-14).attr('data-defaultmin', minPercent-14);
-				$sv.find('span[data-ref="svPlatMax"]').text(maxPercent).attr('data-defaultmax', maxPercent);
-
-				var $tc = $charModal.find('.stage-tc');
-				$tc.find('span[data-ref="tcNormalMin"]').text(minPercent-4).attr('data-defaultmin', minPercent-4);
-				$tc.find('span[data-ref="tcNormalMax"]').text(maxPercent).attr('data-defaultmax', maxPercent);
-				$tc.find('span[data-ref="tcLowPlatMin"]').text(minPercent-20).attr('data-defaultmin', minPercent-20);
-				$tc.find('span[data-ref="tcLowPlatMax"]').text(maxPercent).attr('data-defaultmax', maxPercent);
-				$tc.find('span[data-ref="tcSidePlatMin"]').text(minPercent-25).attr('data-defaultmin', minPercent-25);
-				$tc.find('span[data-ref="tcSidePlatMax"]').text(maxPercent).attr('data-defaultmax', maxPercent);
-				$tc.find('span[data-ref="tcTopPlatMin"]').text(minPercent-41).attr('data-defaultmin', minPercent-41);
-				$tc.find('span[data-ref="tcTopPlatMax"]').text(maxPercent).attr('data-defaultmax', maxPercent);
-
-				// Now to render % differences... Better to take care of them all in one loop
-				// I want to see if rage button is not at default first though, two avoid double-handling the percent range calculations
-				/*if($charModal.find('.btn[data-rage="0"]').hasClass('active')){
-					//console.log('default rage');
-					$charModal.find('.percRange-cell').each(function(){
-						var $this = $(this);
-						var $target = $this.find('.percRange');
-						var $minPercent = $this.prev().prev().find('.minPerc').text();
-						var $maxPercent = $this.prev().find('.maxPerc').text();
-						$target.text($maxPercent - $minPercent + 1);
-					});
-
-					// Thingy doesn't animate is rage is at 0 and transitioning
-					/*$minPerc
-						.prop('number', $minPerc.text())
-						.animateNumber({ number : adjustedMinPercent }, 200);
-					$maxPerc
-						.prop('number', $maxPerc.text())
-						.animateNumber({ number : adjustedMaxPercent }, 200);
-					$percRange
-						.prop('number', $percRange.text())
-						.animateNumber({ number : percRange }, 200);*/
+			$('.modalUnderlay').css('backgroundColor', bgColour);
+			$charModal.find('.characterImageContainer, .stickyName').css('backgroundColor', bgColour);
 
 
-				//} else {
-					//console.log('NOT default rage');
-					// Set max/min percentage differences for each stage section
-					
-				//}
-				rageAdjustment($charModal.find('.rageBtn.active'));
+			// Trick to restart the CSS animation for the characterImage slideIn. What a headache.
+			// https://css-tricks.com/restart-css-animation/
+			// https://stackoverflow.com/questions/31028479/restarting-css-animation-via-javascript
+			var returnID = function(id){
+				return document.getElementById(id);
+			}
+			var $charImage = $('#characterModalImage');
+			
+			// This doesn't seem to work if $('#characterModalImage') is used.
+			//returnID('characterModal').classList.remove('animate');
+			returnID('characterModal').offsetWidth = returnID('characterModal').offsetWidth;
+			returnID('characterModal').classList.add('animate');
 
 
-				// RAGE MODIFIER STICKY
-				var $charContainer = $('#characterModal .characterContainer');
-				function fixedRagebar(self){
-					var windowTop = self.scrollTop();
-					
-		            containerWidth = $charContainer.innerWidth();
-		            marginOffset = $charContainer.css('margin-top');
-		            if(120 < windowTop){
-		                $('#characterModal .sticky').addClass('stuck');
-		                $('.stuck').css({ top: marginOffset, width: containerWidth });
-		                $('.stickyName').slideDown('fast');
 
-					} else {
-						$('.stuck').css({ top: 0, width: '100%' }); // restore the original top value of the sticky element
-						$('.sticky').removeClass('stuck');
-						$('.stickyName').hide();
-					}
-				}
+			$charModal.find('.grid-percRange .minPerc').text(minPercent);
+			$charModal.find('.grid-percRange .maxPerc').text(maxPercent);
+			$charModal.find('span[data-ref="name"], .stickyName').text(name);
+
+			// Generating the difficulty text via the global function in characters.js
+			var difficultyAmount = computeDifficulty(minPercent, maxPercent);
+			$charModal.find('.grid-difficulty').html('<span class="' + difficultyAmount + '">' + difficultyAmount + ' - ' + percRange + '%</span>');
+			$charModal.find('.characterName').text(name);
+
+			var $charOverviewItem = $charModal.find('.characterOverview');
+			$charOverviewItem.find('li[data-ref="weight"]').html('Weight' + '<span class="value">' + weight + '</span>');
+			$charOverviewItem.find('li[data-ref="fallspeed"]').html('Gravity' + '<span class="value">' + fallspeed + '</span>');
+			$charOverviewItem.find('li[data-ref="airdodge"]').html('Airdodge' + '<span class="value">' + airdodge + '</span>');
+			$charOverviewItem.find('li[data-ref="gravity"]').html('Gravity' + '<span class="value">' + gravity + '</span>');
+
+			// Map those mf-ing values
+			// Ideally these should all be pushed to an array and mapped all at once, but eh
+			var $fd = $charModal.find('.stage-fd');
+			$fd.find('span[data-ref="minPerc"]').text(minPercent).attr('data-defaultmin', minPercent);
+			$fd.find('span[data-ref="maxPerc"]').text(maxPercent).attr('data-defaultmax', maxPercent);
+
+			var $bf = $charModal.find('.stage-bf');
+			$bf.find('span[data-ref="bfNormalMin"]').text(minPercent+7).attr('data-defaultmin', minPercent);
+			$bf.find('span[data-ref="bfNormalMax"]').text(maxPercent).attr('data-defaultmax', maxPercent);
+			$bf.find('span[data-ref="bfLowPlatMin"]').text(minPercent-7).attr('data-defaultmin', minPercent-7);
+			$bf.find('span[data-ref="bfLowPlatMax"]').text(maxPercent).attr('data-defaultmax', maxPercent);
+			$bf.find('span[data-ref="bfTopPlatMin"]').text(minPercent-20).attr('data-defaultmin', minPercent-20);
+			$bf.find('span[data-ref="bfTopPlatMax"]').text(maxPercent).attr('data-defaultmax', maxPercent);
+
+			var $dl = $charModal.find('.stage-dl');
+			$dl.find('span[data-ref="dlNormalMin"]').text(minPercent).attr('data-defaultmin', minPercent);
+			$dl.find('span[data-ref="dlNormalMax"]').text(maxPercent).attr('data-defaultmax', maxPercent);
+			$dl.find('span[data-ref="dlLowPlatMin"]').text(minPercent-15).attr('data-defaultmin', minPercent-15);
+			$dl.find('span[data-ref="dlLowPlatMax"]').text(maxPercent).attr('data-defaultmax', maxPercent);
+			$dl.find('span[data-ref="dlTopPlatMin"]').text(minPercent-26).attr('data-defaultmin', minPercent-26);
+			$dl.find('span[data-ref="dlTopPlatMax"]').text(maxPercent).attr('data-defaultmax', maxPercent);
+
+			var $sv = $charModal.find('.stage-sv');
+			$sv.find('span[data-ref="svNormalMin"]').text(minPercent+1).attr('data-defaultmin', minPercent+1);
+			$sv.find('span[data-ref="svNormalMax"]').text(maxPercent).attr('data-defaultmax', maxPercent);
+			$sv.find('span[data-ref="svPlatMin"]').text(minPercent-14).attr('data-defaultmin', minPercent-14);
+			$sv.find('span[data-ref="svPlatMax"]').text(maxPercent).attr('data-defaultmax', maxPercent);
+
+			var $tc = $charModal.find('.stage-tc');
+			$tc.find('span[data-ref="tcNormalMin"]').text(minPercent-4).attr('data-defaultmin', minPercent-4);
+			$tc.find('span[data-ref="tcNormalMax"]').text(maxPercent).attr('data-defaultmax', maxPercent);
+			$tc.find('span[data-ref="tcLowPlatMin"]').text(minPercent-20).attr('data-defaultmin', minPercent-20);
+			$tc.find('span[data-ref="tcLowPlatMax"]').text(maxPercent).attr('data-defaultmax', maxPercent);
+			$tc.find('span[data-ref="tcSidePlatMin"]').text(minPercent-25).attr('data-defaultmin', minPercent-25);
+			$tc.find('span[data-ref="tcSidePlatMax"]').text(maxPercent).attr('data-defaultmax', maxPercent);
+			$tc.find('span[data-ref="tcTopPlatMin"]').text(minPercent-41).attr('data-defaultmin', minPercent-41);
+			$tc.find('span[data-ref="tcTopPlatMax"]').text(maxPercent).attr('data-defaultmax', maxPercent);
+
+			// Now to render % differences... Better to take care of them all in one loop
+			// I want to see if rage button is not at default first though, two avoid double-handling the percent range calculations
+			// This causes the code to loop through twice - once for rendering the numbers and another for animating them. Is inefficent, really
+			rageAdjustment($charModal.find('.rageBtn.active'));
+			/*if($charModal.find('.btn[data-rage="0"]').hasClass('active')){
+				//console.log('default rage');
+			} else {
+				//console.log('NOT default rage');
+			}*/
+
+
+
+			// Need to resize based on window.innerHeight due to mobile address bar sizings.
+			// https://developers.google.com/web/updates/2016/12/url-bar-resizing
+			$(window).resize(function(e){
 				fixedRagebar($charContainer);
-
-				// Limiting min execution interval on scroll to help prevent scroll jank
-				// http://joji.me/en-us/blog/how-to-develop-high-performance-onscroll-event
-				var scroll = function(){
-					fixedRagebar($charContainer);
-				}
-				var raf = window.requestAnimationFrame ||
-				    window.webkitRequestAnimationFrame ||
-				    window.mozRequestAnimationFrame ||
-				    window.msRequestAnimationFrame ||
-				    window.oRequestAnimationFrame;
-				var $window = $charContainer;
-				var lastScrollTop = $window.scrollTop();
-
-				if (raf) {
-		    		loop();
-				}
-				function loop() {
-				    var scrollTop = $window.scrollTop();
-				    if (lastScrollTop === scrollTop) {
-				        raf(loop);
-				        return;
-				    } else {
-				        lastScrollTop = scrollTop;
-				        // fire scroll function if scrolls vertically
-				        scroll();
-				        raf(loop);
-				    }
-				}
-
-				// Need to resize based on window.innerHeight due to mobile address bar sizings.
-				// https://developers.google.com/web/updates/2016/12/url-bar-resizing
-				$(window).resize(function(e){
-					fixedRagebar($charContainer);
-				})
-
 			})
-			.fail(function(){
-				console.log('error retrieving data');
-			});
+
 
 		}
 
@@ -229,24 +244,12 @@ var Custom = (function() {
 		function transitionCharacter(){
 			var $charModal = $('#characterModal');
 			$charModal.attr('class', 'active');
+			//$charModal.find('#characterModalImage').fadeOut();
 			$('#character-list li.selected').removeClass('selected');
 
-			// In order to reset the animation of image between characters with the new single modal setup, it needs to be REMOVED ENTIRELY. Guh!
-			// https://css-tricks.com/restart-css-animation/
-			/*element = document.getElementById('characterModal');
-			element.classList.remove('animate');
-			void element.offsetWidth;
-			element.classList.add('animate');*/
-			/*$charModal.find('.characterImage').removeClass('animate');
-			void $charModal.offsetWidth;*/
-			//$charModal.addClass('animate');
-			$charModal.find('.characterImage').removeClass('animate');
-			var el = $charModal.find('.characterImage'), newone = el.clone(true);
-			el.before(newone);
-			$('.' + el.attr('class') + ':last').remove();
-			//$('#characterModal').find('.characterImage').css('left', '50');
+
 		}
-		
+
 
 		function rageAdjustment(self){
 			var rageAmount = self.attr("data-rage");
@@ -258,7 +261,7 @@ var Custom = (function() {
 
 			// According to the data, characters with ... dunno, I got nothing
 			// There seems to be no distinct pattern of how rage causes the min and max% windows to decay
-			// Earlier, a rough spreadsheet was put together to try and measure the variance of decay between characters --> https://docs.google.com/spreadsheets/d/10YmEZihWk6oPPXnynnfIpyEApfl0ANPRlCq4WnHv3Ls/edit#gid=0
+			// Earlier, a rough spreadsheet was put together to try and measure the variance of decay relative to DK's rage between characters --> https://docs.google.com/spreadsheets/d/10YmEZihWk6oPPXnynnfIpyEApfl0ANPRlCq4WnHv3Ls/edit#gid=0
 			// The stuff in red measures accumulated decay. Doesn't seem to be a pattern, so an average value is taken
 
 			// Calculate amount to adjust min-percent based on rage
@@ -504,13 +507,40 @@ var Custom = (function() {
 			$this.toggleClass('active');
 			$this.closest('.btn-group').toggleClass('open');
 		});
-		$('.add-info-grid').click(function(){
-			$('.add-info-grid').toggleClass('checked');
-			$('body').toggleClass('show-extra-info');
-		})
-		$('.add-ledgeFsmash-grid').click(function(){
-			$('.add-ledgeFsmash-grid').toggleClass('checked');
-			$('body').toggleClass('show-ledgeFsmash');
+
+
+		$('.add-extra-info').click(function(){
+			$this = $(this);
+
+			// Need to see if these are the MOBILE toggles, or the DESKTOP toggles. They'll function slightly differently
+			if($this.closest('.btn-group').hasClass('mobile')){
+				// Need to make it that only one 'toggle extra info' button on mobile can be active at a time
+				// Otherwise the design starts to break down and look poopoo
+
+				if(!$this.hasClass('checked')){
+					$('.mobile .add-extra-info').removeClass('checked');
+					$this.addClass('checked');
+					if($this.hasClass('add-info-grid')){
+						$('body').addClass('show-extra-info').removeClass('show-ledgeFsmash');
+					}
+					if($this.hasClass('add-ledgeFsmash-grid')){
+						$('body').addClass('show-ledgeFsmash').removeClass('show-extra-info');
+					}
+				} else {
+					$this.removeClass('checked');
+					$('body').removeClass('show-ledgeFsmash show-extra-info');
+				}
+
+			} else {
+				if($this.hasClass('add-info-grid')){
+					$this.toggleClass('checked');
+					$('body').toggleClass('show-extra-info');
+				}
+				if($this.hasClass('add-ledgeFsmash-grid')){
+					$this.toggleClass('checked');
+					$('body').toggleClass('show-ledgeFsmash');
+				}
+			}
 		})
 
 	});
