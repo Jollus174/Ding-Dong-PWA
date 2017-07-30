@@ -114,7 +114,6 @@ var Page = (function(){
 			}
 		}
 
-
 		self.sortGravity = function(item, event){
 			var $filterButtons = $('.filter-btn').not('#filter-dropdown-btn.filter-btn');
 			var $element = $(event.target);

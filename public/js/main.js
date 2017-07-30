@@ -2,10 +2,18 @@
 // Updating this to include push manager for updating the PWA
 // https://developers.google.com/web/fundamentals/getting-started/codelabs/push-notifications/
 
+
+// Temporarily disabling service worker while shit gets sorted with it
+/*if('serviceWorker' in navigator){
+    console.log('Service Worker is supported');
+    navigator.serviceWorker.register('./service-worker.js?v2').then(function(reg){
+        console.log('Successfully registered service worker', reg);
+    }).catch(function(err){
+        console.warn('Error while registering service worker', err);
+    });
+}*/
+
 if ('serviceWorker' in navigator) {
-
-    // According to this, the buggy Service Worker should cease in about a day or so --> https://stackoverflow.com/questions/33986976/how-can-i-remove-a-buggy-service-worker-or-implement-a-kill-switch
-
   // Delay registration until after the page has loaded, to ensure that our
   // precaching requests don't degrade the first visit experience.
   // See https://developers.google.com/web/fundamentals/instant-and-offline/service-worker/registration

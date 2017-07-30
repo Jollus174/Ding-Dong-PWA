@@ -1,3 +1,16 @@
+// This function is also used in custom.js to determine difficulty, so I'm moving it outside the toCharacterViewModel() function
+function computeDifficulty(minPercent, maxPercent){
+    var percent = maxPercent - minPercent;
+    var diff = "";
+    if(0 <= percent && percent <= 6){diff = 'very-hard'};
+    if(7 <= percent && percent <= 11){diff = 'hard'};
+    if(12 <= percent && percent <= 22){diff = 'average'};
+    if(23 <= percent && percent <= 30){diff = 'easy'};
+    if(31 <= percent){diff = 'very-easy'};
+    return diff;
+}
+//
+
 // Sort out character boxes
 var characters = (function() {
 
@@ -17,12 +30,13 @@ var characters = (function() {
         self.airdodgeEnd = "";
         self.imagePosition = "";
         self.textContrast = "";
+        self.ledgeFsmash = "";
     }
 
     function CharacterApiService() {
         var self = this;
 
-        // retrieves all arrivals from the API
+        // retrieves all characters from the API
         self.getAll = function() {
             return new Promise(function(resolve, reject) {
                 var request = new XMLHttpRequest();
@@ -37,7 +51,6 @@ var characters = (function() {
                         resolve(charDataJSON);
                     } else {
                         // error retrieving file
-                        reject(Error(request.statusText));
                     }
                 };
 
@@ -76,17 +89,7 @@ var characters = (function() {
                     return percRange;
                 }, this);
 
-                vm.difficulty = ko.computed(function(){
-                    var percent = vm.maxPercent - vm.minPercent;
-                    var diff = "";
-                    //var diffText = diff + ' - ' + percent;
-                    if(0 <= percent && percent <= 6){diff = 'very-hard'};
-                    if(7 <= percent && percent <= 11){diff = 'hard'};
-                    if(12 <= percent && percent <= 22){diff = 'average'};
-                    if(23 <= percent && percent <= 30){diff = 'easy'};
-                    if(31 <= percent){diff = 'very-easy'};
-                    return diff;
-                }, this);
+                vm.difficulty = computeDifficulty(vm.minPercent, vm.maxPercent);
 
                 vm.difficultyValue = ko.computed(function(){
                     var floatiness = vm.fallspeed * vm.gravity;
@@ -96,48 +99,27 @@ var characters = (function() {
 
                 vm.airdodgeStart = data.airdodgeStart;
                 vm.airdodgeEnd = data.airdodgeEnd;
-                vm.imagePosition = data.imagePosition;
-                /*vm.textContrast = ko.computed(function(){
-                    var textColour = "";
-                    if(data.textContrast == 'dark'){
-                        textColour = 'text-dark';
-                    }
-                    return textColour;
-                }, this);*/
-                vm.textContrast = data.textContrast;
+
+                if(data.imagePosition){
+                    vm.imagePosition = data.imagePosition;
+                } else {
+                    vm.imagePosition = '';
+                }
+                if(data.textContrast){
+                    vm.textContrast = data.textContrast;
+                } else {
+                    vm.textContrast = '';
+                }
 
                 // Generating image properties
                 vm.imageProperties = ko.observable(vm.url + ' ' + vm.imagePosition + ' ' + vm.textContrast);
 
-                vm.fd = vm.minPercent;
-
-                vm.bfNormalMin = ko.computed(function(){return vm.minPercent + 7}, this);
-                vm.bfNormalMax = ko.computed(function(){return vm.maxPercent}, this);
-                vm.bfLowPlatMin = ko.computed(function(){return vm.minPercent - 7}, this);
-                vm.bfLowPlatMax = ko.computed(function(){return vm.maxPercent}, this);
-                vm.bfTopPlatMin = ko.computed(function(){return vm.minPercent - 20}, this);
-                vm.bfTopPlatMax = ko.computed(function(){return vm.maxPercent}, this);
-
-                vm.dlNormalMin = vm.minPercent;
-                vm.dlNormalMax = vm.maxPercent;
-                vm.dlLowPlatMin = ko.computed(function(){return vm.minPercent - 15}, this);
-                vm.dlLowPlatMax = ko.computed(function(){return vm.maxPercent}, this);
-                vm.dlTopPlatMin = ko.computed(function(){return vm.minPercent - 26}, this);
-                vm.dlTopPlatMax = ko.computed(function(){return vm.maxPercent}, this);
-
-                vm.svNormalMin = ko.computed(function(){return vm.minPercent + 1}, this);
-                vm.svNormalMax = ko.computed(function(){return vm.maxPercent}, this);
-                vm.svPlatMin = ko.computed(function(){return vm.minPercent - 14}, this);
-                vm.svPlatMax = ko.computed(function(){return vm.maxPercent}, this);
-
-                vm.tcNormalMin = ko.computed(function(){return vm.minPercent - 4}, this);
-                vm.tcNormalMax = ko.computed(function(){return vm.maxPercent}, this);
-                vm.tcLowPlatMin = ko.computed(function(){return vm.minPercent - 20}, this);
-                vm.tcLowPlatMax = ko.computed(function(){return vm.maxPercent}, this);
-                vm.tcSidePlatMin = ko.computed(function(){return vm.minPercent - 25}, this);
-                vm.tcSidePlatMax = ko.computed(function(){return vm.maxPercent}, this);
-                vm.tcTopPlatMin = ko.computed(function(){return vm.minPercent - 41}, this);
-                vm.tcTopPlatMax = ko.computed(function(){return vm.maxPercent}, this);
+                if(data.ledgeFsmash){
+                    vm.ledgeFsmash = 'yes';
+                } else {
+                    vm.ledgeFsmash = 'no';
+                }
+                
 
                 // Aaaand now to get the filter going
                 // https://stackoverflow.com/questions/20857594/knockout-filtering-on-observable-array
@@ -159,7 +141,7 @@ var characters = (function() {
             return null;
         };
 
-        // This block maps them out? Will repeat the functions for each element being called.
+        // This block maps them out. Will repeat the functions for each element being called.
         self.toCharacterViewModels = function(data) {
             if (data && data.length > 0) {
                 return data.map(function(character) {
