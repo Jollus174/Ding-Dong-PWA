@@ -387,8 +387,8 @@ span.mobile{display:inline;}
 #icon-filter .pathfill{fill:#333;}
 .active #icon-filter .pathfill{fill:#FFF;}
 
-#icon-arrowback .pathfill, #icon-prev .pathfill, #icon-next .pathfill{fill:#FFF;}
-.text-dark #icon-arrowback .pathfill{fill:#333;}
+.icon-arrowback .pathfill, #icon-prev .pathfill, #icon-next .pathfill{fill:#FFF;}
+.text-dark .icon-arrowback .pathfill{fill:#333;}
 
 
 #notification{
