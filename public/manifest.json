@@ -2,7 +2,7 @@
     "short_name": "Ding Dong Calculator",
     "name": "DK Ding Dong Calculator",
     "//": "Append tracking parameters to start_url",
-    "description": "A Super Smash Bros. for Wii U Progressive Web App for calculating Ding Dong percent ranges for Donkey Kong",
+    "description": "A Super Smash Bros. for Wii U Progressive Web App for calculating Ding Dong percent ranges for Donkey Kong.",
     "icons": [
         {
             "src": "images/icons/launcher-icon-32x32.png",
