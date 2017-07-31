@@ -11,6 +11,14 @@ var Custom = (function() {
 
 	defer(function(){
 
+		// Set index numbers to each character box
+		// Can't do via Knockout, since if a filter is activated, it will reapply all the indexes and mess up the indexing for characterModal data retrieval
+
+		jQuery('#character-list .character-box').each(function(){
+			var $index = $(this).index();
+			$(this).attr('data-index', $index);
+		});
+
 
 		// RAGE MODIFIER STICKY
 		// This begins to cause functions when modals are transitioned. Causes scroll jank.
@@ -74,6 +82,7 @@ var Custom = (function() {
 		.fail(function(){
 			console.log('error retrieving data');
 		});
+
 
 		function activateCharacter(self){
 
@@ -205,8 +214,6 @@ var Custom = (function() {
 			} else {
 				//console.log('NOT default rage');
 			}*/
-
-
 
 			// Need to resize based on window.innerHeight due to mobile address bar sizings.
 			// https://developers.google.com/web/updates/2016/12/url-bar-resizing
