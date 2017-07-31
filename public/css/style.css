@@ -1558,8 +1558,21 @@ tr.table-descs td{
     .leftImage .characterImage:hover{background-position:center -7px;}
     .rightImage .characterImage:hover{background-position:center -7px;}
 
+    @keyframes animateBG{
+        0%{
+            background-position:center center;
+            opacity:0;
+        }
+        100%{
+            background-position:left center;
+            opacity:1;
+        }
+    }
+
     #characterModal.animate .characterImage{
         opacity:1;
+        animation:animateBG 600ms cubic-bezier(0.215, 0.61, 0.355, 1);
+        -webkit-animation:animateBG 600ms cubic-bezier(0.215, 0.61, 0.355, 1);
     }
 
     .backButton{
