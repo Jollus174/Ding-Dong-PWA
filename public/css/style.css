@@ -1553,13 +1553,14 @@ tr.table-descs td{
 
     .text-dark #icon-prev .pathfill, .text-dark #icon-next .pathfill{fill:#333;}
 
-    #character-list li.active .characterContainer{
-        /*height:90%;*/
-    }
 
     .characterImage:hover{background-position:center -7px;}
     .leftImage .characterImage:hover{background-position:center -7px;}
     .rightImage .characterImage:hover{background-position:center -7px;}
+
+    #characterModal.animate .characterImage{
+        opacity:1;
+    }
 
     .backButton{
         padding:1em;
@@ -1576,11 +1577,6 @@ tr.table-descs td{
 
     .filtersText{display:inline;}
 
-    /*#character-list li.active{*/
-        /* This is to compensate for the new sidedrawer */
-        /*-webkit-transform: translate(100px,0);
-        transform: translate(100px,0);*/
-    /*}*/
     .stage-content{
         padding:1em;
     }
