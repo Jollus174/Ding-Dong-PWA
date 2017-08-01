@@ -1,7 +1,7 @@
 var Custom = (function() {
 	function defer(method) {
 	    if (window.jQuery) {
-	    	// Service Worker seems to want to try and call jQuery before this script is ready
+	    	// Service Worker seems to want to try and call this script before jQuery is ready
 	    	// https://stackoverflow.com/questions/7486309/how-to-make-script-execution-wait-until-jquery-is-loaded
 	        method();
 	    } else {
@@ -21,7 +21,9 @@ var Custom = (function() {
 
 
 		// RAGE MODIFIER STICKY
-		// This begins to cause functions when modals are transitioned. Causes scroll jank.
+		// The was originally within activateCharacter(), but after serveral transitions it begins to lag the app
+		// The requestAnimatonFrame references may have been stacking and causing scroll jank, so it's been moved
+		// here and is declared only once.
 		
 		var $charContainer = $('#characterModal .characterContainer');
 		function fixedRagebar(self){
@@ -107,7 +109,7 @@ var Custom = (function() {
 
 
 			// Firstly, generate a request for the JSON file
-			// This is using the jsonCallback
+			// This is referring to the JSON var created earlier
 
 			// Begin the mapping
 			var name = myjson[$index].name;
@@ -144,13 +146,8 @@ var Custom = (function() {
 				return document.getElementById(id);
 			}
 			var $charImage = $('#characterModalImage');
-			
-			// This doesn't seem to work if $('#characterModalImage') is used.
-			//returnID('characterModal').classList.remove('animate');
 			returnID('characterModal').offsetWidth = returnID('characterModal').offsetWidth;
 			returnID('characterModal').classList.add('animate');
-
-
 
 			$charModal.find('.grid-percRange .minPerc').text(minPercent);
 			$charModal.find('.grid-percRange .maxPerc').text(maxPercent);
@@ -208,6 +205,7 @@ var Custom = (function() {
 			// Now to render % differences... Better to take care of them all in one loop
 			// I want to see if rage button is not at default first though, two avoid double-handling the percent range calculations
 			// This causes the code to loop through twice - once for rendering the numbers and another for animating them. Is inefficent, really
+			// This could probably be optimised later
 			rageAdjustment($charModal.find('.rageBtn.active'));
 			/*if($charModal.find('.btn[data-rage="0"]').hasClass('active')){
 				//console.log('default rage');
