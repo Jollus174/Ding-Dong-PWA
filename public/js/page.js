@@ -1,3 +1,4 @@
+
 var Page = (function(){
 
 	// declare the view model used within the page
@@ -7,9 +8,20 @@ var Page = (function(){
 		var self = this;
 		self.character = ko.observableArray([]);
 
-        /*self.filter = function(name){
-            self.currentFilter(name);
-        }*/
+		// Filter is finally bloody working. Ty based 'super cool'
+		// https://stackoverflow.com/questions/36283070/search-filter-with-knockoutjs
+		self.query = ko.observable('');
+
+		self.filterCharacters = ko.computed(function(){
+			var search = self.query().toLowerCase();
+			if(!search){
+				return self.character();
+			} else {
+				return ko.utils.arrayFilter(self.character(), function(item){
+					return item.name.toLowerCase().indexOf(search) !== -1;
+				});
+			}
+		})
 
 		// Sorting arrays within Knockout --> http://www.c-sharpcorner.com/UploadFile/cd7c2e/apply-sort-function-on-observable-array-using-knockoutjs/
 		self.sortName = function(item, event){;
@@ -144,9 +156,30 @@ var Page = (function(){
 
 	}
 
+	function filterModel(){
+
+	}
+
+	var viewmodel = new ViewModel();
+
 	//export the view model through the Page module
+	//console.log(viewmodel.character);
+
+
 	return {
 		vm: new ViewModel(),
+		/*query: ko.observable(''),
+
+		search: function(value){
+
+			console.log('search!');
+			viewmodel.character.removeAll();
+			for(var x in viewmodel.character){
+				if(viewmodel.character[x].name.toLowerCase().indexOf(value.toLowerCase()) >= 0){
+					console.log('something');
+				}
+			}
+		},*/
 
 		hideOfflineWarning: function(){
 			// enable the live data

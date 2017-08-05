@@ -2,18 +2,7 @@
 // Updating this to include push manager for updating the PWA
 // https://developers.google.com/web/fundamentals/getting-started/codelabs/push-notifications/
 
-
-// Temporarily disabling service worker while shit gets sorted with it
-/*if('serviceWorker' in navigator){
-    console.log('Service Worker is supported');
-    navigator.serviceWorker.register('./service-worker.js?v2').then(function(reg){
-        console.log('Successfully registered service worker', reg);
-    }).catch(function(err){
-        console.warn('Error while registering service worker', err);
-    });
-}*/
-
-if ('serviceWorker' in navigator) {
+/*if ('serviceWorker' in navigator) {
   // Delay registration until after the page has loaded, to ensure that our
   // precaching requests don't degrade the first visit experience.
   // See https://developers.google.com/web/fundamentals/instant-and-offline/service-worker/registration
@@ -55,7 +44,7 @@ if ('serviceWorker' in navigator) {
       console.error('Error during service worker registration:', e);
     });
   });
-}
+}*/
 
 
 
@@ -63,7 +52,6 @@ window.addEventListener('online', function(e) {
     // re-sync data with server
     console.log("You are online");
     Page.hideOfflineWarning();
-    characters.loadData();
 }, false);
 
 window.addEventListener('offline', function(e) {
@@ -83,5 +71,11 @@ if (navigator.onLine) {
 }
 
 
+
+
 // set knockout view model bindings
+//console.log(Page.something);
+//Page.query.subscribe();
+//Page.vm.query.subscribe(Page.vm.search);
+//Page.vm.query.subscribe(Page.vm.search);
 ko.applyBindings(Page.vm);

@@ -217,6 +217,31 @@ input[type="search"]::-webkit-search-decoration,
     -webkit-appearance: none;
 }
 
+#search{
+    background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBmaWxsPSJyZ2JhKDAsMCwwLDAuNCkiIGQ9Ik0xNS41IDE0aC0uNzlsLS4yOC0uMjdDMTUuNDEgMTIuNTkgMTYgMTEuMTEgMTYgOS41IDE2IDUuOTEgMTMuMDkgMyA5LjUgM1MzIDUuOTEgMyA5LjUgNS45MSAxNiA5LjUgMTZjMS42MSAwIDMuMDktLjU5IDQuMjMtMS41N2wuMjcuMjh2Ljc5bDUgNC45OUwyMC40OSAxOWwtNC45OS01em0tNiAwQzcuMDEgMTQgNSAxMS45OSA1IDkuNVM3LjAxIDUgOS41IDUgMTQgNy4wMSAxNCA5LjUgMTEuOTkgMTQgOS41IDE0eiIvPjwvc3ZnPg==);
+    background-repeat: no-repeat;
+    background-position: right center;
+    border: none;
+    border-bottom: 1px solid rgba(0,0,0,.4);
+    animation-duration: .1ms;
+    animation-name: mui-node-inserted;
+    display: block;
+    background-color: transparent;
+    color: rgba(0,0,0,.87);
+    outline: 0;
+    height: 32px;
+    width: 95%;
+    font-size: 16px;
+    padding: 0;
+    box-shadow: none;
+    border-radius: 0;
+    margin:15px 2%;
+}
+#search:focus{
+    border-color: #333;
+    background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBmaWxsPSJyZ2JhKDAsMCwwLDAuOSkiIGQ9Ik0xNS41IDE0aC0uNzlsLS4yOC0uMjdDMTUuNDEgMTIuNTkgMTYgMTEuMTEgMTYgOS41IDE2IDUuOTEgMTMuMDkgMyA5LjUgM1MzIDUuOTEgMyA5LjUgNS45MSAxNiA5LjUgMTZjMS42MSAwIDMuMDktLjU5IDQuMjMtMS41N2wuMjcuMjh2Ljc5bDUgNC45OUwyMC40OSAxOWwtNC45OS01em0tNiAwQzcuMDEgMTQgNSAxMS45OSA1IDkuNVM3LjAxIDUgOS41IDUgMTQgNy4wMSAxNCA5LjUgMTEuOTkgMTQgOS41IDE0eiIvPjwvc3ZnPg==);
+}
+
 fieldset {
     border: 1px solid #c0c0c0;
     margin: 0 2px;
@@ -904,10 +929,16 @@ button {
     color:#333;
 }
 
+/* --- */
+
+#main{
+    margin-left:1%;
+    margin-right:1%;
+}
+
 .character-box {
     text-align: left;
-    margin: 1%;
-    margin-bottom:0;
+    margin: 1% 0.5% 0;
     width: 48.5%;
     float:left;
     list-style-type:none;
@@ -1489,8 +1520,8 @@ tr.table-descs td{
 }
 
 @media screen and (min-width:300px) and (max-width:768px){
-    .character-box:nth-of-type(even){margin-left:0;}
-    .character-box:nth-of-type(odd){}
+    .character-box:nth-of-type(even){margin-right:0;}
+    .character-box:nth-of-type(odd){margin-left:0;}
 }
 
 @media screen and (min-width:600px){
