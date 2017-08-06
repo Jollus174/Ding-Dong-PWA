@@ -449,27 +449,45 @@ var Custom = (function() {
 				rageAdjustment($activeRageButton.siblings('.rageBtn:last-child'));
 			}
 		}
-		function transitionCharacterForward($activeContainer){
+		function transitionCharacterForward(activeContainer){
+			var $activeContainer = $(activeContainer);
 			// Loop back to first character if press right key on last character
 			// WAIT, first check to see if it HAS visible siblings. The search box may remove them and mess up this code
-			if($($activeContainer).next('li').is(':visible')){
-				transitionCharacter();
-				activateCharacter($activeContainer.next());
-			} else {
-				console.log('next is not visible');
-				// Loop backward to first VISIBLE character if press right key on last character
-				transitionCharacter();
-				activateCharacter($activeContainer.siblings('.character-box:visible').first());
+			// Welp, next() will only return the VERY NEXT element. Need to return the next :visible element, regardless
+			// of whether the element is a direct sibling or not.
+			// Using nextAll and prevAll in the cases where a next() and prev() relative to :visible is required.
+			// https://stackoverflow.com/questions/6823842/select-the-next-element-with-a-specific-attribute-jquery
+			if($activeContainer.siblings('.character-box').is(':visible')){
+				if($activeContainer.nextAll('.character-box').is(':visible')){
+					transitionCharacter();
+					//activateCharacter($activeContainer.siblings('.character-box:visible'));
+					//activateCharacter($activeContainer.nextAll('.character-box:visible'));
+					var $nextVisibleChar = $activeContainer.nextAll('.character-box:visible').first();
+					activateCharacter($nextVisibleChar);
+				} else {
+					// Loop backward to first VISIBLE character if press right key on last character
+					transitionCharacter();
+					activateCharacter($activeContainer.siblings('.character-box:visible').first());
+				}
 			}
 		}
-		function transitionCharacterBackward($activeContainer){
-			if($($activeContainer).prev('li').is(':visible')){
-				transitionCharacter();
-				activateCharacter($($activeContainer.prev()));
-			} else {
-				// Loop forward to last VISIBLE character if press left key on first character
-				transitionCharacter();
-				activateCharacter($activeContainer.siblings('.character-box:visible').last());
+		function transitionCharacterBackward(activeContainer){
+			var $activeContainer = $(activeContainer);
+			if($activeContainer.siblings('.character-box').is(':visible')){
+				//console.log('siblings are visible');
+				if($activeContainer.prevAll('.character-box').is(':visible')){
+					//console.log('previous visible box exists')
+					transitionCharacter();
+					// PrevAll is working, but is not determining is the element is fucking VISIBLE or not!
+					// :visible:last will return Bayo
+					// :visible:first will work until elements are separated
+					var $prevVisibleChar = $activeContainer.prevAll('.character-box:visible').first();
+					activateCharacter($prevVisibleChar);
+				} else {
+					// Loop backward to first VISIBLE character if press right key on last character
+					transitionCharacter();
+					activateCharacter($activeContainer.siblings('.character-box:visible').last());
+				}
 			}
 		}
 
