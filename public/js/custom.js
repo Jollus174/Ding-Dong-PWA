@@ -103,13 +103,13 @@ var Custom = (function() {
 		function searchList(value){
 			$('.character-box').each(function(){
 				var theName = $(this).find('.characterTitleBar span').text().toLowerCase();
-				(theName.indexOf(value) == 0) ? $(this).show() : $(this).hide();
+				(theName.indexOf(value) >= 0) ? $(this).show() : $(this).hide();
 			})
 		}
 		$('#search').keyup(function(){
 			var valThis = $(this).val().toLowerCase();
 			$searchbox = $(this).closest('.search-box');
-			if($(this).val() > -1){
+			if($(this).val() == ""){
 				console.log('does not have value');
 				$searchbox.removeClass('active');
 			} else {
