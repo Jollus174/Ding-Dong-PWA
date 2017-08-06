@@ -1,5 +1,5 @@
-
 [{
+    "id": "0",
     "name": "Bayonetta",
     "url": "bayonetta",
     "bgColour": "#a79fe5",
@@ -12,6 +12,7 @@
     "airdodgeEnd": "27",
     "imagePosition": "rightImage"
 }, {
+    "id": "1",
     "name": "Bowser",
     "url": "bowser",
     "weight": "130",
@@ -24,6 +25,7 @@
     "airdodgeEnd": "29",
     "imagePosition": "rightImage"
 }, {
+    "id": "2",
     "name": "Bowser Jr.",
     "url": "bowser-jr",
     "weight": "108",
@@ -38,6 +40,7 @@
     "textContrast": "text-dark",
     "ledgeFsmash": "yes"
 }, {
+    "id": "3",
     "name": "Captain Falcon",
     "url": "captain-falcon",
     "weight": "104",
@@ -50,6 +53,7 @@
     "airdodgeEnd": "28",
     "imagePosition": "rightImage"
 }, {
+    "id": "4",
     "name": "Charizard",
     "url": "charizard",
     "weight": "116",
@@ -62,6 +66,7 @@
     "airdodgeEnd": "28",
     "ledgeFsmash": "yes"
 }, {
+    "id": "5",
     "name": "Cloud",
     "url": "cloud",
     "weight": "100",
@@ -73,6 +78,7 @@
     "airdodgeStart": "3",
     "airdodgeEnd": "28"
 }, {
+    "id": "6",
     "name": "Cloud - Limit",
     "url": "cloud-limit",
     "weight": "100",
@@ -84,6 +90,7 @@
     "airdodgeStart": "3",
     "airdodgeEnd": "28"
 }, {
+    "id": "7",
     "name": "Corrin",
     "url": "corrin",
     "weight": "98",
@@ -96,6 +103,7 @@
     "airdodgeEnd": "27",
     "imagePosition": "leftImage"
 }, {
+    "id": "8",
     "name": "Dark Pit",
     "url": "dark-pit",
     "weight": "96",
@@ -108,6 +116,7 @@
     "airdodgeEnd": "26",
     "imagePosition": "rightImage"
 }, {
+    "id": "9",
     "name": "Diddy Kong",
     "url": "diddy-kong",
     "weight": "93",
@@ -120,6 +129,7 @@
     "airdodgeEnd": "26",
     "imagePosition": "rightImage"
 }, {
+    "id": "10",
     "name": "Donkey Kong",
     "url": "donkey-kong",
     "weight": "122",
@@ -134,6 +144,7 @@
     "textContrast": "text-dark",
     "ledgeFsmash": "yes"
 }, {
+    "id": "11",
     "name": "Dr. Mario",
     "url": "dr-mario",
     "weight": "98",
@@ -146,6 +157,7 @@
     "airdodgeEnd": "27",
     "ledgeFsmash": "yes"
 }, {
+    "id": "12",
     "name": "Duck Hunt",
     "url": "duck-hunt",
     "weight": "91",
@@ -158,6 +170,7 @@
     "airdodgeEnd": "25",
     "ledgeFsmash": "yes"
 }, {
+    "id": "13",
     "name": "Falco",
     "url": "falco",
     "weight": "82",
@@ -171,6 +184,7 @@
     "imagePosition": "rightImage",
     "ledgeFsmash": "yes"
 }, {
+    "id": "14",
     "name": "Fox",
     "url": "fox",
     "weight": "79",
@@ -183,6 +197,7 @@
     "airdodgeEnd": "25",
     "imagePosition": "leftImage"
 }, {
+    "id": "15",
     "name": "Ganondorf",
     "url": "ganondorf",
     "weight": "113",
@@ -194,6 +209,7 @@
     "airdodgeStart": "4",
     "airdodgeEnd": "29"
 }, {
+    "id": "16",
     "name": "Greninja",
     "url": "greninja",
     "weight": "94",
@@ -205,6 +221,7 @@
     "airdodgeStart": "2",
     "airdodgeEnd": "26"
 }, {
+    "id": "17",
     "name": "Ike",
     "url": "ike",
     "weight": "107",
@@ -217,6 +234,7 @@
     "airdodgeEnd": "28",
     "imagePosition": "rightImage"
 }, {
+    "id": "18",
     "name": "Jigglypuff",
     "url": "jigglypuff",
     "weight": "68",
@@ -229,6 +247,7 @@
     "airdodgeEnd": "29",
     "ledgeFsmash": "yes"
 }, {
+    "id": "19",
     "name": "King Dedede",
     "url": "king-dedede",
     "weight": "119",
@@ -242,6 +261,7 @@
     "textContrast": "text-dark",
     "ledgeFsmash": "yes"
 }, {
+    "id": "20",
     "name": "Kirby",
     "url": "kirby",
     "weight": "79",
@@ -253,6 +273,7 @@
     "airdodgeStart": "3",
     "airdodgeEnd": "27"
 }, {
+    "id": "21",
     "name": "Link",
     "url": "link",
     "weight": "104",
@@ -265,6 +286,7 @@
     "airdodgeEnd": "28",
     "textContrast": "text-dark"
 }, {
+    "id": "22",
     "name": "Little Mac",
     "url": "little-mac",
     "weight": "82",
@@ -276,6 +298,7 @@
     "airdodgeStart": "2",
     "airdodgeEnd": "25"
 }, {
+    "id": "23",
     "name": "Lucario",
     "url": "lucario",
     "weight": "99",
@@ -289,6 +312,7 @@
     "textContrast": "text-dark",
     "ledgeFsmash": "yes"
 }, {
+    "id": "24",
     "name": "Lucas",
     "url": "lucas",
     "weight": "94",
@@ -301,6 +325,7 @@
     "airdodgeEnd": "28",
     "ledgeFsmash": "yes"
 }, {
+    "id": "25",
     "name": "Lucina",
     "url": "lucina",
     "weight": "90",
@@ -312,6 +337,7 @@
     "airdodgeStart": "3",
     "airdodgeEnd": "27"
 }, {
+    "id": "26",
     "name": "Luigi",
     "url": "luigi",
     "weight": "97",
@@ -324,6 +350,7 @@
     "airdodgeEnd": "27",
     "ledgeFsmash": "yes"
 }, {
+    "id": "27",
     "name": "Mario",
     "url": "mario",
     "weight": "98",
@@ -336,6 +363,7 @@
     "airdodgeEnd": "27",
     "ledgeFsmash": "yes"
 }, {
+    "id": "28",
     "name": "Marth",
     "url": "marth",
     "weight": "90",
@@ -347,6 +375,7 @@
     "airdodgeStart": "3",
     "airdodgeEnd": "27"
 }, {
+    "id": "29",
     "name": "Mega Man",
     "url": "mega-man",
     "weight": "102",
@@ -358,6 +387,7 @@
     "airdodgeStart": "3",
     "airdodgeEnd": "28"
 }, {
+    "id": "30",
     "name": "Meta Knight",
     "url": "meta-knight",
     "weight": "80",
@@ -370,6 +400,7 @@
     "airdodgeEnd": "25",
     "ledgeFsmash": "yes"
 }, {
+    "id": "31",
     "name": "Mewtwo",
     "url": "mewtwo",
     "weight": "74",
@@ -383,6 +414,7 @@
     "imagePosition": "leftImage",
     "ledgeFsmash": "yes"
 }, {
+    "id": "32",
     "name": "Mii Brawler",
     "url": "mii-brawler",
     "weight": "100",
@@ -395,6 +427,7 @@
     "airdodgeEnd": "27",
     "ledgeFsmash": "yes"
 }, {
+    "id": "33",
     "name": "Mii Gunner",
     "url": "mii-gunner",
     "weight": "100",
@@ -407,6 +440,7 @@
     "airdodgeEnd": "27",
     "ledgeFsmash": "yes"
 }, {
+    "id": "34",
     "name": "Mii Swordfighter",
     "url": "mii-swordfighter",
     "weight": "100",
@@ -419,6 +453,7 @@
     "airdodgeEnd": "28",
     "ledgeFsmash": "yes"
 }, {
+    "id": "35",
     "name": "Mr. Game and Watch",
     "url": "game-and-watch",
     "weight": "75",
@@ -431,6 +466,7 @@
     "airdodgeEnd": "26",
     "ledgeFsmash": "yes"
 }, {
+    "id": "36",
     "name": "Ness",
     "url": "ness",
     "weight": "94",
@@ -443,6 +479,7 @@
     "airdodgeEnd": "28",
     "ledgeFsmash": "yes"
 }, {
+    "id": "37",
     "name": "Olimar",
     "url": "olimar",
     "weight": "79",
@@ -456,6 +493,7 @@
     "textContrast": "text-dark",
     "ledgeFsmash": "yes"
 }, {
+    "id": "38",
     "name": "Pac-Man",
     "url": "pacman",
     "weight": "95",
@@ -467,6 +505,7 @@
     "airdodgeStart": "3",
     "airdodgeEnd": "27"
 }, {
+    "id": "39",
     "name": "Palutena",
     "url": "palutena",
     "weight": "91",
@@ -479,6 +518,7 @@
     "airdodgeEnd": "28",
     "textContrast": "text-dark"
 }, {
+    "id": "40",
     "name": "Peach",
     "url": "peach",
     "weight": "89",
@@ -491,6 +531,7 @@
     "airdodgeEnd": "28",
     "textContrast": "text-dark"
 }, {
+    "id": "41",
     "name": "Pikachu",
     "url": "pikachu",
     "weight": "79",
@@ -503,6 +544,7 @@
     "airdodgeEnd": "25",
     "ledgeFsmash": "yes"
 }, {
+    "id": "42",
     "name": "Pit",
     "url": "pit",
     "weight": "96",
@@ -515,6 +557,7 @@
     "airdodgeEnd": "26",
     "imagePosition": "leftImage"
 }, {
+    "id": "43",
     "name": "R.O.B.",
     "url": "rob",
     "weight": "106",
@@ -527,6 +570,7 @@
     "airdodgeEnd": "27",
     "ledgeFsmash": "yes"
 }, {
+    "id": "44",
     "name": "Robin",
     "url": "robin",
     "weight": "95",
@@ -538,6 +582,7 @@
     "airdodgeStart": "3",
     "airdodgeEnd": "28"
 }, {
+    "id": "45",
     "name": "Rosa and Luma",
     "url": "rosalina-and-luma",
     "weight": "77",
@@ -551,6 +596,7 @@
     "imagePosition": "rightImage",
     "textContrast": "text-dark"
 }, {
+    "id": "46",
     "name": "Roy",
     "url": "roy",
     "weight": "95",
@@ -562,6 +608,7 @@
     "airdodgeStart": "3",
     "airdodgeEnd": "27"
 }, {
+    "id": "47",
     "name": "Ryu",
     "url": "ryu",
     "weight": "103",
@@ -574,6 +621,7 @@
     "airdodgeEnd": "25",
     "ledgeFsmash": "yes"
 }, {
+    "id": "48",
     "name": "Samus",
     "url": "samus",
     "weight": "108",
@@ -585,6 +633,7 @@
     "airdodgeStart": "3",
     "airdodgeEnd": "27"
 }, {
+    "id": "49",
     "name": "Sheik",
     "url": "sheik",
     "weight": "81",
@@ -596,6 +645,7 @@
     "airdodgeStart": "2",
     "airdodgeEnd": "25"
 }, {
+    "id": "50",
     "name": "Shulk",
     "url": "shulk",
     "weight": "102",
@@ -608,6 +658,7 @@
     "airdodgeEnd": "28",
     "imagePosition": "rightImage"
 }, {
+    "id": "51",
     "name": "Shulk - Buster",
     "url": "shulk-buster",
     "weight": "102",
@@ -620,6 +671,7 @@
     "airdodgeEnd": "28",
     "imagePosition": "rightImage"
 }, {
+    "id": "52",
     "name": "Shulk - Jump",
     "url": "shulk-jump",
     "weight": "102",
@@ -632,6 +684,7 @@
     "airdodgeEnd": "28",
     "imagePosition": "rightImage"
 }, {
+    "id": "53",
     "name": "Shulk - Shield",
     "url": "shulk-shield",
     "weight": "102",
@@ -644,6 +697,7 @@
     "airdodgeEnd": "28",
     "imagePosition": "rightImage"
 }, {
+    "id": "54",
     "name": "Shulk - Smash",
     "url": "shulk-smash",
     "weight": "102",
@@ -656,6 +710,7 @@
     "airdodgeEnd": "28",
     "imagePosition": "rightImage"
 }, {
+    "id": "55",
     "name": "Sonic",
     "url": "sonic",
     "weight": "94",
@@ -667,6 +722,7 @@
     "airdodgeStart": "2",
     "airdodgeEnd": "25"
 }, {
+    "id": "56",
     "name": "Toon Link",
     "url": "toon-link",
     "weight": "93",
@@ -679,6 +735,7 @@
     "airdodgeEnd": "25",
     "textContrast": "text-dark"
 }, {
+    "id": "57",
     "name": "Villager",
     "url": "villager",
     "weight": "97",
@@ -691,6 +748,7 @@
     "airdodgeEnd": "28",
     "ledgeFsmash": "yes"
 }, {
+    "id": "58",
     "name": "Wario",
     "url": "wario",
     "weight": "107",
@@ -703,6 +761,7 @@
     "airdodgeEnd": "27",
     "textContrast": "text-dark"
 }, {
+    "id": "59",
     "name": "Wii Fit Trainer",
     "url": "wii-fit-trainer",
     "weight": "96",
@@ -715,6 +774,7 @@
     "airdodgeEnd": "26",
     "textContrast": "text-dark"
 }, {
+    "id": "60",
     "name": "Yoshi",
     "url": "yoshi",
     "weight": "104",
@@ -727,6 +787,7 @@
     "airdodgeEnd": "28",
     "ledgeFsmash": "yes"
 }, {
+    "id": "61",
     "name": "Zelda",
     "url": "zelda",
     "weight": "85",
@@ -739,6 +800,7 @@
     "airdodgeEnd": "28",
     "imagePosition": "rightImage"
 }, {
+    "id": "62",
     "name": "Zero Suit Samus",
     "url": "zero-suit-samus",
     "weight": "80",
