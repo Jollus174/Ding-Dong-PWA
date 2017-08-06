@@ -50,7 +50,7 @@
             "type": "image/png"
         }
     ],
-    "start_url": "/?utm_souce=homescreen",
+    "start_url": "/#/?utm_souce=homescreen",
     "display": "standalone",
     "orientation": "portrait",
     "theme_color": "#ffd54f",
