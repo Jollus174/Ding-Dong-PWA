@@ -78,7 +78,10 @@ toolbox.precache([
 
   '/images/spinner.svg',
   '/images/stripe.png',
-  '/images/dk-credits.jpg'
+  '/images/dk-credits.jpg',
+  '/images/icon-search.svg',
+  'images/icon-search-active.svg'
+
 
 ])
 
