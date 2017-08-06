@@ -1,23 +1,129 @@
 var Custom = (function() {
+	var myjson;
 	function defer(method) {
 	    if (window.jQuery) {
 	    	// Service Worker seems to want to try and call this script before jQuery is ready
 	    	// https://stackoverflow.com/questions/7486309/how-to-make-script-execution-wait-until-jquery-is-loaded
-	        method();
+
+	    	// Need this also to only trigger when the JSON has loaded
+			// Could save this JSON to a var for easy referral
+			// No more loading times between characters
+			// https://stackoverflow.com/questions/15764844/jquery-getjson-save-result-into-variable
+			
+			$.getJSON("./api/data.json", function(jsonCallback){
+			    myjson = jsonCallback;
+			    method();
+			})
+			.fail(function(){
+				console.log('error retrieving data');
+			});
 	    } else {
 	        setTimeout(function() { defer(method()) }, 50);
 	    }
 	}
 
 	defer(function(){
+		// The URL constructers/deconstructers are back to haunt me
+		function constructUrl(self){
+			var locationHost = window.location.host;
+			var baseUrl = window.location.protocol + "//" + locationHost;
+			var dataUrl = self.attr('data-url');
+			//var rageAmount = self.find('.rageBtn.active').attr('data-rage');
+			//console.log('current rage is ' + rageAmount);
+			/*if(rageAmount != '0' && rageAmount != 'undefined' && locationHost != 'dev.glideagency.com/'){
+				rageAmount = '?rage=' + rageAmount;
+			} else {
+				rageAmount = "";
+			}*/
+			var constructedUrl = baseUrl + '/#/' + dataUrl;
+			
+			//console.log(constructedUrl);
+			window.location.replace(constructedUrl);
+		}
 
-		// Set index numbers to each character box
-		// Can't do via Knockout, since if a filter is activated, it will reapply all the indexes and mess up the indexing for characterModal data retrieval
+		function deconstructUrl(){
+			var baseUrl = window.location.protocol + "//" + window.location.host + '/';
+			var currentUrl = $(location).attr('href');
+			console.log('base url is ' + baseUrl + ' and current url is ' + currentUrl);
 
-		jQuery('#character-list .character-box').each(function(){
-			var $index = $(this).index();
-			$(this).attr('data-index', $index);
+			// Putting in a condition to see if app is run from homescreen
+			// URL will look like baseUrl + '/?utm_source=homescreen'
+			//
+			// If 'homescreen' does NOT exist in URL...
+			if(baseUrl != currentUrl && baseUrl + '#' != currentUrl && baseUrl + '#/' != currentUrl && !(currentUrl.indexOf('homescreen') > -1)){
+
+				// Current URL is not the base URL
+				console.log('urls do not match!');
+
+				// Time to deconstruct that sucker
+				var parts = currentUrl.split('/');
+
+				// Need to check if they're dialling one of the menu links, or a character
+				var urlDirectory = parts[parts.length - 1];
+				if(urlDirectory == 'about'){
+					// activate About box
+					activateMenuBox('page-about');
+				} else if (urlDirectory == 'credits'){
+					// activate Credits box
+					activateMenuBox('page-credits');
+				} else {
+					var character = String(parts[parts.length - 1]);
+
+					// This is working...
+					//console.log(character);
+
+					// Target the character with the class defined in the URl
+					var urlCharacter = $('.character-box[data-url=' + character + ']');
+
+					// and activate it
+					if(urlCharacter.length){
+						activateCharacter(urlCharacter);
+					} else {
+						// It needs to fallback though in case the character is undefined.
+						console.log('This character does not exist, yo');
+						$('#notification').html('Looks like this character does not exist.<br>Please check the URL.').show();
+						$('#notification').delay(3000).fadeOut();
+					}
+
+					// Need to activate the correct rage button depending on the URL...
+					//var rageAmount = current
+					//rageAdjustment($(urlCharacter).find('.rageBtn[data-rage='));
+
+				}
+			}
+		}
+		deconstructUrl();
+
+
+		// Filter box functions
+		// Earlier this was in page.js after much work, but Knockout wipes out the generated
+		// index numbers when removing/adding character boxes. No solution could be found to permanently
+		// store observable knockout values for the index numbers. Rip.
+		// https://forum.jquery.com/topic/dynamically-filter-a-list-based-on-an-entry-in-a-text-box
+		function searchList(value){
+			$('.character-box').each(function(){
+				var theName = $(this).find('.characterTitleBar span').text().toLowerCase();
+				(theName.indexOf(value) == 0) ? $(this).show() : $(this).hide();
+			})
+		}
+		$('#search').keyup(function(){
+			var valThis = $(this).val().toLowerCase();
+			$searchbox = $(this).closest('.search-box');
+			if($(this).val() > -1){
+				console.log('does not have value');
+				$searchbox.removeClass('active');
+			} else {
+				console.log('has value');
+				$(this).closest('.search-box').addClass('active');
+			}
+			searchList(valThis);
 		});
+
+		$('.search-box .clear-input').click(function(){
+			$('.search-box #search').val('').closest('.search-box').removeClass('active');
+			searchList('');
+		});
+
 
 
 		// RAGE MODIFIER STICKY
@@ -74,16 +180,7 @@ var Custom = (function() {
 		}
 		fixedRagebar($charContainer);
 
-		// Could save this JSON to a var for easy referral
-		// No more loading times between characters
-		// https://stackoverflow.com/questions/15764844/jquery-getjson-save-result-into-variable
-		var myjson;
-		$.getJSON("./api/data.json", function(jsonCallback){
-		    myjson = jsonCallback;
-		})
-		.fail(function(){
-			console.log('error retrieving data');
-		});
+
 
 
 		function activateCharacter(self){
@@ -135,7 +232,7 @@ var Custom = (function() {
 			}
 			$charModal.addClass(urlName);
 
-			$('.modalUnderlay').css('backgroundColor', bgColour);
+			$('#character-underlay').css('backgroundColor', bgColour);
 			$charModal.find('.characterImageContainer, .stickyName').css('backgroundColor', bgColour);
 
 
@@ -219,13 +316,14 @@ var Custom = (function() {
 				fixedRagebar($charContainer);
 			})
 
+			constructUrl(self);
 
 		}
 
 		function deactivateCharacter(){
 			var $body = $('body');
 			$body.removeClass('no-scroll');
-			$('.modalUnderlay').css('backgroundColor', 'transparent');
+			$('#character-underlay').css('backgroundColor', 'transparent');
 			// determine if body has clas 'character-active', to see if we're deactivating a character or a menu page
 			if($body.hasClass('character-active')){
 				var $charModal = $('#characterModal');
@@ -236,23 +334,22 @@ var Custom = (function() {
 				$body.removeClass('character-active');
 			} else {
 				$('.menu-page > div').hide();
+				$('#sidedrawer-underlay').css('backgroundColor', 'transparent');
 				$('#menuBackButton').removeClass('active');
 			}
 			
 			// Page does not force reload if '#' is in the URL
 			// https://stackoverflow.com/questions/2405117/difference-between-window-location-href-window-location-href-and-window-location
-			/*var baseUrl = window.location.protocol + "//" + window.location.host + '/#/';
-			console.log(baseUrl);
-			window.location.replace(baseUrl);*/
+			var baseUrl = window.location.protocol + "//" + window.location.host + '/#/';
+			//var baseUrl = window.location.protocol + "//" + window.location.host + '/';
+			//console.log(baseUrl);
+			window.location.replace(baseUrl);
 			// This seems to cause problems with the PWA side of things, and forces some kind of reload anyway.
 		};
 		function transitionCharacter(){
 			var $charModal = $('#characterModal');
 			$charModal.attr('class', 'active');
-			//$charModal.find('#characterModalImage').fadeOut();
 			$('#character-list li.selected').removeClass('selected');
-
-
 		}
 
 
@@ -295,7 +392,6 @@ var Custom = (function() {
 				var percRange = (adjustedMaxPercent - adjustedMinPercent) + 1;
 
 				if(adjustedMaxPercent < adjustedMinPercent ){
-
 					// On some stages, DingDong is impossible to kill with on some characters (like Satan on Battlefield)
 					// Will need to render 'N/A' in those cases
 					console.log('dingdong is impossible!');
@@ -333,7 +429,8 @@ var Custom = (function() {
 				deactivateCharacter();	
 			}
 			$('body').addClass('no-scroll').removeClass('text-dark');
-			$('.modalUnderlay').css('backgroundColor', 'rgb(136,136,136)');
+			//$('.modalUnderlay').css('backgroundColor', 'rgb(136,136,136)');
+			$('#sidedrawer-underlay').css('backgroundColor', 'rgb(136,136,136)');
 			$('#menuBackButton').addClass('active');
 			$('#' + target).show();
 		}
@@ -353,24 +450,26 @@ var Custom = (function() {
 			}
 		}
 		function transitionCharacterForward($activeContainer){
-			//var $activateContainer = $('#character-list .character-box.active');
-			//deactivateCharacter();
-			transitionCharacter();
-			if(!$activeContainer.is(':last-child')){
+			// Loop back to first character if press right key on last character
+			// WAIT, first check to see if it HAS visible siblings. The search box may remove them and mess up this code
+			if($($activeContainer).next('li').is(':visible')){
+				transitionCharacter();
 				activateCharacter($activeContainer.next());
 			} else {
-				// Loop back to first character if press right key on last character
-				activateCharacter($activeContainer.siblings('.character-box:first-child'));
-			}	
+				console.log('next is not visible');
+				// Loop backward to first VISIBLE character if press right key on last character
+				transitionCharacter();
+				activateCharacter($activeContainer.siblings('.character-box:visible').first());
+			}
 		}
 		function transitionCharacterBackward($activeContainer){
-			//deactivateCharacter();
-			transitionCharacter();
-			if(!$activeContainer.is(':first-child')){
+			if($($activeContainer).prev('li').is(':visible')){
+				transitionCharacter();
 				activateCharacter($($activeContainer.prev()));
 			} else {
-				// Loop forward to last character if press left key on first character
-				activateCharacter($activeContainer.siblings('.character-box:last-child'));
+				// Loop forward to last VISIBLE character if press left key on first character
+				transitionCharacter();
+				activateCharacter($activeContainer.siblings('.character-box:visible').last());
 			}
 		}
 

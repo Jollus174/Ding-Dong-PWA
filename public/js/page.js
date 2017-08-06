@@ -10,7 +10,9 @@ var Page = (function(){
 
 		// Filter is finally bloody working. Ty based 'super cool'
 		// https://stackoverflow.com/questions/36283070/search-filter-with-knockoutjs
-		self.query = ko.observable('');
+		// Can't use this after all, as Knockout doesn't store the index numbers
+		// Refactored code is in custom.js
+		/*self.query = ko.observable('');
 
 		self.filterCharacters = ko.computed(function(){
 			var search = self.query().toLowerCase();
@@ -21,7 +23,19 @@ var Page = (function(){
 					return item.name.toLowerCase().indexOf(search) !== -1;
 				});
 			}
-		})
+		})*/
+
+		function reassignIndexes(){
+			console.log('reindexing!');
+			$('.character-box').each(function(){
+				var $this = $(this);
+				var theIndex = parseInt($this.index());
+				$this.find('.grid-index span').text(theIndex + 1);
+			})
+		}
+
+		// Initialise the reindexing
+		reassignIndexes();
 
 		// Sorting arrays within Knockout --> http://www.c-sharpcorner.com/UploadFile/cd7c2e/apply-sort-function-on-observable-array-using-knockoutjs/
 		self.sortName = function(item, event){;
@@ -46,6 +60,7 @@ var Page = (function(){
 				self.character.sort(function(left, right){
 					return left.name == right.name ? 0 : (left.name < right.name ? -1 : 1)
 				});
+				reassignIndexes();
 			}
 		}
 
@@ -73,6 +88,7 @@ var Page = (function(){
 				self.character.sort(function(lower, higher){
 					return lower.weight - higher.weight;
 				});
+				reassignIndexes();
 			}
 		}
 
@@ -98,6 +114,7 @@ var Page = (function(){
 				self.character.sort(function(lower, higher){
 					return (higher.maxPercent - higher.minPercent) - (lower.maxPercent - lower.minPercent);
 				});
+				reassignIndexes();
 			}
 		}
 
@@ -123,6 +140,7 @@ var Page = (function(){
 				self.character.sort(function(lower, higher){
 					return lower.fallspeed - higher.fallspeed;
 				});
+				reassignIndexes();
 			}
 		}
 
@@ -148,6 +166,7 @@ var Page = (function(){
 				self.character.sort(function(lower, higher){
 					return lower.gravity - higher.gravity;
 				});
+				reassignIndexes();
 			}
 		}
 
@@ -156,30 +175,9 @@ var Page = (function(){
 
 	}
 
-	function filterModel(){
-
-	}
-
-	var viewmodel = new ViewModel();
-
-	//export the view model through the Page module
-	//console.log(viewmodel.character);
-
 
 	return {
 		vm: new ViewModel(),
-		/*query: ko.observable(''),
-
-		search: function(value){
-
-			console.log('search!');
-			viewmodel.character.removeAll();
-			for(var x in viewmodel.character){
-				if(viewmodel.character[x].name.toLowerCase().indexOf(value.toLowerCase()) >= 0){
-					console.log('something');
-				}
-			}
-		},*/
 
 		hideOfflineWarning: function(){
 			// enable the live data

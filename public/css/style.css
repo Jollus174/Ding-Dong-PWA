@@ -217,6 +217,25 @@ input[type="search"]::-webkit-search-decoration,
     -webkit-appearance: none;
 }
 
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  color: #bbbbbb;
+}
+::-moz-placeholder { /* Firefox 19+ */
+  color: #bbbbbb;
+}
+:-ms-input-placeholder { /* IE 10+ */
+  color: #bbbbbb;
+}
+:-moz-placeholder { /* Firefox 18- */
+  color: #bbbbbb;
+}
+
+.divider{
+    display: block;
+    height: 1px;
+    background-color: rgba(0,0,0,.12);
+}
+
 #search{
     background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBmaWxsPSJyZ2JhKDAsMCwwLDAuNCkiIGQ9Ik0xNS41IDE0aC0uNzlsLS4yOC0uMjdDMTUuNDEgMTIuNTkgMTYgMTEuMTEgMTYgOS41IDE2IDUuOTEgMTMuMDkgMyA5LjUgM1MzIDUuOTEgMyA5LjUgNS45MSAxNiA5LjUgMTZjMS42MSAwIDMuMDktLjU5IDQuMjMtMS41N2wuMjcuMjh2Ljc5bDUgNC45OUwyMC40OSAxOWwtNC45OS01em0tNiAwQzcuMDEgMTQgNSAxMS45OSA1IDkuNVM3LjAxIDUgOS41IDUgMTQgNy4wMSAxNCA5LjUgMTEuOTkgMTQgOS41IDE0eiIvPjwvc3ZnPg==);
     background-repeat: no-repeat;
@@ -587,7 +606,7 @@ body.toggle-sidedrawer{
 
 .filter-toggle span{
     float:left;
-    margin-top:3px;
+    margin-top:4px;
     font-size: 12px;
     font-weight:700;
     text-transform: uppercase;
@@ -595,11 +614,15 @@ body.toggle-sidedrawer{
 .filter-toggle img{
     float:right;
 }
-.filter-toggle.active{
-    background: #9c840e !important;
-}
+.filter-toggle.active{background: #9c840e !important;}
+.filter-toggle.active #icon-filter{fill:#FFF;}
 .filter-toggle.active img{display:none;}
 .filter-toggle.active img.whitefilter{display:block;}
+
+.filter-toggle.mobile{
+    position:absolute;
+    right:0;
+}
 
 .btn-group.mobile{
     display: none;
@@ -617,6 +640,22 @@ body.toggle-sidedrawer{
 /* --- */
 
 /* --- CONTENT CONTAINERS --- */
+
+.search-box{position:relative;}
+.search-box .clear-input{display:none;}
+.search-box.active .clear-input{
+    display:block;
+    position: absolute;
+    top: -3px;
+    right: 1%;
+    background: none;
+    border: none;
+}
+
+.search-box.active #search{
+    /*width:90%;*/
+    background:none;
+}
 
 #content-wrapper {
     min-height: 100%;
@@ -969,7 +1008,7 @@ button {
     opacity:0.3;
 }
 .character-box .characterImage{
-    transition:opacity 0.5s ease, background-position 0.5s ease;
+    transition:opacity 0.3s ease, background-position 0.3s ease;
 }
 .characterContainer .characterImage{
     /*transition:opacity 0.5s ease, background-position 0.5s ease;*/
@@ -986,7 +1025,7 @@ button {
     z-index: 6;
     width: 100%;
     height: 100%;
-    transition:background-color 0.2s ease;
+    /*transition:background-color 0.2s ease;*/
 }
 .characterImageContainer-lightOverlay:hover{
     background-color: rgba(255,255,255,0.1);
@@ -1520,7 +1559,7 @@ tr.table-descs td{
 }
 
 @media screen and (min-width:300px) and (max-width:768px){
-    .character-box:nth-of-type(even){margin-right:0;}
+    /*.character-box:nth-of-type(even){margin-right:0;}*/
     .character-box:nth-of-type(odd){margin-left:0;}
 }
 
@@ -1667,8 +1706,14 @@ tr.table-descs td{
         margin-bottom:0;
         width: 32%;
     }
-    .character-box:nth-child(3n){margin-left:0;}
-    .character-box:nth-child(3n+1){margin-right:0;}
+    .character-box:nth-child(3n){
+        margin-left:0;
+        margin-right:0;
+    }
+    .character-box:nth-child(3n+1){
+        margin-right:0;
+        margin-left:0;
+    }
 }
 
 @media screen and (min-width:1200px){
@@ -1683,8 +1728,18 @@ tr.table-descs td{
         margin-right:0;
         width: 24%;
     }
-    .character-box:nth-child(4n){margin-right:10px !important;}
-    .character-box:nth-child(4n+1){margin-left:10px !important;}
+    /*.character-box:nth-child(4n){margin-right:10px !important;}
+    .character-box:nth-child(4n+1){margin-left:10px !important;}*/
+
+    /*.character-box:nth-child(4n){margin-right:0 !important;}
+    .character-box:nth-child(4n+1){margin-left:0 !important;}*/
+    #main{
+        margin:3em 10px 10px;
+    }
+    #search{
+        margin: 15px 0;
+        width: 97.5%;
+    }
 
     .leftImage .characterImage{
         background-position:center;

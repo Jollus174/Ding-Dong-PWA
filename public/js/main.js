@@ -2,7 +2,7 @@
 // Updating this to include push manager for updating the PWA
 // https://developers.google.com/web/fundamentals/getting-started/codelabs/push-notifications/
 
-/*if ('serviceWorker' in navigator) {
+if ('serviceWorker' in navigator) {
   // Delay registration until after the page has loaded, to ensure that our
   // precaching requests don't degrade the first visit experience.
   // See https://developers.google.com/web/fundamentals/instant-and-offline/service-worker/registration
@@ -44,7 +44,7 @@
       console.error('Error during service worker registration:', e);
     });
   });
-}*/
+}
 
 
 

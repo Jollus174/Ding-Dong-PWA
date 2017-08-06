@@ -16,6 +16,7 @@ var characters = (function() {
 
     function charactersViewModel(){
         var self = this;
+        self.id = "";
         self.name = "";
         self.url = "";
         self.bgColour = "";
@@ -72,6 +73,7 @@ var characters = (function() {
             if(data){
                 var vm = new charactersViewModel();
 
+                vm.id = parseInt(data.id);
                 vm.name = data.name;
                 vm.bgColour = data.bgColour;
                 vm.weight = data.weight;
@@ -119,22 +121,6 @@ var characters = (function() {
                 } else {
                     vm.ledgeFsmash = 'no';
                 }
-                
-
-                // Aaaand now to get the filter going
-                // https://stackoverflow.com/questions/20857594/knockout-filtering-on-observable-array
-                /*vm.currentFilter = ko.observable(); // property to store the filter
-
-                vm.filterNames = ko.computed(function(){
-                    if(!vm.currentFilter()){
-                        return vm;
-                    } else {
-                        return ko.utils.arrayFilter(vm, function(self){
-                            return self.name == vm.currentFilter();
-                        })
-                    }
-                })*/
-
 
                 return vm;
             };

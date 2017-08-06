@@ -66,9 +66,9 @@
       			<span><span class="desktop-lg">Donkey Kong - </span>Ding Dong Percents</span>
 			</div>
 			<button class="btn filter-toggle mobile">
-				<span>Filter</span>
+				<span>Sort</span>
 				<svg id="icon-filter" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
-				    <path class="pathfill" d="M10 18h4v-2h-4v2zM3 6v2h18V6H3zm3 7h12v-2H6v2z" />
+				    <path d="M14 5h8v2h-8zm0 5.5h8v2h-8zm0 5.5h8v2h-8zM2 11.5C2 15.08 4.92 18 8.5 18H9v2l3-3-3-3v2h-.5C6.02 16 4 13.98 4 11.5S6.02 7 8.5 7H12V5H8.5C4.92 5 2 7.92 2 11.5z"/>
 				    <path d="M0 0h24v24H0z" fill="none"/>
 				</svg>
 			</button>
@@ -146,13 +146,13 @@
 			</div>
 		</div>
 	</header>
-	<div id="sidedrawer-overlay"></div>
+	<div id="sidedrawer-underlay" class="modalUnderlay" style="background-color: transparent;" hidden></div>
 	<div id="sidedrawer">
 		<div id="sidedrawer-contents">
 			<div id="sidedrawer-brand">
 				Winning With DK
 			</div>
-			<div class="mui-divider"></div>
+			<div class="divider"></div>
 			<ul>
 		    	<li>
 			     	<a href="#/about" id="about">
@@ -167,9 +167,6 @@
 		  	</ul>
 	  	</div>
 	</div>
-
-	<div class="modalUnderlay" style="background-color: transparent;" hidden></div>
-
 	<div id="content-wrapper" class="container">
 
 		<div id="menuBackButton" class="backButton">
@@ -271,8 +268,18 @@
 		</div> <!-- menu-page -->
 		<div id="main" class="content">
 
+			<div class="search-box">
+				<input id="search" placeholder="Filter..." type="search" name="filter" autocomplete="off">
+				<button class="btn clear-input">
+					<svg fill="#333" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+					    <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+					    <path d="M0 0h24v24H0z" fill="none"/>
+					</svg>
+				</button>
+			</div>
+
 			<ul id="character-list" class="character-list clearfix" data-bind="foreach: character">
-				<li class="character-box clearfix" data-bind="attr: {'data-url': url}" data-index2="">
+				<li class="character-box clearfix" data-bind="attr: {'data-url': url, 'data-index': id}">
 					<div class="characterBorder clearfix">
 						<div class="characterImageContainer" data-bind="style: {backgroundColor: bgColour}, css: imageProperties">
 							<div class="characterImage"><div class="characterImageContainer-lightOverlay"></div></div>
@@ -281,7 +288,7 @@
 								<span data-bind="attr: {class: difficulty}" class="easy"><span data-bind="text: difficulty">easy</span> - <span data-bind="text: percRange">28</span>%</span>
 							</div>
 							<div class="grid-index">
-								<span data-bind="text: ($index() + 1)">16</span>
+								<span data-bind="text: (id + 1)"></span>
 							</div>
 							<div class="grid-percRange">
 								<span><span data-bind="text: minPercent">83</span> - <span data-bind="text: maxPercent">111</span>%</span>
@@ -322,6 +329,8 @@
 
 		<!-- new character box -->
 		<div id="characterModal" hidden>
+
+			<div id="character-underlay" class="modalUnderlay" style="background-color: transparent;" hidden></div>
 
 			<div id="characterBackButton" class="backButton">
 				<svg class="icon-arrowback" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
@@ -587,11 +596,11 @@
 
 	<script src="./js/vendor/knockout-3.3.0.js"></script>
 	<script src="./js/vendor/jquery-3.2.1.min.js"></script>
-	<!--<script src="./js/page.js?v1.3"></script>
+	<script src="./js/page.js?v1.3"></script>
 	<script src="./js/custom.js?v1.3"></script>
 	<script src="./js/characters.js?v1.3"></script>
-	<script src="./js/main.js?v1.3"></script>-->
-	<script type="text/javascript" src="./js/build/script.min.js?v=1.1"></script>
+	<script src="./js/main.js?v1.3"></script>
+	<!--<script type="text/javascript" src="./js/build/script.min.js?v=1.1"></script>-->
 
 	<link rel="stylesheet" href="./css/character-icons.css">
 	<script src="./js/vendor/jquery.animateNumber.min.js"></script>
