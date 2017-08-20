@@ -1,6 +1,6 @@
 importScripts('/lib/sw-toolbox.js');
 
-toolbox.router.default = toolbox.cacheFirst;
+toolbox.router.default = toolbox.networkFirst;
 
 toolbox.precache([
 
@@ -81,7 +81,6 @@ toolbox.precache([
   '/images/dk-credits.jpg',
   '/images/icon-search.svg',
   'images/icon-search-active.svg'
-
 
 ])
 
