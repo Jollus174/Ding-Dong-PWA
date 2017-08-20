@@ -1,6 +1,6 @@
 importScripts('/lib/sw-toolbox.js');
 
-toolbox.router.default = toolbox.networkFirst;
+toolbox.router.default = toolbox.cacheFirst;
 
 toolbox.precache([
 
