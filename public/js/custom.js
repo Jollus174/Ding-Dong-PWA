@@ -257,7 +257,7 @@ var Custom = (function() {
 
 			var $charOverviewItem = $charModal.find('.characterOverview');
 			$charOverviewItem.find('li[data-ref="weight"]').html('Weight' + '<span class="value">' + weight + '</span>');
-			$charOverviewItem.find('li[data-ref="fallspeed"]').html('Gravity' + '<span class="value">' + fallspeed + '</span>');
+			$charOverviewItem.find('li[data-ref="fallspeed"]').html('Fallspeed' + '<span class="value">' + fallspeed + '</span>');
 			$charOverviewItem.find('li[data-ref="airdodge"]').html('Airdodge' + '<span class="value">' + airdodge + '</span>');
 			$charOverviewItem.find('li[data-ref="gravity"]').html('Gravity' + '<span class="value">' + gravity + '</span>');
 
