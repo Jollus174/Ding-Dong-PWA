@@ -62,6 +62,11 @@ var Page = (function(){
 				});
 				reassignIndexes();
 			}
+			ga('send', {
+			  hitType: 'event',
+			  eventCategory: 'Sort By Name',
+			  eventAction: 'click'
+			});
 		}
 
 		// Sorting tables
@@ -90,6 +95,11 @@ var Page = (function(){
 				});
 				reassignIndexes();
 			}
+			ga('send', {
+			  hitType: 'event',
+			  eventCategory: 'Sort By Weight',
+			  eventAction: 'click'
+			});
 		}
 
 		self.sortDifficulty = function(item, event){
@@ -116,6 +126,11 @@ var Page = (function(){
 				});
 				reassignIndexes();
 			}
+			ga('send', {
+			  hitType: 'event',
+			  eventCategory: 'Sort By Difficulty',
+			  eventAction: 'click'
+			});
 		}
 
 		self.sortFallspeed = function(item, event){
@@ -142,6 +157,11 @@ var Page = (function(){
 				});
 				reassignIndexes();
 			}
+			ga('send', {
+			  hitType: 'event',
+			  eventCategory: 'Sort By Fallspeed',
+			  eventAction: 'click'
+			});
 		}
 
 		self.sortGravity = function(item, event){
@@ -168,6 +188,11 @@ var Page = (function(){
 				});
 				reassignIndexes();
 			}
+			ga('send', {
+			  hitType: 'event',
+			  eventCategory: 'Sort By Gravity',
+			  eventAction: 'click'
+			});
 		}
 
 		// Using traditional jQuery 'click()' bindings will not work on dynamically generated character boxes!

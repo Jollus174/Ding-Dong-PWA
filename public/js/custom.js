@@ -28,17 +28,15 @@ var Custom = (function() {
 			var locationHost = window.location.host;
 			var baseUrl = window.location.protocol + "//" + locationHost;
 			var dataUrl = self.attr('data-url');
-			//var rageAmount = self.find('.rageBtn.active').attr('data-rage');
-			//console.log('current rage is ' + rageAmount);
-			/*if(rageAmount != '0' && rageAmount != 'undefined' && locationHost != 'dev.glideagency.com/'){
-				rageAmount = '?rage=' + rageAmount;
-			} else {
-				rageAmount = "";
-			}*/
 			var constructedUrl = baseUrl + '/#/' + dataUrl;
+
+			//console.log(dataUrl);
 			
 			//console.log(constructedUrl);
 			window.location.replace(constructedUrl);
+			// for analytics tracking
+			ga('set', 'page', '/' + dataUrl);
+			ga('send', 'pageview');
 		}
 
 		function deconstructUrl(){
@@ -63,9 +61,16 @@ var Custom = (function() {
 				if(urlDirectory == 'about'){
 					// activate About box
 					activateMenuBox('page-about');
+					// for analytics tracking
+					// These cases are special and so need to be tracked separately on page load
+					ga('set', 'page', '/about');
+					ga('send', 'pageview');
 				} else if (urlDirectory == 'credits'){
 					// activate Credits box
 					activateMenuBox('page-credits');
+					// for analytics tracking
+					ga('set', 'page', '/credits');
+					ga('send', 'pageview');
 				} else {
 					var character = String(parts[parts.length - 1]);
 
@@ -78,16 +83,17 @@ var Custom = (function() {
 					// and activate it
 					if(urlCharacter.length){
 						activateCharacter(urlCharacter);
+						console.log(character);
+						// for analytics tracking
+						// Have removed this since is causes duplicate analytics
+						/*ga('set', 'page', '/' + character);
+						ga('send', 'pageview');*/
 					} else {
 						// It needs to fallback though in case the character is undefined.
 						console.log('This character does not exist, yo');
 						$('#notification').html('Looks like this character does not exist.<br>Please check the URL.').show();
 						$('#notification').delay(3000).fadeOut();
 					}
-
-					// Need to activate the correct rage button depending on the URL...
-					//var rageAmount = current
-					//rageAdjustment($(urlCharacter).find('.rageBtn[data-rage='));
 
 				}
 			}
@@ -110,10 +116,8 @@ var Custom = (function() {
 			var valThis = $(this).val().toLowerCase();
 			$searchbox = $(this).closest('.search-box');
 			if($(this).val() == ""){
-				console.log('does not have value');
 				$searchbox.removeClass('active');
 			} else {
-				console.log('has value');
 				$(this).closest('.search-box').addClass('active');
 			}
 			searchList(valThis);
@@ -344,6 +348,9 @@ var Custom = (function() {
 			//var baseUrl = window.location.protocol + "//" + window.location.host + '/';
 			//console.log(baseUrl);
 			window.location.replace(baseUrl);
+			// for analytics
+			ga('set', 'page', '/');
+			ga('send', 'pageview');
 			// This seems to cause problems with the PWA side of things, and forces some kind of reload anyway.
 		};
 		function transitionCharacter(){
@@ -425,11 +432,11 @@ var Custom = (function() {
 
 		function activateMenuBox(target){
 			// check to see if a character is currently active
-			if($('body').hasClass('active-character')){
+			// redundant as is impossible to click with a character active
+			/*if($('body').hasClass('active-character')){
 				deactivateCharacter();	
-			}
+			}*/
 			$('body').addClass('no-scroll').removeClass('text-dark');
-			//$('.modalUnderlay').css('backgroundColor', 'rgb(136,136,136)');
 			$('#sidedrawer-underlay').css('backgroundColor', 'rgb(136,136,136)');
 			$('#menuBackButton').addClass('active');
 			$('#' + target).show();
@@ -619,9 +626,15 @@ var Custom = (function() {
 
 		$('#about').click(function(){
 			activateMenuBox('page-about');
+			// for analytics tracking
+			ga('set', 'page', '/about');
+			ga('send', 'pageview');
 		})
 		$('#credits').click(function(){
 			activateMenuBox('page-credits');
+			// for analytics tracking
+			ga('set', 'page', '/credits');
+			ga('send', 'pageview');
 		})
 
 		$('#filter-dropdown-btn').click(function(){

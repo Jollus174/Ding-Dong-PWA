@@ -695,6 +695,14 @@ body.toggle-sidedrawer{
 .panel-body {
     padding: 15px 15px 0;
 }
+.panel-danger{
+    border-color: #ebccd1;
+}
+.panel-danger>.panel-heading{
+    color: #a94442;
+    background-color: #f2dede;
+    border-color: #ebccd1;
+}
 
 .open > .dropdown-menu{
     display:block;
