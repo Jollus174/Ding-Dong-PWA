@@ -1,6 +1,8 @@
 importScripts('/lib/sw-toolbox.js');
 
-toolbox.router.default = toolbox.cacheFirst;
+//toolbox.router.default = toolbox.cacheFirst;
+toolbox.router.default = toolbox.networkFirst;
+//toolbox.options.cache.name = 'winningwithdkv3';
 
 toolbox.precache([
 
