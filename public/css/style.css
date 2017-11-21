@@ -1570,6 +1570,10 @@ tr.table-descs td{
 @media screen and (min-width:300px) and (max-width:768px){
     /*.character-box:nth-of-type(even){margin-right:0;}*/
     .character-box:nth-of-type(odd){margin-left:0;}
+
+    .xs-margin-top-25{
+        margin-top:25px;
+    }
 }
 
 @media screen and (min-width:600px){
