@@ -23,6 +23,12 @@ var Custom = (function() {
 	}
 
 	defer(function(){
+
+		setTimeout(function(){
+			console.log('fire that redirecter!');
+			$('#notification').html("Guess what, there's an even better Smash app available with the same data now. <a href='https://winningatsmash4.com/#/donkey-kong-cargo-up-throw-up-air' target='blank'>Check it out!</a>").show().delay(6000).fadeOut();
+		}, 3000)
+
 		// The URL constructers/deconstructers are back to haunt me
 		function constructUrl(self){
 			var locationHost = window.location.host;
@@ -677,6 +683,8 @@ var Custom = (function() {
 				}
 			}
 		})
+
+
 
 	});
 });
